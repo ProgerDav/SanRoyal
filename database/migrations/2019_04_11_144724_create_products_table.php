@@ -24,10 +24,10 @@ class CreateProductsTable extends Migration
 
             $table->string("image");
 
-            $table->bigInteger("scid")->unsigned()->default(1);
+            $table->bigInteger("scid")->unsigned()->nullable()->default(null);
             $table->foreign("scid")->references("id")->on("sub_categories");
 
-            $table->integer("bid")->unsigned()->default(1);
+            $table->integer("bid")->unsigned()->nullable()->default(null);
             $table->foreign("bid")->references("id")->on("brands");
 
             $table->timestamps();

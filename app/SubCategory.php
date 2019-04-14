@@ -9,7 +9,7 @@ class SubCategory extends Model
     public $timestamps = false;
     // protected $fillable = ["cid", "name", "slug", "image"];
 
-    public function category(){
+    public function categories(){
         return $this->belongsTo("App\Category", "id");
     }
 

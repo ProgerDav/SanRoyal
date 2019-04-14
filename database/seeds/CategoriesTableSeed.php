@@ -16,14 +16,14 @@ class CategoriesTableSeed extends Seeder
     {
         $words = "Lorem ipsum, dolor sit amet, consectetur adipisicing, elit Fugiat dolore, excepturi harum, fugit, quis placeat, ab Non maiores, Vel natus consequuntur, harum accusantium, numquam, architecto, facilis ut officia, perspiciatis, dignissimos";
         $arr = explode(", ", $words);
-        $img = "featured_2.png";
-        // for($i = 0; $i < 10; $i++){
+        $img = "featured_".mt_rand(1, 8).".png";
+        for($i = 0; $i < 10; $i++){
             $word = $arr[array_rand($arr)];
             Category::create([
                 "name" => $word,
-                "slug" => "testcat8".mt_rand(0, 10000),
+                "slug" => $word.mt_rand(0, 1000),
                 "image" => $img,
             ]);
-        // }   
+        }   
     }
 }

@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/styles/bootstrap4/bootstrap.min.css')}}">
+	<link href="{{asset('js/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css')}}" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="{{asset('js/plugins/OwlCarousel2-2.2.1/owl.carousel.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('js/plugins/OwlCarousel2-2.2.1/owl.theme.default.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('js/plugins/OwlCarousel2-2.2.1/animate.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('js/plugins/slick-1.8.0/slick.css')}}">
 	<link rel="stylesheet" href="{{asset('css/app.css')}}">
   <title>Document</title>
 </head>
@@ -40,10 +46,10 @@
 										<li>
 											<a href="#">
 												<div class="top_bar_icon"><img src="images/phone.png" alt=""></div>
-												+38 068 005 3570
+												+7 916-124-19-57
 											</a>
 											<ul>
-												<li><a href="#">+38 068 005 3570 - Viber</a></li>
+												<li><a href="#">+7 919-104-45-94 - Viber</a></li>
 												<li><a href="#">+38 068 005 3570 - Whats Up</a></li>
 												<li><a href="#">+38 068 005 3570 - Messenger</a></li>
 											</ul>
@@ -138,7 +144,7 @@
 									</div>
 
 									<ul class="cat_menu">
-										@foreach ($data as $cat)
+										@foreach ($categories as $cat)
 												<li>
 													<a href="#">
 														<img class="cat_menu_image" src="{{ asset("images/".$cat->image) }}" alt={{$cat->name}}>
@@ -149,16 +155,16 @@
 														@foreach ($cat->subcategories as $sub_cat)
 															<li>
 																<a href="#">
-																	<img class="cat_menu_image" src="{{ asset("images/".$sub_cat->image) }}" alt={{$sub_cat->name}}>
+																	<img class="cat_menu_image" src="{{ asset("images/".$sub_cat->image) }}" alt="{{$sub_cat->name}}">
 																	{{$sub_cat->name}}
-																	{{var_dump($sub_cat->product)}}
+																	{{-- {{var_dump($sub_cat)}} --}}
 																</a>
 															</li>
 														@endforeach
 													</ul>
 												</li>
 										@endforeach
-										<li>
+										{{-- <li>
 											<a href="#">
 												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
 												Коллекторы и узлы
@@ -536,7 +542,7 @@
 														Насосно-смесительные узлы
 													</a></li>
 											</ul>
-										</li>
+										</li> --}}
 									</ul>
 								</div>
 
@@ -643,6 +649,8 @@
     
 
     <div class="super_container">
+		
+			@yield('content')
 			
     	<!-- Recently Viewed -->
 
@@ -765,45 +773,19 @@
 
 								<div class="owl-carousel owl-theme brands_slider">
 
-									<div class="owl-item">
-										<div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_1.jpg"
-												alt=""></div>
-									</div>
-									<div class="owl-item">
-										<div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_2.jpg"
-												alt=""></div>
-									</div>
-									<div class="owl-item">
-										<div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_3.jpg"
-												alt=""></div>
-									</div>
-									<div class="owl-item">
-										<div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_4.jpg"
-												alt=""></div>
-									</div>
-									<div class="owl-item">
-										<div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_5.jpg"
-												alt=""></div>
-									</div>
-									<div class="owl-item">
-										<div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_6.jpg"
-												alt=""></div>
-									</div>
-									<div class="owl-item">
-										<div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_7.jpg"
-												alt=""></div>
-									</div>
-									<div class="owl-item">
-										<div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_8.jpg"
-												alt=""></div>
-									</div>
-
+									@forelse ($brands as $brand)
+										<div class="owl-item">
+											<div class="brands_item d-flex flex-column justify-content-center">		
+												<img src="{{asset("images/$brand->image")}}" alt="{{$brand->name}}">
+											</div>
+										</div>
+									@empty
+											<p>Ничего не найдено</p>
+									@endforelse
 								</div>
-
 								<!-- Brands Slider Navigation -->
 								<div class="brands_nav brands_prev"><i class="fas fa-chevron-left"></i></div>
 								<div class="brands_nav brands_next"><i class="fas fa-chevron-right"></i></div>
-
 							</div>
 						</div>
 					</div>
@@ -850,7 +832,8 @@
 									<div class="logo"><a href="#">SanRoyal</a></div>
 								</div>
 								<div class="footer_title"> Звоните нам 24/7</div>
-								<div class="footer_phone">+38 068 005 3570</div>
+								<div class="footer_phone">+7 919-104-45-94</div>
+								<div class="footer_phone">+7 916-124-19-57</div>
 								<div class="footer_contact_text">
 									<p>Адрессная линия 1</p>
 									<p>Адрессная линия 2</p>
@@ -948,19 +931,19 @@
 		</div>
   </div>
 </div>
+</div>
+
   
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="styles/bootstrap4/popper.js"></script>
-	<script src="styles/bootstrap4/bootstrap.min.js"></script>
-	<script src="plugins/greensock/TweenMax.min.js"></script>
-	<script src="plugins/greensock/TimelineMax.min.js"></script>
-	<script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
-	<script src="plugins/greensock/animation.gsap.min.js"></script>
-	<script src="plugins/greensock/ScrollToPlugin.min.js"></script>
-	<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-	<script src="plugins/slick-1.8.0/slick.js"></script>
-	<script src="plugins/easing/easing.js"></script>
-	<script src="js/custom.js"></script>
+	<script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
+	<script src="{{asset('js/plugins/greensock/TweenMax.min.js')}}"></script>
+	<script src="{{asset('js/plugins/greensock/TimelineMax.min.js')}}"></script>
+	<script src="{{asset('js/plugins/scrollmagic/ScrollMagic.min.js')}}"></script>
+	<script src="{{asset('js/plugins/greensock/animation.gsap.min.js')}}"></script>
+	<script src="{{asset('js/plugins/greensock/ScrollToPlugin.min.js')}}"></script>
+	<script src="{{asset('js/plugins/OwlCarousel2-2.2.1/owl.carousel.js')}}"></script>
+	<script src="{{asset('js/plugins/slick-1.8.0/slick.js')}}"></script> 
+	<script src="{{asset('js/plugins/easing/easing.js')}}"></script>
+	<script src="{{asset('js/custom.js')}}"></script>
 
 </body>
 </html>

@@ -14,17 +14,19 @@ class ProductTableSeed extends Seeder
     {
         $words = "Lorem ipsum, dolor sit amet, consectetur adipisicing, elit Fugiat dolore, excepturi harum, fugit, quis placeat, ab Non maiores, Vel natus consequuntur, harum accusantium, numquam, architecto, facilis ut officia, perspiciatis, dignissimos";
         $arr = explode(", ", $words);
-        $img = "best_2.png";
-        for($i = 1; $i < 5; $i++){
+        $img = "new_".mt_rand(1, 10).".jpg";
+        for($i = 1; $i < 50; $i++){
+            $b = mt_rand(1, 10);
+            $c = mt_rand(1, 30);
             $word = $arr[array_rand($arr)];
             Product::create([
                 "name" => $word,
                 "slug" => $word." ".$i.mt_rand(0, 10000),
                 "image" => $img,
                 "description" => $words,
-                "bid" => 1,
-                "scid" => 1
-            ])->subcategory()->associate(1);
+                "bid" => $b,
+                "scid" => $c
+            ])->sub_categories()->associate($c)->brands()->associate($b);
         }
     }
 }
