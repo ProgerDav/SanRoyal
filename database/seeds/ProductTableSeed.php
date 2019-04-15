@@ -14,13 +14,13 @@ class ProductTableSeed extends Seeder
     {
         $words = "Lorem ipsum, dolor sit amet, consectetur adipisicing, elit Fugiat dolore, excepturi harum, fugit, quis placeat, ab Non maiores, Vel natus consequuntur, harum accusantium, numquam, architecto, facilis ut officia, perspiciatis, dignissimos";
         $arr = explode(", ", $words);
-        $img = "new_".mt_rand(1, 10).".jpg";
+        $c = mt_rand(1, 30);        
         for($i = 1; $i < 50; $i++){
             $b = mt_rand(1, 10);
-            $c = mt_rand(1, 30);
             $word = $arr[array_rand($arr)];
+            $img = "new_".mt_rand(1, 10).".jpg";
             Product::create([
-                "name" => $word,
+                "name" => "Product ".$i,
                 "slug" => $word." ".$i.mt_rand(0, 10000),
                 "image" => $img,
                 "description" => $words,

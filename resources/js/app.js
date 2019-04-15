@@ -10,3 +10,5 @@ require('./bootstrap');
 require("./jquery-3.3.1.min");
 
 require("./custom");
+
+require("./shop_custom");

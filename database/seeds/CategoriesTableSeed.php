@@ -16,11 +16,11 @@ class CategoriesTableSeed extends Seeder
     {
         $words = "Lorem ipsum, dolor sit amet, consectetur adipisicing, elit Fugiat dolore, excepturi harum, fugit, quis placeat, ab Non maiores, Vel natus consequuntur, harum accusantium, numquam, architecto, facilis ut officia, perspiciatis, dignissimos";
         $arr = explode(", ", $words);
-        $img = "featured_".mt_rand(1, 8).".png";
         for($i = 0; $i < 10; $i++){
             $word = $arr[array_rand($arr)];
+            $img = "featured_".mt_rand(1, 8).".png";
             Category::create([
-                "name" => $word,
+                "name" => "Category ".$i,
                 "slug" => $word.mt_rand(0, 1000),
                 "image" => $img,
             ]);

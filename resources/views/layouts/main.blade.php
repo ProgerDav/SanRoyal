@@ -10,8 +10,9 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('js/plugins/OwlCarousel2-2.2.1/owl.theme.default.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('js/plugins/OwlCarousel2-2.2.1/animate.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('js/plugins/slick-1.8.0/slick.css')}}">
+	@stack('styles')
 	<link rel="stylesheet" href="{{asset('css/app.css')}}">
-  <title>Document</title>
+  <title>SanRoyal - @yield('title')</title>
 </head>
 <body>
   
@@ -29,7 +30,7 @@
 								 <div class="top_bar_icon"><img src="images/phone.png" alt=""></div>+38 068 005 3570 
 							 </div> -->
 							<div class="top_bar_contact_item">
-								<div class="top_bar_icon"><img src="images/mail.png" alt=""></div><a
+								<div class="top_bar_icon"><img src="{{asset('images/mail.png')}}" alt=""></div><a
 									href="mailto:fastsales@gmail.com">sanroyal@gmail.com</a>
 							</div>
 							<div class="top_bar_content ml-auto">
@@ -45,7 +46,7 @@
 										</li> -->
 										<li>
 											<a href="#">
-												<div class="top_bar_icon"><img src="images/phone.png" alt=""></div>
+												<div class="top_bar_icon"><img src="{{asset('images/phone.png')}}" alt=""></div>
 												+7 916-124-19-57
 											</a>
 											<ul>
@@ -71,7 +72,7 @@
 						<!-- Logo -->
 						<div class="col-lg-3 col-md-4 col-sm-3 col-3 order-1">
 							<div class="logo_container">
-								<div class="logo"><a href="#"><img src="images/logo.png" alt="SanRoyal"></a></div>
+								<div class="logo"><a href="{{route('index')}}"><img src="{{asset('images/logo.png')}}" alt="SanRoyal"></a></div>
 							</div>
 						</div>
 
@@ -89,7 +90,7 @@
 												</ul>
 											</div>
 											<button type="submit" class="header_search_button trans_300" value="Submit"><img
-													src="images/search.png" alt=""></button>
+												src="{{asset('images/search.png')}}" alt=""></button>
 										</form>
 									</div>
 								</div>
@@ -146,7 +147,7 @@
 									<ul class="cat_menu">
 										@foreach ($categories as $cat)
 												<li>
-													<a href="#">
+													<a href="{{route('catalog.category', ['category_slug' => Str::slug($cat->slug)])}}">
 														<img class="cat_menu_image" src="{{ asset("images/".$cat->image) }}" alt={{$cat->name}}>
 														{{$cat->name}}
 													</a>
@@ -154,7 +155,7 @@
 													<ul>
 														@foreach ($cat->subcategories as $sub_cat)
 															<li>
-																<a href="#">
+																<a href="{{route('catalog.subcategory', ['category' => Str::slug($cat->slug), 'subcategory' => Str::slug($sub_cat->slug)])}}">
 																	<img class="cat_menu_image" src="{{ asset("images/".$sub_cat->image) }}" alt="{{$sub_cat->name}}">
 																	{{$sub_cat->name}}
 																	{{-- {{var_dump($sub_cat)}} --}}
@@ -550,9 +551,9 @@
 
 								<div class="main_nav_menu ml-auto">
 									<ul class="standard_dropdown main_nav_dropdown">
-										<li><a href="shop.php">Каталог<i class="fas fa-chevron-down"></i></a></li>
+										<li><a href="{{route('catalog.index')}}">Каталог<i class="fas fa-chevron-down"></i></a></li>
 										<li><a href="#">Прайс-лист<i class="fas fa-chevron-down"></i></a></li>
-										<li><a href="brands.php">Бренды<i class="fas fa-chevron-down"></i></a></li>
+										<li><a href="{{route("brands.index")}}">Бренды<i class="fas fa-chevron-down"></i></a></li>
 										<li>
 											<a href="certificates.php">Сертификаты<i class="fas fa-chevron-down"></i></a>
 											<!-- <ul>
@@ -610,13 +611,13 @@
 								</div>
 								<ul class="page_menu_nav">
 									<li class="page_menu_item">
-										<a href="shop.php">Каталог</a>
+										<a href="{{route("catalog.index")}}">Каталог</a>
 									</li>
 									<li class="page_menu_item has-children">
 										<a href="#">Прайс-лист</a>
 									</li>
 									<li class="page_menu_item has-children">
-										<a href="brands.php">Бренды</a>
+										<a href="{{route('brands.index')}}">Бренды</a>
 										<!-- <ul class="page_menu_selection">
 									<li><a href="#">Бренды<i class="fa fa-angle-down"></i></a></li>
 									<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
@@ -632,10 +633,10 @@
 
 								<div class="menu_contact">
 									<div class="menu_contact_item">
-										<div class="menu_contact_icon"><img src="images/phone_white.png" alt=""></div>+38 068 005 3570
+										<div class="menu_contact_icon"><img src="{{asset('images/phone_white.png')}}" alt=""></div>+38 068 005 3570
 									</div>
 									<div class="menu_contact_item">
-										<div class="menu_contact_icon"><img src="images/mail_white.png" alt=""></div><a
+										<div class="menu_contact_icon"><img src="{{asset('images/mail_white.png')}}" alt=""></div><a
 											href="mailto:fastsales@gmail.com">sanroyal@gmail.com</a>
 									</div>
 								</div>
@@ -676,7 +677,7 @@
 									<div class="owl-item">
 										<div
 											class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="viewed_image"><img src="images/view_1.jpg" alt=""></div>
+											<div class="viewed_image"><img src="{{asset('images/view_1.jpg')}}" alt=""></div>
 											<div class="viewed_content text-center">
 												<div class="viewed_price">Lorem</div>
 												<div class="viewed_name"><a href="#">Beoplay H7</a></div>
@@ -690,7 +691,7 @@
 									<!-- Recently Viewed Item -->
 									<div class="owl-item">
 										<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="viewed_image"><img src="images/view_2.jpg" alt=""></div>
+											<div class="viewed_image"><img src="{{asset('images/view_2.jpg')}}" alt=""></div>
 											<div class="viewed_content text-center">
 												<div class="viewed_price">Lorem</div>
 												<div class="viewed_name"><a href="#">LUNA Smartphone</a></div>
@@ -703,7 +704,7 @@
 									<!-- Recently Viewed Item -->
 									<div class="owl-item">
 										<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="viewed_image"><img src="images/view_3.jpg" alt=""></div>
+											<div class="viewed_image"><img src="{{asset('images/view_3.jpg')}}" alt=""></div>
 											<div class="viewed_content text-center">
 												<div class="viewed_price">Lorem</div>
 												<div class="viewed_name"><a href="#">Samsung J730F...</a></div>
@@ -717,7 +718,7 @@
 									<div class="owl-item">
 										<div
 											class="viewed_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="viewed_image"><img src="images/view_4.jpg" alt=""></div>
+											<div class="viewed_image"><img src="{{asset('images/view_4.jpg')}}" alt=""></div>
 											<div class="viewed_content text-center">
 												<div class="viewed_price">Lorem</div>
 												<div class="viewed_name"><a href="#">Huawei MediaPad...</a></div>
@@ -731,7 +732,7 @@
 									<div class="owl-item">
 										<div
 											class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="viewed_image"><img src="images/view_5.jpg" alt=""></div>
+											<div class="viewed_image"><img src="{{asset('images/view_5.jpg')}}" alt=""></div>
 											<div class="viewed_content text-center">
 												<div class="viewed_price">Lorem</div>
 												<div class="viewed_name"><a href="#">Sony PS4 Slim</a></div>
@@ -744,7 +745,7 @@
 									<!-- Recently Viewed Item -->
 									<div class="owl-item">
 										<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="viewed_image"><img src="images/view_6.jpg" alt=""></div>
+											<div class="viewed_image"><img src="{{asset('images/view_6.jpg')}}" alt=""></div>
 											<div class="viewed_content text-center">
 												<div class="viewed_price">Lorem</div>
 												<div class="viewed_name"><a href="#">Speedlink...</a></div>
@@ -801,7 +802,7 @@
 							<div
 								class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
 								<div class="newsletter_title_container">
-									<div class="newsletter_icon"><img src="images/send.png" alt=""></div>
+									<div class="newsletter_icon"><img src="{{asset('images/send.png')}}" alt=""></div>
 									<div class="newsletter_title">Лента новостей</div>
 									<div class="newsletter_text">
 										<p>...lorem ispum dolor sit amet.</p>
@@ -943,6 +944,7 @@
 	<script src="{{asset('js/plugins/OwlCarousel2-2.2.1/owl.carousel.js')}}"></script>
 	<script src="{{asset('js/plugins/slick-1.8.0/slick.js')}}"></script> 
 	<script src="{{asset('js/plugins/easing/easing.js')}}"></script>
+	@stack('scripts')
 	<script src="{{asset('js/custom.js')}}"></script>
 
 </body>

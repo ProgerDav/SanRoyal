@@ -15,12 +15,12 @@ class SubCategoriesTableSeed extends Seeder
     {
         $words = "Lorem ipsum, dolor sit amet, consectetur adipisicing, elit Fugiat dolore, excepturi harum, fugit, quis placeat, ab Non maiores, Vel natus consequuntur, harum accusantium, numquam, architecto, facilis ut officia, perspiciatis, dignissimos";
         $arr = explode(", ", $words);
-        $img = "featured_".mt_rand(1, 8).".png";
         for($i = 0; $i < 30; $i++){
             $r = mt_rand(1, 10);
             $word = $arr[array_rand($arr)];
+            $img = "featured_".mt_rand(1, 8).".png";
             SubCategory::create([
-                "name" => $word,
+                "name" => "Sub Category ".$i,
                 "slug" => $word.mt_rand(0, 1000),
                 "image" => $img,
                 "cid" => $r

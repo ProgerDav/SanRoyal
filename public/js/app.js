@@ -36837,6 +36837,8 @@ __webpack_require__(/*! ./jquery-3.3.1.min */ "./resources/js/jquery-3.3.1.min.j
 
 __webpack_require__(/*! ./custom */ "./resources/js/custom.js");
 
+__webpack_require__(/*! ./shop_custom */ "./resources/js/shop_custom.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -41866,6 +41868,379 @@ $(document).ready(function () {
 
 /***/ }),
 
+/***/ "./resources/js/shop_custom.js":
+/*!*************************************!*\
+  !*** ./resources/js/shop_custom.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* JS Document */
+
+/******************************
+
+[Table of Contents]
+
+1. Vars and Inits
+2. Set Header
+3. Init Custom Dropdown
+4. Init Page Menu
+5. Init Recently Viewed Slider
+6. Init Brands Slider
+7. Init Isotope
+8. Init Price Slider
+9. Init Favorites
+
+
+******************************/
+$(document).ready(function () {
+  "use strict";
+  /* 
+  
+  1. Vars and Inits
+  
+  */
+
+  var menuActive = false;
+  var header = $('.header');
+  setHeader();
+  initCustomDropdown();
+  initPageMenu();
+  initViewedSlider();
+  initBrandsSlider();
+  initIsotope();
+  initPriceSlider();
+  initFavs();
+  $(window).on('resize', function () {
+    setHeader();
+  });
+  $(".sidebar_categories .sidebar_toggle").click(function () {
+    var bool = $(this).parent().hasClass("open");
+    $(".sidebar_categories > li").removeClass("open");
+    if (!bool) $(this).parent().addClass("open");
+  });
+  /* 
+  
+  2. Set Header and sidebar-toggle
+  
+  */
+
+  function setHeader() {
+    // var controller = new ScrollMagic.Controller(
+    // 	{
+    // 		globalSceneOptions:
+    // 		{
+    // 			triggerHook: 'onLeave'
+    // 		}
+    // 	});
+    // var pin = new ScrollMagic.Scene(
+    // 	{
+    // 		triggerElement: '.main_nav'
+    // 	})
+    // 	.setPin('.main_nav').addTo(controller);
+    if (window.innerWidth > 991 && menuActive) {
+      closeMenu();
+    }
+  }
+  /* 
+  
+  3. Init Custom Dropdown
+  
+  */
+
+
+  function initCustomDropdown() {
+    if ($('.custom_dropdown_placeholder').length && $('.custom_list').length) {
+      var placeholder = $('.custom_dropdown_placeholder');
+      var list = $('.custom_list');
+    }
+
+    placeholder.on('click', function (ev) {
+      if (list.hasClass('active')) {
+        list.removeClass('active');
+      } else {
+        list.addClass('active');
+      }
+
+      $(document).one('click', function closeForm(e) {
+        if ($(e.target).hasClass('clc')) {
+          $(document).one('click', closeForm);
+        } else {
+          list.removeClass('active');
+        }
+      });
+    });
+    $('.custom_list a').on('click', function (ev) {
+      ev.preventDefault();
+      var index = $(this).parent().index();
+      placeholder.text($(this).text()).css('opacity', '1');
+
+      if (list.hasClass('active')) {
+        list.removeClass('active');
+      } else {
+        list.addClass('active');
+      }
+    });
+    $('select').on('change', function (e) {
+      placeholder.text(this.value);
+      $(this).animate({
+        width: placeholder.width() + 'px'
+      });
+    });
+  }
+  /* 
+  
+  4. Init Page Menu
+  
+  */
+
+
+  function initPageMenu() {
+    if ($('.page_menu').length && $('.page_menu_content').length) {
+      var menu = $('.page_menu');
+      var menuContent = $('.page_menu_content');
+      var menuTrigger = $('.menu_trigger'); //Open / close page menu
+
+      menuTrigger.on('click', function () {
+        if (!menuActive) {
+          openMenu();
+        } else {
+          closeMenu();
+        }
+      }); //Handle page menu
+
+      if ($('.page_menu_item').length) {
+        var items = $('.page_menu_item');
+        items.each(function () {
+          var item = $(this);
+
+          if (item.hasClass("has-children")) {
+            item.on('click', function (evt) {
+              evt.preventDefault();
+              evt.stopPropagation();
+              var subItem = item.find('> ul');
+
+              if (subItem.hasClass('active')) {
+                subItem.toggleClass('active');
+                TweenMax.to(subItem, 0.3, {
+                  height: 0
+                });
+              } else {
+                subItem.toggleClass('active');
+                TweenMax.set(subItem, {
+                  height: "auto"
+                });
+                TweenMax.from(subItem, 0.3, {
+                  height: 0
+                });
+              }
+            });
+          }
+        });
+      }
+    }
+  }
+
+  function openMenu() {
+    var menu = $('.page_menu');
+    var menuContent = $('.page_menu_content');
+    TweenMax.set(menuContent, {
+      height: "auto"
+    });
+    TweenMax.from(menuContent, 0.3, {
+      height: 0
+    });
+    menuActive = true;
+  }
+
+  function closeMenu() {
+    var menu = $('.page_menu');
+    var menuContent = $('.page_menu_content');
+    TweenMax.to(menuContent, 0.3, {
+      height: 0
+    });
+    menuActive = false;
+  }
+  /* 
+  
+  5. Init Recently Viewed Slider
+  
+  */
+
+
+  function initViewedSlider() {
+    if ($('.viewed_slider').length) {
+      var viewedSlider = $('.viewed_slider');
+      viewedSlider.owlCarousel({
+        loop: true,
+        margin: 30,
+        autoplay: true,
+        autoplayTimeout: 6000,
+        nav: false,
+        dots: false,
+        responsive: {
+          0: {
+            items: 1
+          },
+          575: {
+            items: 2
+          },
+          768: {
+            items: 3
+          },
+          991: {
+            items: 4
+          },
+          1199: {
+            items: 6
+          }
+        }
+      });
+
+      if ($('.viewed_prev').length) {
+        var prev = $('.viewed_prev');
+        prev.on('click', function () {
+          viewedSlider.trigger('prev.owl.carousel');
+        });
+      }
+
+      if ($('.viewed_next').length) {
+        var next = $('.viewed_next');
+        next.on('click', function () {
+          viewedSlider.trigger('next.owl.carousel');
+        });
+      }
+    }
+  }
+  /* 
+  
+  6. Init Brands Slider
+  
+  */
+
+
+  function initBrandsSlider() {
+    if ($('.brands_slider').length) {
+      var brandsSlider = $('.brands_slider');
+      brandsSlider.owlCarousel({
+        loop: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        nav: false,
+        dots: false,
+        autoWidth: true,
+        items: 8,
+        margin: 42
+      });
+
+      if ($('.brands_prev').length) {
+        var prev = $('.brands_prev');
+        prev.on('click', function () {
+          brandsSlider.trigger('prev.owl.carousel');
+        });
+      }
+
+      if ($('.brands_next').length) {
+        var next = $('.brands_next');
+        next.on('click', function () {
+          brandsSlider.trigger('next.owl.carousel');
+        });
+      }
+    }
+  }
+  /* 
+  
+  7. Init Isotope
+  
+  */
+
+
+  function initIsotope() {
+    var sortingButtons = $('.shop_sorting_button');
+    $('.product_grid').isotope({
+      itemSelector: '.product_item',
+      getSortData: {
+        price: function price(itemElement) {
+          var priceEle = $(itemElement).find('.product_price').text().replace('$', '');
+          return parseFloat(priceEle);
+        },
+        name: '.product_name div a'
+      },
+      animationOptions: {
+        duration: 750,
+        easing: 'linear',
+        queue: false
+      }
+    }); // Sort based on the value from the sorting_type dropdown
+
+    sortingButtons.each(function () {
+      $(this).on('click', function () {
+        $('.sorting_text').text($(this).text());
+        var option = $(this).attr('data-isotope-option');
+        option = JSON.parse(option);
+        $('.product_grid').isotope(option);
+      });
+    });
+  }
+  /* 
+  
+  8. Init Price Slider
+  
+  */
+
+
+  function initPriceSlider() {
+    if ($("#slider-range").length) {
+      $("#slider-range").slider({
+        range: true,
+        min: 0,
+        max: 1000,
+        values: [0, 580],
+        slide: function slide(event, ui) {
+          $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+        }
+      });
+      $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+      $('.ui-slider-handle').on('mouseup', function () {
+        $('.product_grid').isotope({
+          filter: function filter() {
+            var priceRange = $('#amount').val();
+            var priceMin = parseFloat(priceRange.split('-')[0].replace('$', ''));
+            var priceMax = parseFloat(priceRange.split('-')[1].replace('$', ''));
+            var itemPrice = $(this).find('.product_price').clone().children().remove().end().text().replace('$', '');
+            return itemPrice > priceMin && itemPrice < priceMax;
+          },
+          animationOptions: {
+            duration: 750,
+            easing: 'linear',
+            queue: false
+          }
+        });
+      });
+    }
+  }
+  /* 
+  
+  9. Init Favorites
+  
+  */
+
+
+  function initFavs() {
+    // Handle Favorites
+    var items = document.getElementsByClassName('product_fav');
+
+    for (var x = 0; x < items.length; x++) {
+      var item = items[x];
+      item.addEventListener('click', function (fn) {
+        fn.target.classList.toggle('active');
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -41873,7 +42248,7 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/lib/loader.js):\n\r\n}\r\n^\r\n      Expected \"}\".\n    ╷\n703 │ }\n    │  ^\n    ╵\n  resources\\sass\\catalog.scss 703:2  root stylesheet\n  stdin 9:9                          root stylesheet\r\n      in c:\\xampp\\htdocs\\sanRoyal\\resources\\sass\\catalog.scss (line 703, column 2)\n    at runLoaders (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\webpack\\lib\\NormalModule.js:301:20)\n    at c:\\xampp\\htdocs\\sanRoyal\\node_modules\\loader-runner\\lib\\LoaderRunner.js:367:11\n    at c:\\xampp\\htdocs\\sanRoyal\\node_modules\\loader-runner\\lib\\LoaderRunner.js:233:18\n    at context.callback (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at render (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass-loader\\lib\\loader.js:52:13)\n    at Function.$2 (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:24382:48)\n    at wO.$2 (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:15310:15)\n    at uT.vr (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:9042:42)\n    at uT.vq (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:9044:32)\n    at iz.uD (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8392:46)\n    at us.$0 (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8534:7)\n    at Object.eG (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:1512:80)\n    at ad.ba (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8455:3)\n    at iN.ba (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8385:25)\n    at iN.cv (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8372:6)\n    at py.cv (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8162:35)\n    at Object.m (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:1383:19)\n    at c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:5070:51\n    at xe.a (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:1394:71)\n    at xe.$2 (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8177:23)\n    at vR.$2 (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8172:25)\n    at uT.vr (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:9042:42)\n    at uT.vq (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:9044:32)\n    at iz.uD (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8392:46)\n    at us.$0 (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8534:7)\n    at Object.eG (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:1512:80)\n    at ad.ba (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8455:3)\n    at iN.ba (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8385:25)\n    at iN.cv (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8372:6)\n    at Object.eval (eval at CK (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:648:15), <anonymous>:3:37)\n    at uT.vr (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:9042:42)\n    at uT.vq (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:9044:32)\n    at iz.uD (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8392:46)\n    at us.$0 (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8534:7)\n    at Object.eG (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:1512:80)\n    at ad.ba (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8455:3)");
 
 /***/ }),
 
@@ -41884,8 +42259,8 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\sanRoyal\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\sanRoyal\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! c:\xampp\htdocs\sanRoyal\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! c:\xampp\htdocs\sanRoyal\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
