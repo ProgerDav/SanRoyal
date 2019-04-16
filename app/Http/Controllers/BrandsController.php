@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Brand;
+use App\Category;
+use App\SubCategory;
 
 class BrandsController extends Controller
 {
@@ -27,19 +29,10 @@ class BrandsController extends Controller
     public function show(string $slug)
     {
         $slug = str_replace('-', " ", $slug);
-        $brand = Brand::firstOrFail()->where('slug', $slug)->get();
+        $brand = Brand::where("slug", $slug)->firstOrFail();
+        $arr = $brand->products->groupBy('scid')->map(function($item){ return $item->first()->scid; })->toArray();
+        $result = Category::find(SubCategory::find($arr)->map(function($subcat){ return $subcat->cid; }));
 
-        $available_categories = $available_sub_categories = [];
-
-        if($brand->count() != 0){
-            $brand->first()->products;
-            foreach($brand->first()->products as $product){
-                if(!in_array($product->first()->sub_categories->name, $available_sub_categories)){
-                    array_push($available_sub_categories, $product->sub_categories->first()->name);
-                }
-            }
-        }
-
-        return view("brands.single")->with(['brand' => $brand, 'arr' => $available_sub_categories]);
+        return view("brands.single")->with(['brand' => $brand, "available_categories" => $result]);
     }
 }

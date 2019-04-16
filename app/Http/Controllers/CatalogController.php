@@ -51,4 +51,23 @@ class CatalogController extends Controller
         $products = $subcategory->products()->paginate(10);
         return view('catalog.subcategory')->with(["subcategory" => $subcategory, "category" => $category, "products" => $products]);
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  string  $category_slug
+     * @param  string  $subcategory_slug 
+     * @param  string  $product_slug                 
+     * @return \Illuminate\Http\Response
+     */
+
+    // public function show_product($category_slug, $subcategory_slug, $product_slug)
+    // {
+    //     $category_slug = str_replace("-", " ", $category_slug);
+    //     $subcategory_slug = str_replace("-", " ", $subcategory_slug);
+    //     $category = Category::where('slug', $category_slug)->firstOrFail();
+    //     $subcategory = SubCategory::where('slug', $subcategory_slug)->firstOrFail();
+
+    //     return view('catalog.subcategory')->with(["subcategory" => $subcategory, "category" => $category, "products" => $products]);
+    // }
 }

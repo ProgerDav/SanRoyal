@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    {{$brand->first()->name ?? "Не Найдено"}}
+    {{$brand->name ?? "Не Найдено"}}
 @endsection
 
 @section('content')
@@ -20,27 +20,34 @@
               <div class="shop_product_count"></div>
             </div>
             <div class="product_grid d-flex align-items-center flex-wrap">
-            <div class="product_grid_border"></div>
-            @if($brand->count() == 0)
-              <h3>Ничего на найдено</h3>
-            @else  
+            <div class="product_grid_border"></div> 
               <div class="row single_item">
                 <article class="col-lg-9 single_item_text">
-                  <h2 class="single_item_title">{{$brand->first()->name}}</h2>
+                  <h2 class="single_item_title">{{$brand->name}}</h2>
                   <p>
                     {!! $brand->first()->description !!}
-                    {{var_dump($arr)}}
-                    @foreach ($brand->first()->products as $item)
-                        {{-- <br />{{var_dump($item->sub_categories)}} --}}
-                    @endforeach
                   </p>
+                    <ul class="col-lg-6 col-xs-12 col-sm-12">
+                      @forelse ($available_categories as $category) 
+                        <li>
+                          <a href="{{route("catalog.category", ['category_slug' => Str::slug($category->slug)])}}">{{$category->name}}</a>
+                          <ul style="padding-left: 20px">
+                            @forelse ($category->subcategories as $subcat)
+                              <li><a href="{{route("catalog.subcategory", ['category_slug' => Str::slug($category->slug), 'subcategory_slug' => Str::slug($subcat->slug)])}}">{{$subcat->name}}</a></li>
+                              @empty
+                            @endforelse
+                          </ul>
+                        </li>  
+                        @empty
+                      @endforelse
+                    </ul>
+
                 </article>  
                 <div class="col-lg-3">
-                  <img src="{{asset("images/".$brand->first()->image)}}" alt="{{$brand->first()->name}}" class="single_item_img_responsive" />
+                  <img src="{{asset("images/".$brand->image)}}" alt="{{$brand->name}}" class="single_item_img_responsive" />
                 </div>
               </div>       
             </div>
-            @endif
         </div>
       </div>
     </div>
