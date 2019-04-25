@@ -15,6 +15,7 @@ class ProductTableSeed extends Seeder
         $words = "Lorem ipsum, dolor sit amet, consectetur adipisicing, elit Fugiat dolore, excepturi harum, fugit, quis placeat, ab Non maiores, Vel natus consequuntur, harum accusantium, numquam, architecto, facilis ut officia, perspiciatis, dignissimos";
         $arr = explode(", ", $words);
         $c = mt_rand(1, 30);        
+       
         for($i = 1; $i < 50; $i++){
             $b = mt_rand(1, 10);
             $word = $arr[array_rand($arr)];

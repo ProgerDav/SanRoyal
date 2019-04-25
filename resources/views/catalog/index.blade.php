@@ -32,12 +32,12 @@
                               </a>
                               <div class="product_content col-lg-7 offset-lg-1">
                                 <div class="product_name">
-                                  <a href="{{route("catalog.category", ['category_slug' => Str::slug($category->slug)])}}" tabindex="0">{{$category->name}}</a>
+                                  <a href="{{route("catalog.category", ['category_slug' => Str::slug($category->id.' '.$category->slug)])}}" tabindex="0">{{$category->name}}</a>
                                 </div>
                                 <div class="subs">
                                   <ul>
                                     @forelse ($category->subcategories as $subcat)
-                                      <li><a href="{{route("catalog.subcategory", ['category_slug' => Str::slug($category->slug), 'subcategory_slug' => Str::slug($subcat->slug)])}}">{{$subcat->name}}</a></li>                                      
+                                      <li><a href="{{route("catalog.subcategory", ['category_slug' => Str::slug($category->slug), 'subcategory_slug' => Str::slug($subcat->id.' '.$subcat->slug)])}}">{{$subcat->name}}</a></li>                                      
                                     @empty
 
                                     @endforelse

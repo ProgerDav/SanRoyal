@@ -36945,8 +36945,8 @@ $(document).ready(function () {
 
   var menuActive = false;
   var header = $('.header');
-  setHeader();
-  initCustomDropdown();
+  setHeader(); // initCustomDropdown();
+
   initPageMenu();
   initDealsSlider();
   initTabLines();
@@ -36963,7 +36963,16 @@ $(document).ready(function () {
   initReviewsSlider();
   initViewedSlider();
   initBrandsSlider();
-  initTimer();
+  initTimer(); // $("sortByBrands").submit(function (e) {
+  // 	e.preventDefault();
+  // 	if (window.history) {
+  // 		let = newUrl = location.href;
+  // 		let glue = newUrl.indexOf('?') !== -1 ? '&' : '?';
+  // 		window.history.pushState({}, null, $newUrl + glue + 'brands = [1, 3]');
+  // 	}
+  // 	return false;
+  // });
+
   $(window).on('resize', function () {
     setHeader();
     featuredSliderZIndex();
@@ -37005,47 +37014,44 @@ $(document).ready(function () {
   3. Init Custom Dropdown
   
   */
+  // function initCustomDropdown() {
+  // 	if ($('.custom_dropdown_placeholder').length && $('.custom_list').length) {
+  // 		var placeholder = $('.custom_dropdown_placeholder');
+  // 		var list = $('.custom_list');
+  // 	}
+  // 	placeholder.on('click', function (ev) {
+  // 		if (list.hasClass('active')) {
+  // 			list.removeClass('active');
+  // 		}
+  // 		else {
+  // 			list.addClass('active');
+  // 		}
+  // 		$(document).one('click', function closeForm(e) {
+  // 			if ($(e.target).hasClass('clc')) {
+  // 				$(document).one('click', closeForm);
+  // 			}
+  // 			else {
+  // 				list.removeClass('active');
+  // 			}
+  // 		});
+  // 	});
+  // 	$('.custom_list a').on('click', function (ev) {
+  // 		ev.preventDefault();
+  // 		var index = $(this).parent().index();
+  // 		placeholder.text($(this).text()).css('opacity', '1');
+  // 		if (list.hasClass('active')) {
+  // 			list.removeClass('active');
+  // 		}
+  // 		else {
+  // 			list.addClass('active');
+  // 		}
+  // 	});
+  // 	$('select').on('change', function (e) {
+  // 		placeholder.text(this.value);
+  // 		$(this).animate({ width: placeholder.width() + 'px' });
+  // 	});
+  // }
 
-
-  function initCustomDropdown() {
-    if ($('.custom_dropdown_placeholder').length && $('.custom_list').length) {
-      var placeholder = $('.custom_dropdown_placeholder');
-      var list = $('.custom_list');
-    }
-
-    placeholder.on('click', function (ev) {
-      if (list.hasClass('active')) {
-        list.removeClass('active');
-      } else {
-        list.addClass('active');
-      }
-
-      $(document).one('click', function closeForm(e) {
-        if ($(e.target).hasClass('clc')) {
-          $(document).one('click', closeForm);
-        } else {
-          list.removeClass('active');
-        }
-      });
-    });
-    $('.custom_list a').on('click', function (ev) {
-      ev.preventDefault();
-      var index = $(this).parent().index();
-      placeholder.text($(this).text()).css('opacity', '1');
-
-      if (list.hasClass('active')) {
-        list.removeClass('active');
-      } else {
-        list.addClass('active');
-      }
-    });
-    $('select').on('change', function (e) {
-      placeholder.text(this.value);
-      $(this).animate({
-        width: placeholder.width() + 'px'
-      });
-    });
-  }
   /* 
   
   4. Init Page Menu
@@ -42248,7 +42254,7 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/lib/loader.js):\n\r\n}\r\n^\r\n      Expected \"}\".\n    ╷\n703 │ }\n    │  ^\n    ╵\n  resources\\sass\\catalog.scss 703:2  root stylesheet\n  stdin 9:9                          root stylesheet\r\n      in c:\\xampp\\htdocs\\sanRoyal\\resources\\sass\\catalog.scss (line 703, column 2)\n    at runLoaders (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\webpack\\lib\\NormalModule.js:301:20)\n    at c:\\xampp\\htdocs\\sanRoyal\\node_modules\\loader-runner\\lib\\LoaderRunner.js:367:11\n    at c:\\xampp\\htdocs\\sanRoyal\\node_modules\\loader-runner\\lib\\LoaderRunner.js:233:18\n    at context.callback (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at render (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass-loader\\lib\\loader.js:52:13)\n    at Function.$2 (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:24382:48)\n    at wO.$2 (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:15310:15)\n    at uT.vr (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:9042:42)\n    at uT.vq (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:9044:32)\n    at iz.uD (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8392:46)\n    at us.$0 (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8534:7)\n    at Object.eG (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:1512:80)\n    at ad.ba (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8455:3)\n    at iN.ba (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8385:25)\n    at iN.cv (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8372:6)\n    at py.cv (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8162:35)\n    at Object.m (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:1383:19)\n    at c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:5070:51\n    at xe.a (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:1394:71)\n    at xe.$2 (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8177:23)\n    at vR.$2 (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8172:25)\n    at uT.vr (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:9042:42)\n    at uT.vq (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:9044:32)\n    at iz.uD (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8392:46)\n    at us.$0 (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8534:7)\n    at Object.eG (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:1512:80)\n    at ad.ba (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8455:3)\n    at iN.ba (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8385:25)\n    at iN.cv (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8372:6)\n    at Object.eval (eval at CK (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:648:15), <anonymous>:3:37)\n    at uT.vr (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:9042:42)\n    at uT.vq (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:9044:32)\n    at iz.uD (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8392:46)\n    at us.$0 (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8534:7)\n    at Object.eG (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:1512:80)\n    at ad.ba (c:\\xampp\\htdocs\\sanRoyal\\node_modules\\sass\\sass.dart.js:8455:3)");
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 
@@ -42259,8 +42265,8 @@ throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\xampp\htdocs\sanRoyal\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! c:\xampp\htdocs\sanRoyal\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\sanRoyal\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\sanRoyal\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

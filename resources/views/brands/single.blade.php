@@ -25,15 +25,15 @@
                 <article class="col-lg-9 single_item_text">
                   <h2 class="single_item_title">{{$brand->name}}</h2>
                   <p>
-                    {!! $brand->first()->description !!}
+                    {!! $brand->description !!}
                   </p>
                     <ul class="col-lg-6 col-xs-12 col-sm-12">
                       @forelse ($available_categories as $category) 
                         <li>
-                          <a href="{{route("catalog.category", ['category_slug' => Str::slug($category->slug)])}}">{{$category->name}}</a>
+                          <a href="{{route("catalog.category", ['category_slug' => Str::slug($category->id.' '.$category->slug)])}}">{{$category->name}}</a>
                           <ul style="padding-left: 20px">
                             @forelse ($category->subcategories as $subcat)
-                              <li><a href="{{route("catalog.subcategory", ['category_slug' => Str::slug($category->slug), 'subcategory_slug' => Str::slug($subcat->slug)])}}">{{$subcat->name}}</a></li>
+                              <li><a href="{{route("catalog.subcategory", ['category_slug' => Str::slug($category->slug), 'subcategory_slug' => Str::slug($subcat->id.' '.$subcat->slug)])}}">{{$subcat->name}}</a></li>
                               @empty
                             @endforelse
                           </ul>

@@ -9,28 +9,14 @@
 			<div class="row">
 				<div class="col-lg-3">
 
-          @include('layouts.sidebar', ['filter' => true])
+          @include('layouts.sidebar', ['filter' => true, 'available_brands' => $available_brands])
 					
 				</div>
 					<!-- Shop Content -->
         <div class="col-lg-9">
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-            <div class="shop_product_count"><a href="{{route("index")}}">Главная</a> > <a href="{{route("catalog.index")}}">Каталог</a> > <a href="{{route("catalog.category", ["category_slug" => Str::slug($category->slug)])}}">{{$category->name}}</a> > <span>{{$subcategory->name}}</span> | <span>{{$products->count()}}</span> найдено на {{request()->input('page') ?? '1'}} странице / всего найдено <span>{{$products->total()}}</span></div>
-							<!-- <div class="shop_sorting">
-								<span>Sort by:</span>
-								<ul>
-									<li>
-										<span class="sorting_text">highest rated<i class="fas fa-chevron-down"></span></i>
-										<ul>
-											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>highest rated
-											</li>
-											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>name</li>
-											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "price" }'>price</li>
-										</ul>
-									</li>
-								</ul>
-							</div> -->
+            <div class="shop_product_count"><a href="{{route("index")}}">Главная</a> > <a href="{{route("catalog.index")}}">Каталог</a> > <a href="{{route("catalog.category", ["category_slug" => Str::slug($category->id.' '.$category->slug)])}}">{{$category->name}}</a> > <span>{{$subcategory->name}}</span> | <span>{{$products->count()}}</span> найдено на {{request()->input('page') ?? '1'}} странице / всего найдено <span>{{$products->total()}}</span></div>
 						</div>
 
 						<div class="product_grid d-flex align-items-center flex-wrap">
@@ -44,7 +30,7 @@
                   <div class="product_content">
                     <div class="product_price"></div>
                     <div class="product_name">
-                      <a href="#" tabindex="0">{{$product->name}}</a>
+											<a href="{{route('catalog.product', ["category_slug" => Str::slug($category->slug), "subcategory_slug" => Str::slug($subcategory->slug), 'product_slug' => Str::slug($product->id.' '.$product->slug)])}}" tabindex="0">{{$product->name}}</a>
                     </div>
                   </div>
                 </div>
@@ -59,12 +45,7 @@
 							{{--<div class="page_prev d-flex flex-column align-items-center justify-content-center"><i
 									 class="fas fa-chevron-left"></i></div> --}}
 							<ul class="page_nav d-flex flex-row">
-								{{-- <li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">...</a></li>
-                <li><a href="#">21</a></li> --}}
-                {{$products->links()}}
+                {{$products->appends(request()->input())->links()}}
 							</ul>
 							{{-- <div class="page_next d-flex flex-column align-items-center justify-content-center"><i 
 									 class="fas fa-chevron-right"></i></div> --}}

@@ -81,14 +81,14 @@
 							<div class="header_search">
 								<div class="header_search_content">
 									<div class="header_search_form_container">
-										<form action="#" class="header_search_form clearfix">
-											<input type="search" required="required" class="header_search_input"
+										<form action="{{route('catalog.search')}}" class="header_search_form clearfix">
+											<input type="search" required="required" name='q' value='{{request()->q ?? ''}}' class="header_search_input"
 												placeholder="Поиск продуктов..." />
-											<div class="custom_dropdown">
+											{{-- <div class="custom_dropdown">
 												<span class="custom_dropdown_placeholder">Категории</span>
 												<ul class="custom_list">
 												</ul>
-											</div>
+											</div> --}}
 											<button type="submit" class="header_search_button trans_300" value="Submit"><img
 												src="{{asset('images/search.png')}}" alt=""></button>
 										</form>
@@ -147,7 +147,7 @@
 									<ul class="cat_menu">
 										@foreach ($categories as $cat)
 												<li>
-													<a href="{{route('catalog.category', ['category_slug' => Str::slug($cat->slug)])}}">
+													<a href="{{route('catalog.category', ['category_slug' => Str::slug($cat->id.' '.$cat->slug)])}}">
 														<img class="cat_menu_image" src="{{ asset("images/".$cat->image) }}" alt={{$cat->name}}>
 														{{$cat->name}}
 													</a>
@@ -155,395 +155,15 @@
 													<ul>
 														@foreach ($cat->subcategories as $sub_cat)
 															<li>
-																<a href="{{route('catalog.subcategory', ['category' => Str::slug($cat->slug), 'subcategory' => Str::slug($sub_cat->slug)])}}">
+																<a href="{{route('catalog.subcategory', ['category' => Str::slug($cat->slug), 'subcategory' => Str::slug($sub_cat->id.' '.$sub_cat->slug)])}}">
 																	<img class="cat_menu_image" src="{{ asset("images/".$sub_cat->image) }}" alt="{{$sub_cat->name}}">
 																	{{$sub_cat->name}}
-																	{{-- {{var_dump($sub_cat)}} --}}
 																</a>
 															</li>
 														@endforeach
 													</ul>
 												</li>
 										@endforeach
-										{{-- <li>
-											<a href="#">
-												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
-												Коллекторы и узлы
-											</a>
-											<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-											<ul>
-												<li><a href="#"><img class="cat_menu_image" src="images/featured_3.png" />Коллектор с шаровыми
-														кранами</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллектор регулирующий
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллекторные группы для теплого пола и отопления
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Насосно-смесительные узлы
-													</a></li>
-											</ul>
-										</li>
-										<li>
-											<a href="#">
-												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
-												Коллекторы и узлы
-											</a>
-											<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-											<ul>
-												<li><a href="#"><img class="cat_menu_image" src="images/featured_3.png" alt="" />Коллектор с
-														шаровыми
-														кранами</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллектор регулирующий
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллекторные группы для теплого пола и отопления
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Насосно-смесительные узлы
-													</a></li>
-											</ul>
-										</li>
-										<li>
-											<a href="#">
-												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
-												Коллекторы и узлы
-											</a>
-											<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-											<ul>
-												<li><a href="#"><img class="cat_menu_image" src="images/featured_3.png" alt="" />Коллектор с
-														шаровыми
-														кранами</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллектор регулирующий
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллекторные группы для теплого пола и отопления
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Насосно-смесительные узлы
-													</a></li>
-											</ul>
-										</li>
-										<li>
-											<a href="#">
-												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
-												Коллекторы и узлы
-											</a>
-											<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-											<ul>
-												<li><a href="#"><img class="cat_menu_image" src="images/featured_3.png" alt="" />Коллектор с
-														шаровыми
-														кранами</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллектор регулирующий
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллекторные группы для теплого пола и отопления
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Насосно-смесительные узлы
-													</a></li>
-											</ul>
-										</li>
-										<li>
-											<a href="#">
-												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
-												Коллекторы и узлы
-											</a>
-											<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-											<ul>
-												<li><a href="#"><img class="cat_menu_image" src="images/featured_3.png" alt="" />Коллектор с
-														шаровыми
-														кранами</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллектор регулирующий
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллекторные группы для теплого пола и отопления
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Насосно-смесительные узлы
-													</a></li>
-											</ul>
-										</li>
-										<li>
-											<a href="#">
-												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
-												Коллекторы и узлы
-											</a>
-											<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-											<ul>
-												<li><a href="#"><img class="cat_menu_image" src="images/featured_3.png" alt="" />Коллектор с
-														шаровыми
-														кранами</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллектор регулирующий
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллекторные группы для теплого пола и отопления
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Насосно-смесительные узлы
-													</a></li>
-											</ul>
-										</li>
-										<li>
-											<a href="#">
-												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
-												Коллекторы и узлы
-											</a>
-											<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-											<ul>
-												<li><a href="#"><img class="cat_menu_image" src="images/featured_3.png" alt="" />Коллектор с
-														шаровыми
-														кранами</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллектор регулирующий
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллекторные группы для теплого пола и отопления
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Насосно-смесительные узлы
-													</a></li>
-											</ul>
-										</li>
-										<li>
-											<a href="#">
-												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
-												Коллекторы и узлы
-											</a>
-											<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-											<ul>
-												<li><a href="#"><img class="cat_menu_image" src="images/featured_3.png" alt="" />Коллектор с
-														шаровыми
-														кранами</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллектор регулирующий
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллекторные группы для теплого пола и отопления
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Насосно-смесительные узлы
-													</a></li>
-											</ul>
-										</li>
-										<li>
-											<a href="#">
-												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
-												Коллекторы и узлы
-											</a>
-											<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-											<ul>
-												<li><a href="#"><img class="cat_menu_image" src="images/featured_3.png" alt="" />Коллектор с
-														шаровыми
-														кранами</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллектор регулирующий
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллекторные группы для теплого пола и отопления
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Насосно-смесительные узлы
-													</a></li>
-											</ul>
-										</li>
-										<li>
-											<a href="#">
-												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
-												Коллекторы и узлы
-											</a>
-											<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-											<ul>
-												<li><a href="#"><img class="cat_menu_image" src="images/featured_3.png" alt="" />Коллектор с
-														шаровыми
-														кранами</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллектор регулирующий
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллекторные группы для теплого пола и отопления
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Насосно-смесительные узлы
-													</a></li>
-											</ul>
-										</li>
-										<li>
-											<a href="#">
-												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
-												Коллекторы и узлы
-											</a>
-											<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-											<ul>
-												<li><a href="#"><img class="cat_menu_image" src="images/featured_3.png" alt="" />Коллектор с
-														шаровыми
-														кранами</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллектор регулирующий
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллекторные группы для теплого пола и отопления
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Насосно-смесительные узлы
-													</a></li>
-											</ul>
-										</li>
-										<li>
-											<a href="#">
-												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
-												Коллекторы и узлы
-											</a>
-											<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-											<ul>
-												<li><a href="#"><img class="cat_menu_image" src="images/featured_3.png" />Коллектор с шаровыми
-														кранами</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллектор регулирующий
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллекторные группы для теплого пола и отопления
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Насосно-смесительные узлы
-													</a></li>
-											</ul>
-										</li>
-										<li>
-											<a href="#">
-												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
-												Коллекторы и узлы
-											</a>
-											<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-											<ul>
-												<li><a href="#"><img class="cat_menu_image" src="images/featured_3.png" />Коллектор с шаровыми
-														кранами</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллектор регулирующий
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллекторные группы для теплого пола и отопления
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Насосно-смесительные узлы
-													</a></li>
-											</ul>
-										</li>
-										<li>
-											<a href="#">
-												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
-												Коллекторы и узлы
-											</a>
-											<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-											<ul>
-												<li><a href="#"><img class="cat_menu_image" src="images/featured_3.png" />Коллектор с шаровыми
-														кранами</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллектор регулирующий
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллекторные группы для теплого пола и отопления
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Насосно-смесительные узлы
-													</a></li>
-											</ul>
-										</li>
-										<li>
-											<a href="#">
-												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
-												Коллекторы и узлы
-											</a>
-											<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-											<ul>
-												<li><a href="#"><img class="cat_menu_image" src="images/featured_3.png" />Коллектор с шаровыми
-														кранами</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллектор регулирующий
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллекторные группы для теплого пола и отопления
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Насосно-смесительные узлы
-													</a></li>
-											</ul>
-										</li>
-										<li>
-											<a href="#">
-												<img class="cat_menu_image" src="images/featured_2.png" alt="" />
-												Коллекторы и узлы
-											</a>
-											<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-											<ul>
-												<li><a href="#"><img class="cat_menu_image" src="images/featured_3.png" alt="" />Коллектор с
-														шаровыми
-														кранами</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллектор регулирующий
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Коллекторные группы для теплого пола и отопления
-													</a></li>
-												<li><a href="#">
-														<img class="cat_menu_image" src="images/featured_4.png" alt="" />
-														Насосно-смесительные узлы
-													</a></li>
-											</ul>
-										</li> --}}
 									</ul>
 								</div>
 
@@ -555,22 +175,13 @@
 										<li><a href="#">Прайс-лист<i class="fas fa-chevron-down"></i></a></li>
 										<li><a href="{{route("brands.index")}}">Бренды<i class="fas fa-chevron-down"></i></a></li>
 										<li>
-											<a href="certificates.php">Сертификаты<i class="fas fa-chevron-down"></i></a>
-											<!-- <ul>
-										<li><a href="shop.html">Shop<i class="fas fa-chevron-down"></i></a></li>
-										<li><a href="product.html">Product<i class="fas fa-chevron-down"></i></a></li>
-										<li><a href="blog.html">Blog<i class="fas fa-chevron-down"></i></a></li>
-										<li><a href="blog_single.html">Blog Post<i class="fas fa-chevron-down"></i></a></li>
-										<li><a href="regular.html">Regular Post<i class="fas fa-chevron-down"></i></a></li>
-										<li><a href="cart.html">Cart<i class="fas fa-chevron-down"></i></a></li>
-										<li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
-									</ul> -->
+											<a href="{{route("certificates.index")}}">Сертификаты<i class="fas fa-chevron-down"></i></a>
 										</li>
 										<li class="hassubs">
-											<a href="about.php">О компании<i class="fas fa-chevron-down"></i></a>
+											<a href="{{route('about.index')}}">О компании<i class="fas fa-chevron-down"></i></a>
 											<ul>
-												<li><a href="news.php">Новости<i class="fas fa-chevron-down"></i></a></li>
-												<li><a href="#">Вакансии<i class="fas fa-chevron-down"></i></a></li>
+												<li><a href="{{route('about.blog')}}">Новости</a></li>
+												<li><a href="#">Вакансии</a></li>
 											</ul>
 										</li>
 										<li><a href="contact.php">Контакты<i class="fas fa-chevron-down"></i></a></li>
@@ -625,7 +236,7 @@
 									<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
 								</ul> -->
 									</li>
-									<li class="page_menu_item"><a href="certificates.php">Сертификаты</a></li>
+									<li class="page_menu_item"><a href="{{route('certificates.index')}}">Сертификаты</a></li>
 									<li class="page_menu_item"><a href="about.php">О компании</a></li>
 
 									<li class="page_menu_item"><a href="contact.php">Контакты</a></li>
@@ -673,88 +284,23 @@
 
 								<div class="owl-carousel owl-theme viewed_slider">
 
-									<!-- Recently Viewed Item -->
-									<div class="owl-item">
-										<div
-											class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="viewed_image"><img src="{{asset('images/view_1.jpg')}}" alt=""></div>
-											<div class="viewed_content text-center">
-												<div class="viewed_price">Lorem</div>
-												<div class="viewed_name"><a href="#">Beoplay H7</a></div>
-											</div>
-											<ul class="item_marks">
-												<li class="item_mark item_new">new</li>
-											</ul>
-										</div>
-									</div>
-
-									<!-- Recently Viewed Item -->
-									<div class="owl-item">
-										<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="viewed_image"><img src="{{asset('images/view_2.jpg')}}" alt=""></div>
-											<div class="viewed_content text-center">
-												<div class="viewed_price">Lorem</div>
-												<div class="viewed_name"><a href="#">LUNA Smartphone</a></div>
-											</div>
-											<ul class="item_marks">
-											</ul>
-										</div>
-									</div>
-
-									<!-- Recently Viewed Item -->
-									<div class="owl-item">
-										<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="viewed_image"><img src="{{asset('images/view_3.jpg')}}" alt=""></div>
-											<div class="viewed_content text-center">
-												<div class="viewed_price">Lorem</div>
-												<div class="viewed_name"><a href="#">Samsung J730F...</a></div>
-											</div>
-											<ul class="item_marks">
-											</ul>
-										</div>
-									</div>
-
-									<!-- Recently Viewed Item -->
-									<div class="owl-item">
-										<div
-											class="viewed_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="viewed_image"><img src="{{asset('images/view_4.jpg')}}" alt=""></div>
-											<div class="viewed_content text-center">
-												<div class="viewed_price">Lorem</div>
-												<div class="viewed_name"><a href="#">Huawei MediaPad...</a></div>
-											</div>
-											<ul class="item_marks">
-											</ul>
-										</div>
-									</div>
-
-									<!-- Recently Viewed Item -->
-									<div class="owl-item">
-										<div
-											class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="viewed_image"><img src="{{asset('images/view_5.jpg')}}" alt=""></div>
-											<div class="viewed_content text-center">
-												<div class="viewed_price">Lorem</div>
-												<div class="viewed_name"><a href="#">Sony PS4 Slim</a></div>
-											</div>
-											<ul class="item_marks">
-											</ul>
-										</div>
-									</div>
-
-									<!-- Recently Viewed Item -->
-									<div class="owl-item">
-										<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="viewed_image"><img src="{{asset('images/view_6.jpg')}}" alt=""></div>
-											<div class="viewed_content text-center">
-												<div class="viewed_price">Lorem</div>
-												<div class="viewed_name"><a href="#">Speedlink...</a></div>
-											</div>
-											<ul class="item_marks">
-												<li class="item_mark item_new">new</li>
-											</ul>
-										</div>
-									</div>
+									@if (isset($_COOKIE['viewed_products']) AND !empty($_COOKIE['viewed_products']))
+											@foreach (json_decode($_COOKIE['viewed_products']) as $viewed_product)
+													<div class="owl-item">
+														<div
+															class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
+															<div class="viewed_image"><img src="{{asset("images/$viewed_product->image")}}" alt="{{$viewed_product->name}}"></div>
+															<div class="viewed_content text-center">
+																{{-- <div class="viewed_price">Lorem</div>  --}}
+																<div class="viewed_name"><a href="">{{$viewed_product->name}}</a></div>
+															</div>
+															<ul class="item_marks">
+																<li class="item_mark item_new">new</li>
+															</ul>
+														</div>
+													</div>													
+											@endforeach
+									@endif
 								</div>
 							</div>
 						</div>

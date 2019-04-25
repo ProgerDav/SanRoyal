@@ -4,7 +4,7 @@
 							<ul class="sidebar_categories">
 								@forelse ($categories as $category)
 									<li>
-										<a href="#">
+										<a href="{{route('catalog.category', ['category_slug' => Str::slug($category->id.' '.$category->slug)])}}">
 											<img class="sidebar_image" src="{{asset("images/$category->image")}}" />
 											{{$category->name}}
 										</a>
@@ -12,7 +12,7 @@
 										<ul class="sidebar_subs">
 											@forelse ($category->subcategories as $subcategory)
 												<li>
-													<a href="#"><img class="sidebar_image" src="{{asset("images/$subcategory->image")}}" />{{$subcategory->name}}</a>
+													<a href="{{route('catalog.subcategory', ['category_slug' => Str::slug($category->slug), 'subcategory_slug' => Str::slug($subcategory->id.' '.$subcategory->slug)])}}"><img class="sidebar_image" src="{{asset("images/$subcategory->image")}}" />{{$subcategory->name}}</a>
 												</li>
 											@empty
 													
@@ -31,48 +31,44 @@
 							<div class="sidebar_section">
 								<div class="sidebar_subtitle brands_subtitle">Бренду</div>
 								<ul class="brands_list">
-									<li class="brand">
-										<label class="custom_checkbox_label">
-											<input type="checkbox">
-											<span class="custom_checkbox"><i class="fa fa-check"></i></span>
-											<span class="brand_filter">Apple</span>
-										</label>
-									</li>
-									<li class="brand">
-										<label class="custom_checkbox_label">
-											<input type="checkbox">
-											<span class="custom_checkbox"><i class="fa fa-check"></i></span>
-											<span class="brand_filter">Apple</span>
-										</label>
-									</li>
-									<li class="brand">
-										<label class="custom_checkbox_label">
-											<input type="checkbox">
-											<span class="custom_checkbox"><i class="fa fa-check"></i></span>
-											<span class="brand_filter">Apple</span>
-										</label>
-									</li>
-									<li class="brand">
-										<label class="custom_checkbox_label">
-											<input type="checkbox">
-											<span class="custom_checkbox"><i class="fa fa-check"></i></span>
-											<span class="brand_filter">Apple</span>
-										</label>
-									</li>
-									<li class="brand">
-										<label class="custom_checkbox_label">
-											<input type="checkbox">
-											<span class="custom_checkbox"><i class="fa fa-check"></i></span>
-											<span class="brand_filter">Apple</span>
-										</label>
-									</li>
-									<li class="brand">
-										<label class="custom_checkbox_label">
-											<input type="checkbox">
-											<span class="custom_checkbox"><i class="fa fa-check"></i></span>
-											<span class="brand_filter">Apple</span>
-										</label>
-									</li>
+									<form id="sortByBrands" action="?" method="GET" >
+										@if (count($available_brands) > 1)
+											@foreach ($available_brands as $brand)
+													<li class="brand">
+														<label class="custom_checkbox_label">
+															@if (request()->brands)
+																<input type="checkbox" name="brands[]" value='{{Str::slug($brand->slug)}}' {{in_array(Str::slug($brand->slug), request()->brands) ? 'checked' : ''}}>
+															@else
+																<input type="checkbox" name="brands[]" value='{{Str::slug($brand->slug)}}'>
+															@endif
+															<span class="custom_checkbox"><i class="fa fa-check"></i></span>
+															<span class="brand_filter">{{$brand->name}}</span>
+														</label>
+													</li>													
+											@endforeach
+											<button class="btn btn-primary">Применить</button>
+											<a href="{{url()->current()}}" class="btn btn-default">Сбросить</a>
+										@else
+											<p>Пусто</p>
+										@endif
+									</form>
+									{{-- <script>
+										document.getElementById('sortByBrands').addEventListener('submit', function(e){
+											if (window.history) {
+												e.preventDefault();
+												let 
+													url = "{{request()->url()}}",
+													data = new FormData(e.target),
+													params = new URLSearchParams();
+
+												for(let item of data.entries()){
+													params.append(item[0], item[1]);
+												}
+												
+												window.history.pushState({}, null, url + '?' + params);
+											}
+										})
+									</script>	 --}}
 								</ul>
 							</div>
 						@endif

@@ -7,7 +7,6 @@
     @include('layouts.banner', ["text" => ""])
     
 {{-- Characteristics --}}
-
     <div class="characteristics">
 			<div class="container">
 				<div class="row">
@@ -76,14 +75,15 @@
 								<div class="owl-carousel owl-theme deals_slider">
                   @forelse ($featured as $product)
                       <div class="owl-item deals_item">
-                        <div class="deals_image"><img src="images/deals.png" alt=""></div>
+												<div class="deals_image"><img src="{{asset("images/$product->image")}}" alt="{{$product->name}}"></div>
                         <div class="deals_content">
                           <div class="deals_info_line d-flex flex-row justify-content-start">
-                            <div class="deals_item_category"><a href="#"> {{$product->first()->sub_categories->name}} </a></div>
+														{{-- <div class="deals_item_category"><a href="{{route('catalog.product', ["product_slug" => Str::slug($product->slug), "subcategory_slug" => Str::slug($product->first()->sub_categories->slug)])}}"> {{$product->first()->sub_categories->name}} </a></div> --}}
+														<div class="deals_item_category">{{$product->sub_categories->name}}</div>
                           </div>
                           <div class="deals_info_line d-flex flex-column justify-content-start">
                             <div class="deals_item_name">{{ $product->name }}</div>
-                            <div class="deals_item_brand">{{ $product->first()->brands->name }}</div>
+                            {{-- <div class="deals_item_brand">{{ $product->brands() }}</div> --}}
                           </div>
                           <div class="deals_timer d-flex flex-row align-items-center justify-content-start">
                             <div class="deals_timer_content">
@@ -122,24 +122,26 @@
 								<!-- Product Panel -->
 								<div class="product_panel panel active">
 									<div class="featured_slider slider">
-                    @forelse ($products as $product)
+                    @forelse ($products as $prod)
                         <div class="featured_slider_item">
                           <div class="border_active"></div>
                           <div
-                            class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                            <div class="product_image d-flex flex-column align-items-center justify-content-center">
-                              <img src="{{asset("images/$product->image")}}" alt="{{$product->name}}"></div>
+                            class="product_item d-flex flex-column align-items-center justify-content-center text-center">
+														<a 	href="{{route('catalog.product', ['category_slug' => Str::slug($prod->sub_categories->categories->slug), 'subcategory_slug' => Str::slug($prod->sub_categories->slug), 'product_slug' => Str::slug($prod->slug)])}}"
+															class="product_image d-flex flex-column align-items-center justify-content-center">
+															<img src="{{asset("images/$prod->image")}}" alt="{{$prod->name}}">
+														</a>
                             <div class="product_content">
-                              <div class="product_price">{{$product->first()->sub_categories->name}}</div>
+                              <div class="product_category">{{$prod->sub_categories->name}}</div>
                               <div class="product_name">
-                                <div><a href="product.html">{{$product->name}}</a></div>
+                                {{$prod->name}}
                               </div>
                               <div class="product_extras">
-                                <button class="product_cart_button">Просмотр</button>
+                                <button class="product_cart_button"><a class="text-white" href="{{route('catalog.product', ['category_slug' => Str::slug($prod->sub_categories->categories->slug), 'subcategory_slug' => Str::slug($prod->sub_categories->slug), 'product_slug' => Str::slug($prod->slug)])}}" >Просмотр</a></button>
                               </div>
                             </div>
                             <ul class="product_marks">
-                              <li class="product_mark product_new">Новинка!</li>
+                              {{-- <li class="product_mark product_new">Новинка!</li> --}}
                             </ul>
                           </div>
                         </div>
@@ -215,9 +217,10 @@
                           <div
                             class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
                             <div class="product_image d-flex flex-column align-items-center justify-content-center">
-                              <img src="{{asset("images/$product->image")}}" alt="{{$product->name}}"></div>
+															<img src="{{asset("images/$product->image")}}" alt="{{$product->name}}">
+														</div>
                               <div class="product_content">
-                                <div class="product_price">{{$product->first()->sub_categories->name}}</div>
+                                <div class="product_category">{{$product->sub_categories->name}}</div>
                                 <div class="product_name">
                                   <div><a href="product.html">{{$product->name}}</a></div>
                                 </div>
@@ -286,8 +289,8 @@
                       <div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
                         <div class="bestsellers_image"><img src="{{asset("images/$category->image")}}" alt="{{$category->name}}"></div>
                         <div class="bestsellers_content">
-                          <div class="bestsellers_category"><a href="#"></a></div>
-                          <div class="bestsellers_name"><a href="product.html">{{$category->name}}</a></div>
+                          {{-- <div class="bestsellers_category"><a href="#"></a></div> --}}
+                          <div class="bestsellers_name"><a href="{{route('catalog.category', ['category_slug' => Str::slug($category->slug)])}}">{{$category->name}}</a></div>
                           <div class="bestsellers_price"></div>
                         </div>
                       </div>

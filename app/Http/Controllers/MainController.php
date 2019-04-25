@@ -24,6 +24,6 @@ class MainController extends Controller
         $featured = Product::all()->take(4);
         $brands = Brand::all();
         $sales = Product::all()->take(9);
-        return view("index")->with(["products" => $products, "brands" => $brands, "featured" => $featured, "sales" => $sales]);   
+        return view("index")->with(["products" => $products, "brands" => $brands, "featured" => $featured, "sales" => $sales]); 
     }
 }

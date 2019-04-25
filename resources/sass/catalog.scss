@@ -1,6 +1,6 @@
-/*********************************
-5. Shop
-*********************************/
+// /*********************************
+// 5. Shop
+// *********************************/
 
 .shop
 {
@@ -140,7 +140,7 @@
 	justify-content: center;
 	align-items: center;
 	position: relative;
-	width: 20% !important;
+	width: 20%;
 	background: #FFFFFF;
 	cursor: pointer;
 	padding-top: 40px;
@@ -230,7 +230,7 @@
 	font-weight: 500 !important;
 	font-size: 16px !important;
 	color: #333436 !important;
-
+}
 .product_name a{
 	color: #333436 !important;
 }
@@ -666,17 +666,17 @@
 	visibility: hidden;
 }
 .custom_checkbox_label .brand_filter::after{
-	content: "";
-	position: absolute;
-	left: 97%;
-	width: 10px;
-	height: 10px;
-	background: #0d82d3;
-	box-shadow: 0 0 3px #000 inset;
-	border-radius: 2px;
-	top: 50%;
-	transform: translateY(-50%);
-	transition: .2s ease;
+	// content: "";
+	// position: absolute;
+	// left: 97%;
+	// width: 10px;
+	// height: 10px;
+	// background: #0d82d3;
+	// box-shadow: 0 0 3px #000 inset;
+	// border-radius: 2px;
+	// top: 50%;
+	// transform: translateY(-50%);
+	// transition: .2s ease;
 }
 .custom_checkbox_label input[type="checkbox"]:checked + .custom_checkbox i{
 	transform: translateY(0) scale(1.1);
@@ -684,8 +684,8 @@
 	visibility: visible;
 }
 .custom_checkbox_label input[type="checkbox"]:checked ~ .brand_filter::after{
-	left: -20px;
-	opacity: 0;
+	// left: -20px;
+	// opacity: 0;
 }
 
 .brand a
@@ -697,7 +697,4 @@
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
-.brand a:hover
-{
-	color: #0e8ce4;
-}
+

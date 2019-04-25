@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class SubCategory extends Model
 {
     public $timestamps = false;
-    // protected $fillable = ["cid", "name", "slug", "image"];
 
     public function categories(){
-        return $this->belongsTo("App\Category", "id");
+        return $this->belongsTo("App\Category", "cid");
     }
 
     public function products(){
