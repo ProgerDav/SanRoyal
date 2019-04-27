@@ -29,5 +29,20 @@ class ProductTableSeed extends Seeder
                 "scid" => $c
             ])->sub_categories()->associate($c)->brands()->associate($b);
         }
+
+        for($i = 1; $i < 50; $i++){
+            $b = mt_rand(1, 10);
+            $c = mt_rand(1, 30);        
+            $word = $arr[array_rand($arr)];
+            $img = "new_".mt_rand(1, 10).".jpg";
+            Product::create([
+                "name" => "Product ".$i,
+                "slug" => $word." ".$i.mt_rand(0, 10000),
+                "image" => $img,
+                "description" => $words,
+                "bid" => $b,
+                "scid" => $c
+            ])->sub_categories()->associate($c)->brands()->associate($b);
+        }
     }
 }

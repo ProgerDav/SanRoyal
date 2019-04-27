@@ -94,7 +94,11 @@ class CatalogController extends Controller
         $subcategory = SubCategory::findOrFail($id);
         $category = $subcategory->categories;
         if(request()->brands){
-            $products = $subcategory->products()->with('brands')->whereHas('brands', function($query){ $query->whereIn('slug', request()->brands); })->paginate(10);
+            $brands = request()->brands;
+            array_walk($brands, function(&$item){
+                $item = str_replace('-', ' ', $item);
+            });
+            $products = $subcategory->products()->with('brands')->whereHas('brands', function($query) use($brands){ $query->whereIn('slug', $brands); })->paginate(10);
         }else{
             $products = $subcategory->products()->paginate(10);
         }

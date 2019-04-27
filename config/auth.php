@@ -13,6 +13,8 @@ return [
     |
     */
 
+    'table' => 'admins',
+
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',

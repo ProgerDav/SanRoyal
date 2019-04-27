@@ -34,3 +34,12 @@ Route::get('/brands', "BrandsController@index")->name("brands.index");
 
 Route::get("/brands/{slug}", "BrandsController@show")->name("brands.single");
 
+Auth::routes(['register' => false, 'reset' => false]);
+
+Route::middleware('auth')->namespace('Admin')->prefix('admin-panel')->name('admin.')->group(function(){
+  Route::get('/', 'AdminController@index')->name('index');
+  Route::resource('/categories', 'CategoriesController', ["only" => ['index', 'create', 'update', 'edit', 'store', 'destroy']]);
+  Route::resource('/subcategories', 'SubCategoriesController', ["only" => ['index', 'create', 'update', 'edit', 'store', 'destroy']]);
+});
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

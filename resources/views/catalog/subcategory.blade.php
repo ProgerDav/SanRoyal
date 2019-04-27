@@ -16,7 +16,7 @@
         <div class="col-lg-9">
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-            <div class="shop_product_count"><a href="{{route("index")}}">Главная</a> > <a href="{{route("catalog.index")}}">Каталог</a> > <a href="{{route("catalog.category", ["category_slug" => Str::slug($category->id.' '.$category->slug)])}}">{{$category->name}}</a> > <span>{{$subcategory->name}}</span> | <span>{{$products->count()}}</span> найдено на {{request()->input('page') ?? '1'}} странице / всего найдено <span>{{$products->total()}}</span></div>
+            <div class="shop_product_count"><a href="{{route("index")}}">Главная</a> > <a href="{{route("catalog.index")}}">Каталог</a> > <a href="{{route("catalog.category", ["category_slug" => Str::slug($category->id.' '.$category->slug)])}}">{{$category->name}}</a> > <span>{{$subcategory->name}}</span> | <span>{{$products->count()}}</span> найдено на {{is_numeric(request()->input('page')) ? request()->input('page') : '1'}} странице / всего найдено <span>{{$products->total()}}</span></div>
 						</div>
 
 						<div class="product_grid d-flex align-items-center flex-wrap">

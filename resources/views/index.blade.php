@@ -127,9 +127,9 @@
                           <div class="border_active"></div>
                           <div
                             class="product_item d-flex flex-column align-items-center justify-content-center text-center">
-														<a 	href="{{route('catalog.product', ['category_slug' => Str::slug($prod->sub_categories->categories->slug), 'subcategory_slug' => Str::slug($prod->sub_categories->slug), 'product_slug' => Str::slug($prod->slug)])}}"
+														<a 	href="{{route('catalog.product', ['category_slug' => Str::slug($prod->sub_categories->categories->slug), 'subcategory_slug' => Str::slug($prod->sub_categories->slug), 'product_slug' => Str::slug($prod->id.' '.$prod->slug)])}}"
 															class="product_image d-flex flex-column align-items-center justify-content-center">
-															<img src="{{asset("images/$prod->image")}}" alt="{{$prod->name}}">
+															<img src="{{asset("images/$prod->image")}}" alt="{{$prod->name}}" />
 														</a>
                             <div class="product_content">
                               <div class="product_category">{{$prod->sub_categories->name}}</div>
@@ -186,7 +186,7 @@
 							repellendus
 							omnis?
 						</article>
-						<a href="#" class="button">Читать дальше</a>
+						<a href="{{route('about.index')}}" class="button">Читать дальше</a>
 					</div>
         </div>
         
@@ -222,10 +222,10 @@
                               <div class="product_content">
                                 <div class="product_category">{{$product->sub_categories->name}}</div>
                                 <div class="product_name">
-                                  <div><a href="product.html">{{$product->name}}</a></div>
+                                  <div><a href="{{route('catalog.product', ['category_slug' => Str::slug($product->sub_categories->categories->slug), 'subcategory_slug' => Str::slug($product->sub_categories->slug), 'product_slug' => Str::slug($product->id.' '.$product->slug)])}}">{{$product->name}}</a></div>
                                 </div>
                                 <div class="product_extras">
-                                  <button class="product_cart_button">Просмотр</button>
+                                  <button class="product_cart_button"><a class='text-white' href="{{route('catalog.product', ['category_slug' => Str::slug($product->sub_categories->categories->slug), 'subcategory_slug' => Str::slug($product->sub_categories->slug), 'product_slug' => Str::slug($product->id.' '.$product->slug)])}}">Просмотр</a></button>
                                 </div>
                               </div>
                               <ul class="product_marks">
@@ -290,7 +290,7 @@
                         <div class="bestsellers_image"><img src="{{asset("images/$category->image")}}" alt="{{$category->name}}"></div>
                         <div class="bestsellers_content">
                           {{-- <div class="bestsellers_category"><a href="#"></a></div> --}}
-                          <div class="bestsellers_name"><a href="{{route('catalog.category', ['category_slug' => Str::slug($category->slug)])}}">{{$category->name}}</a></div>
+                          <div class="bestsellers_name"><a href="{{route('catalog.category', ['category_slug' => Str::slug($category->id.' '.$category->slug)])}}">{{$category->name}}</a></div>
                           <div class="bestsellers_price"></div>
                         </div>
                       </div>

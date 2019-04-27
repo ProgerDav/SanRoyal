@@ -28,10 +28,12 @@
               </div>
 							<div class="shop_product_count"><a href="{{route("index")}}">Главная</a> > <a href="{{route("catalog.index")}}">Каталог</a> | 
 								@if(!empty($keywords))
-									По запросу &quot;{{request()->q}}&quot; <span>{{$products->count()}}</span> ничего не найдено <div></div>
+									По запросу &quot;{{request()->q}}&quot; ничего не найдено <div></div>
 									Показаны результаты содержащие {!!implode(', ', $keywords) !!} | <span>{{$products->count()}}</span> найдено на {{request()->input('page') ?? '1'}} странице / всего найдено <span>{{$products->total()}}</span>
 								@else
-									По запросу &quot;{{request()->q}}&quot; <span>{{$products->count()}}</span> найдено на {{request()->input('page') ?? '1'}} странице / всего найдено <span>{{$products->total()}}</span>
+									@if(!empty($products))	
+										По запросу &quot;{{request()->q}}&quot; <span>{{$products->count()}}</span> найдено на {{request()->input('page') ?? '1'}} странице / всего найдено <span>{{$products->total()}}</span>
+									@endif	
 								@endif	
 							</div>
 						</div>
