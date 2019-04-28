@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Brand extends Model
 {
     public $timestamps = false;
+    protected $fillable = ['name', 'slug', 'description', 'image'];
     
     public function products(){
         return $this->hasMany("App\Product", 'bid');

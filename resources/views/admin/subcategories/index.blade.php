@@ -40,52 +40,54 @@
               </td>
             </tr>
           @empty
-
+            <h3>Данные отсутствуют</h3>
           @endforelse
         </tbody>
       </table>
-      <div class="modal fade" id="trashModal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header"><span class="text-danger">Внимание!</span></div>
-            <div class="modal-body">
-              При удалении этой подкатегории все её продукты будут удалены.
-            </div>
-            <div class="modal-footer">
-              <form method="POST" id="forceDelete" action="{{route('admin.subcategories.destroy', ["category" => $subcategory->id + 1])}}">  
-                @csrf
-                @method('DELETE')
-                <input type="hidden" name="id" />
-                <button class="btn btn-danger"><i class="fa fa-trash"></i> Удалить все</button>
-              </form>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+      @if(isset($subcategory))
+        <div class="modal fade" id="trashModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header"><span class="text-danger">Внимание!</span></div>
+              <div class="modal-body">
+                При удалении этой подкатегории все её продукты будут удалены.
+              </div>
+              <div class="modal-footer">
+                <form method="POST" id="forceDelete" action="{{route('admin.subcategories.destroy', ["category" => $subcategory->id + 1])}}">  
+                  @csrf
+                  @method('DELETE')
+                  <input type="hidden" name="id" />
+                  <button class="btn btn-danger"><i class="fa fa-trash"></i> Удалить все</button>
+                </form>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      @push('scripts')
+          <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+          <script>
+            $("#data").DataTable({
+              "language": {
+                "info": "Показаны результаты с _START_ по _END_. Всего: _TOTAL_",
+                "emptyTable": "Ничего не найдено.",
+                "search": "Поиск: ",
+                "lengthMenu": "Показывать _MENU_ строк(и)",
+                "paginate": {
+                    "next":       "Следующая",
+                    "previous":   "Предыдущая"
+                },
+              }
+            });
+            $(document).on('click', '.del', function(){
+              const 
+                id = $(this).data('id'),
+                action = $("#forceDelete").attr('action').split('/');
+                action[action.length - 1] = id;
+              $("#forceDelete").attr('action', action.join('/'));
+            });
+          </script>    
+      @endpush
+    @endif  
     </div>
-    @push('scripts')
-        <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script>
-          $("#data").DataTable({
-            "language": {
-              "info": "Показаны результаты с _START_ по _END_. Всего: _TOTAL_",
-              "emptyTable": "Ничего не найдено.",
-              "search": "Поиск: ",
-              "lengthMenu": "Показывать _MENU_ строк(и)",
-              "paginate": {
-                  "next":       "Следующая",
-                  "previous":   "Предыдущая"
-              },
-            }
-          });
-          $(document).on('click', '.del', function(){
-            const 
-              id = $(this).data('id'),
-              action = $("#forceDelete").attr('action').split('/');
-              action[action.length - 1] = id;
-            $("#forceDelete").attr('action', action.join('/'));
-          });
-        </script>    
-    @endpush
 @endsection

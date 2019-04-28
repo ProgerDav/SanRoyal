@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 
 @section('title')
-    Редактируемая категория - {{$subcategory->name}}
+    Редактируемый сертификат - {{$certificate->title}}
 @endsection
 
 @section('content')
@@ -18,30 +18,16 @@
           {{session()->get('success')}}
         </div>
       @endif
-      <form method="post" enctype="multipart/form-data" action="{{route('admin.subcategories.update', $subcategory->id)}}">
+      <form method="post" enctype="multipart/form-data" action="{{route('admin.certificates.update', $certificate->id)}}">
         @method('PATCH')
         @csrf
         <div class="form-group">
           <label>Название</label>
-          <input class="form-control" type="text" name="name" value="{{old('name') ?? $subcategory->name}}" />
+          <input class="form-control" type="text" name="title" value="{{old('title') ?? $certificate->title}}" />
         </div>
         <div class="form-group">
           <label>Изображение</label>
           <input class="form-control" type="file" allow="image/*" name="image" />
-        </div>
-        <div class="form-group">
-          <label>Категория</label>
-          <select class="form-control" name="category">
-            @forelse ($categories as $cat)
-              @if (old('category'))
-                <option {{$cat->id == old('category') ? 'selected' : ''}} value="{{$cat->id}}">{{$cat->name}}</option>
-              @else
-                <option {{$cat->id === $subcategory->categories->id ? 'selected' : ''}} value="{{$cat->id}}">{{$cat->name}}</option>                  
-              @endif  
-            @empty
-
-            @endforelse  
-          </select>
         </div>
         <button type="submit" class="btn btn-primary">Сохранить</button>
       </form>

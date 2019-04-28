@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\SubCategory;
 use App\Product;
+use App\Post;
+use App\Brand;
+use App\Certificate;
 
 class AdminController extends Controller
 {
@@ -20,7 +23,10 @@ class AdminController extends Controller
         $cat_num = Category::count();
         $subcat_num = SubCategory::count();
         $product_num = Product::count();
-        return view('admin.index')->with(['cat_num' => $cat_num, 'subcat_num' => $subcat_num, 'product_num' => $product_num]);
+        $brand_num = Brand::count();
+        $certificate_num = Certificate::count();
+        $post_num = Post::count();
+        return view('admin.index')->with(['cat_num' => $cat_num, 'subcat_num' => $subcat_num, 'product_num' => $product_num, 'brand_num' => $brand_num, 'certificate_num' => $certificate_num, 'post_num' => $post_num]);
     }
 
     /**

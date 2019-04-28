@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Brand;
 use App\Category;
@@ -28,8 +29,13 @@ class BrandsController extends Controller
      */
     public function show(string $slug)
     {
-        $slug = str_replace('-', " ", $slug);
-        $brand = Brand::where("slug", $slug)->firstOrFail();
+        $parts = explode('-', $slug);
+        $id = array_shift($parts);
+        $slug = implode('-', $parts);
+        $brand = Brand::findOrFail($id);
+
+        if(Str::slug($brand->slug) !== $slug) return redirect()->route('brands.single', ['slug' => Str::slug($brand->id.' '.$brand->slug)]);
+
         $arr = $brand->products->groupBy('scid')->map(function($item){ return $item->first()->scid; })->toArray();
         $result = Category::find(SubCategory::find($arr)->map(function($subcat){ return $subcat->cid; }));
 

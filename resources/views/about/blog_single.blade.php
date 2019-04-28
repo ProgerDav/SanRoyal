@@ -25,30 +25,33 @@
 		</div>
 	</div>
 
-	<!-- Blog Posts -->
-
-	<div class="blog">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="blog_posts d-flex flex-row align-items-start justify-content-between">
-
-            @forelse ($related as $item)
-              <div class="blog_post">
-                <div class="blog_image" style="background-image:url({{asset("images/$item->image")}})"></div>
-                <div class="blog_text">{{$item->title}}</div>
-                <div class="blog_button"><a href="{{route('about.blog_single', ['post_slug' => Str::slug($item->id.' '.$item->title)])}}">Читать дальше</a></div>
-              </div>
-            @empty
-                
-            @endforelse
-            
-					</div>
-				</div>	
+	<!-- Gallery -->
+	@if (!empty($post->additional_image))	
+		<div class="blog">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="gallery_slider_container">
+									<div class="owl-carousel owl-theme gallery_slider">
+										@forelse (explode('-', $post->additional_images) as $image)
+											<div class="owl-item">
+												<div class="gallery_item d-flex flex-column justify-content-center">		
+													<img src="{{asset("images/$image")}}" alt="">
+												</div>
+											</div>
+										@empty
+												<p>Ничего не найдено</p>
+										@endforelse
+									</div>
+									<!-- Brands Slider Navigation -->
+									<div class="gallery_nav gallery_prev"><i class="fas fa-chevron-left"></i></div>
+									<div class="gallery_nav gallery_next"><i class="fas fa-chevron-right"></i></div>
+								</div>
+					</div>	
+				</div>
 			</div>
 		</div>
-	</div>
-
+	@endif
   @push('scripts')
     <script src="{{asset('js/plugins/parallax-js-master/parallax.min.js')}}"></script>
     <script src="{{asset('js/blog_single_custom.js')}}"></script>

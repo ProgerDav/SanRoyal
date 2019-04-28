@@ -35,10 +35,13 @@ class ProductTableSeed extends Seeder
             $c = mt_rand(1, 30);        
             $word = $arr[array_rand($arr)];
             $img = "new_".mt_rand(1, 10).".jpg";
+            $img2 = "new_".mt_rand(1, 10).".jpg";
+            $img3 = "new_".mt_rand(1, 10).".jpg";
             Product::create([
                 "name" => "Product ".$i,
                 "slug" => $word." ".$i.mt_rand(0, 10000),
                 "image" => $img,
+                "additional_images" => $img2.'-'.$img3,
                 "description" => $words,
                 "bid" => $b,
                 "scid" => $c

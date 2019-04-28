@@ -11,13 +11,14 @@
   <div class="single_product">
   <div class="container">
     <div class="row">
-      {{var_dump($arr)}}
+      {{-- {{var_dump($arr)}} --}}
       <!-- Images -->
       <div class="col-lg-2 order-lg-1 order-2">
         <ul class="image_list">
-          <li data-image="{{asset('images/single_4.jpg')}}"><img src="{{asset('images/single_4.jpg')}}" alt=""></li>
-          <li data-image="{{asset('images/single_3.jpg')}}"><img src="{{asset('images/single_3.jpg')}}" alt=""></li>
-          <li data-image="{{asset('images/single_2.jpg')}}"><img src="{{asset('images/single_2.jpg')}}" alt=""></li>
+          <li data-image="{{asset("images/$product->image")}}"><img src="{{asset("images/$product->image")}}" alt="{{$product->name}}"></li>
+          @foreach (explode('-', $product->additional_images) as $image)
+            <li data-image="{{asset("images/$image")}}"><img src="{{asset("images/$image")}}" alt="{{$product->name}}"></li>   
+          @endforeach
         </ul>
       </div>
 
@@ -44,5 +45,7 @@
     </div>
   </div>
 </div>
-
+@push('scripts')
+	<script src="{{asset('js/product_custom.js')}}"></script>    
+@endpush
 @endsection

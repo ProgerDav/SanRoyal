@@ -102,7 +102,7 @@ class SubCategoriesController extends Controller
         $image_name = time().'.'.$image->getClientOriginalExtension();
         Image::make($image)->resize(400, 400)->save(public_path("images/$image_name"));
 
-        $subcategory = SubCategory::find($id);
+        $subcategory = SubCategory::findOrFail($id);
         $subcategory->name = $request->name;
         $subcategory->slug = $request->name;
         $subcategory->image = $image_name;
@@ -119,7 +119,7 @@ class SubCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $subcategory = SubCategory::find($id);
+        $subcategory = SubCategory::findOrFail($id);
         $products = $subcategory->products;
         foreach($products as $product){
             $product->delete();

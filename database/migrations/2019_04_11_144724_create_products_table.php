@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->mediumText("description");
 
             $table->string("image");
+            $table->string("additional_images")->nullable()->default(null);
 
             $table->bigInteger("scid")->unsigned()->nullable()->default(null);
             $table->foreign("scid")->references("id")->on("sub_categories");

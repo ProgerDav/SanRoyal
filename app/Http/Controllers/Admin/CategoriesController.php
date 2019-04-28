@@ -97,7 +97,7 @@ class CategoriesController extends Controller
         $image_name = time().'.'.$image->getClientOriginalExtension();
         Image::make($image)->resize(400, 400)->save(public_path("images/$image_name"));
 
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
         $category->name = $request->name;
         $category->slug = $request->name;
         $category->image = $image_name;
@@ -113,7 +113,7 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
         $subcategories = $category->subcategories;
         foreach($subcategories as $subcategory){
             $products = $subcategory->products;

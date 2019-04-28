@@ -1212,7 +1212,7 @@ p {
   font-size: 14px;
   line-height: 1.7;
   font-weight: 400;
-  color: #828282;
+  color: #333436;
   -webkit-font-smoothing: antialiased;
   -webkit-text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
   text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
@@ -4292,7 +4292,8 @@ select option {
   max-width: 100%;
 }
 
-.brands_nav {
+.brands_nav,
+.gallery_nav {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -4301,8 +4302,32 @@ select option {
   cursor: pointer;
 }
 
+.gallery_nav {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  line-height: 20px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery_nav:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.gallery_prev {
+  left: -60px;
+}
+
+.gallery_next {
+  right: -60px;
+}
+
 .brands_nav i {
-  color: #e5e5e5;
+  color: #333436;
   transition: all 200ms ease;
 }
 

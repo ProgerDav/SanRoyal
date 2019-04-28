@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 
 @section('title')
-    Новая категория
+    Новый Бренд
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
           {{session()->get('success')}}
         </div>
       @endif
-      <form method="post" enctype="multipart/form-data" action="{{route('admin.subcategories.store')}}">
+      <form method="post" enctype="multipart/form-data" action="{{route('admin.brands.store')}}">
         @csrf
         <div class="form-group">
           <label>Название</label>
@@ -29,16 +29,16 @@
           <input class="form-control" type="file" allow="image/*" name="image" />
         </div>
         <div class="form-group">
-          <label>Категория</label>
-          <select class="form-control" name="category">
-            @forelse ($categories as $cat)
-              <option value="{{$cat->id}}">{{$cat->name}}</option>
-            @empty
-
-            @endforelse  
-          </select>
+          <label>Описание</label>
+          <textarea name="description" id="brand-description" >{{old('description') ?? ''}}</textarea>
         </div>
         <button type="submit" class="btn btn-primary">Создать</button>
       </form>
     </div>
+    @push('scripts')
+        <script src="{{asset("/vendor/unisharp/laravel-ckeditor/ckeditor.js")}}"></script>
+        <script>
+            CKEDITOR.replace( 'brand-description' );
+        </script>
+    @endpush
 @endsection

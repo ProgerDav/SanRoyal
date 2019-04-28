@@ -32,17 +32,16 @@
               </div> -->
             </div>
             <div class="product_grid d-flex align-items-center flex-wrap">
-            {{-- <div class="product_grid"> --}}
               <div class="product_grid_border"></div>
                   @forelse ($brands as $brand)
                           <div class="product_item brand-item">
                             <div class="product_border"></div>
-                            <a href="{{route("brands.single", ['slug' => Str::slug($brand->slug)])}}" class="product_image d-flex flex-column align-items-center justify-content-center">
+                            <a href="{{route("brands.single", ['slug' => Str::slug($brand->id.' '.$brand->slug)])}}" class="product_image d-flex flex-column align-items-center justify-content-center">
                               <img src="{{asset("images/$brand->image")}}" alt="{{$brand->name}}">
                             </a>
                             <div class="product_content">
                               <div class="product_name">
-                                <div><a href="{{route("brands.single", ['slug' => Str::slug($brand->slug)])}}" tabindex="0">{{$brand->name}}</a></div>
+                                <div><a href="{{route("brands.single", ['slug' => Str::slug($brand->id.' '.$brand->slug)])}}">{{$brand->name}}</a></div>
                               </div>
                             </div>
                           </div>
