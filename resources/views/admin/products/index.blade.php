@@ -20,6 +20,8 @@
           <tr>
             <th>Название</th>
             <th>Изображение</th>
+            <th>Производство</th>
+            <th>Гарантия</th>
             <th>Подкатегория</th>
             <th>Бренд</th>
             <th>Редактировать | Смотреть</th>
@@ -31,6 +33,8 @@
             <tr>
               <td>{{$product->name}}</td>
               <td><img class="img-sm" src="{{asset("images/$product->image")}}" alt="{{$product->name}}" /></td>
+              <td>{{$product->production}}</td>
+              <td>{{$product->warranty}}</td>
               <td>{{$product->sub_categories->name}}</td>
               <td>{{$product->brands->name}}</td>
               <td>
@@ -52,7 +56,7 @@
             <div class="modal-content">
               <div class="modal-header"><span class="text-danger">Внимание!</span></div>
               <div class="modal-body">
-                При удалении данные пудут потеряны.
+                При удалении данные будут потеряны.
               </div>
               <div class="modal-footer">
                 <form method="POST" id="forceDelete" action="{{route('admin.products.destroy', ["products" => $product->id + 1])}}">  

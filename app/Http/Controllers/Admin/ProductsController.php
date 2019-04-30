@@ -49,10 +49,12 @@ class ProductsController extends Controller
 
         $request->validate([
             'name' => 'required',
+            'warranty' => 'required',
+            'production' => 'required',
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,|max:2048',
-            'additional_images' => 'required|array',
-            'additional_images.*' => 'required|image|mimes:jpeg,png,jpg,|max:4096',
+            'additional_images' => 'array',
+            'additional_images.*' => 'image|mimes:jpeg,png,jpg,|max:4096',
             'subcategory' => 'required',
             'brand' => 'required'
         ], $messages);
@@ -62,14 +64,18 @@ class ProductsController extends Controller
         Image::make($image)->resize(400, 400)->save(public_path("images/$image_name"));
         $add_images = [];
 
-        foreach($request->additional_images as $add_image){
-            $add_image_name = "product_".mt_rand(0, 100000).time().'.'.$add_image->getClientOriginalExtension();
-            $add_images[] = $add_image_name;
-            Image::make($add_image)->resize(400, 400)->save(public_path("images/$add_image_name"));
+        if(!empty($request->additional_images)){
+            foreach($request->additional_images as $add_image){
+                $add_image_name = "product_".mt_rand(0, 100000).time().'.'.$add_image->getClientOriginalExtension();
+                $add_images[] = $add_image_name;
+                Image::make($add_image)->resize(400, 400)->save(public_path("images/$add_image_name"));
+            }
         }
 
         $new_product = new Product([
             'name' => $request->name,
+            'production' => $request->production,
+            'warranty' => $request->warranty,
             'slug' => $request->name,
             'description' => $request->description,
             'image' => $image_name,
@@ -112,6 +118,8 @@ class ProductsController extends Controller
 
          $request->validate([
             'name' => 'required',
+            'warranty' => 'required',
+            'production' => 'required',
             'description' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,|max:2048',
             'additional_images' => 'array',
@@ -140,6 +148,8 @@ class ProductsController extends Controller
         }
 
         $product->name = $request->name;
+        $product->production = $request->production;
+        $product->warranty = $request->warranty;
         $product->slug = $request->name;
         $product->description = $request->description;
         $product->scid = $request->subcategory;

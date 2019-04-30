@@ -53,6 +53,14 @@
           </select>
         </div>
         <div class="form-group">
+          <label>Производство</label>
+          <input type="text" class="form-control" name='production' value="{{old('production') ?? ''}}" />
+        </div>
+        <div class="form-group">
+          <label>Гарантия</label>
+          <input type="text" class="form-control" name='warranty' value="{{old('warranty') ?? ''}}" />
+        </div>
+        <div class="form-group">
           <label>Описание</label>
           <textarea name="description" id="product-description" >{{old('description') ?? ''}}</textarea>
         </div>

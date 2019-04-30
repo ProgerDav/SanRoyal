@@ -84,11 +84,6 @@
 										<form action="{{route('catalog.search')}}" class="header_search_form clearfix">
 											<input type="search" required="required" name='q' value='{{request()->q ?? ''}}' class="header_search_input"
 												placeholder="Поиск продуктов..." />
-											{{-- <div class="custom_dropdown">
-												<span class="custom_dropdown_placeholder">Категории</span>
-												<ul class="custom_list">
-												</ul>
-											</div> --}}
 											<button type="submit" class="header_search_button trans_300" value="Submit"><img
 												src="{{asset('images/search.png')}}" alt=""></button>
 										</form>
@@ -99,33 +94,10 @@
 
 						<!-- Wishlist -->
 						<div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
-							<!-- <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
-								<div class="wishlist d-flex flex-row align-items-center justify-content-end">
-									<div class="wishlist_icon"><img src="images/heart.png" alt=""></div>
-									<div class="wishlist_content">
-										<div class="wishlist_text"><a href="#">Wishlist</a></div>
-										<div class="wishlist_count">115</div>
-									</div>
-								</div> -->
-
-							<!-- Cart -->
-							<!-- <div class="cart">
-									<div class="cart_container d-flex flex-row align-items-center justify-content-end">
-										<div class="cart_icon">
-											<img src="images/cart.png" alt="">
-											<div class="cart_count"><span>10</span></div>
-										</div>
-										<div class="cart_content">
-											<div class="cart_text"><a href="#">Cart</a></div>
-											<div class="cart_price">$85</div>
-										</div>
-									</div>
-								</div> -->
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- </div> -->
 
 			<!-- Main Navigation -->
 
@@ -172,10 +144,10 @@
 								<div class="main_nav_menu ml-auto">
 									<ul class="standard_dropdown main_nav_dropdown">
 										<li><a href="{{route('catalog.index')}}">Каталог<i class="fas fa-chevron-down"></i></a></li>
-										<li><a href="#">Прайс-лист<i class="fas fa-chevron-down"></i></a></li>
-										<li><a href="{{route("brands.index")}}">Бренды<i class="fas fa-chevron-down"></i></a></li>
+										<li><a href="#">Прайс-лист</a></li>
+										<li><a href="{{route("brands.index")}}">Бренды</a></li>
 										<li>
-											<a href="{{route("certificates.index")}}">Сертификаты<i class="fas fa-chevron-down"></i></a>
+											<a href="{{route("certificates.index")}}">Сертификаты</a>
 										</li>
 										<li class="hassubs">
 											<a href="{{route('about.index')}}">О компании<i class="fas fa-chevron-down"></i></a>
@@ -184,7 +156,7 @@
 												<li><a href="#">Вакансии</a></li>
 											</ul>
 										</li>
-										<li><a href="contact.php">Контакты<i class="fas fa-chevron-down"></i></a></li>
+										<li><a href="{{route('contact')}}">Контакты</a></li>
 									</ul>
 								</div>
 
@@ -239,7 +211,7 @@
 									<li class="page_menu_item"><a href="{{route('certificates.index')}}">Сертификаты</a></li>
 									<li class="page_menu_item"><a href="about.php">О компании</a></li>
 
-									<li class="page_menu_item"><a href="contact.php">Контакты</a></li>
+									<li class="page_menu_item"><a href="{{route('contact')}}">Контакты</a></li>
 								</ul>
 
 								<div class="menu_contact">

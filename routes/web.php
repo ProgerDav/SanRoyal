@@ -37,6 +37,11 @@ Route::get("/brands/{slug}", "BrandsController@show")->name("brands.single");
 Route::get("/contact", "FormsController@showContactForm")->name('contact');
 Route::post("/contact", "FormsController@storeMessage");
 
+Route::get('/price-list', "FormsController@showPriceListForm")->name('price-list');
+Route::post('/price-list', "FormsController@storePriceListRequest");
+
+Route::get('/home', function(){ return redirect()->route('admin.index'); });
+
 Auth::routes(['register' => false, 'reset' => false]);
 
 Route::middleware('auth')->namespace('Admin')->prefix('admin-panel')->name('admin.')->group(function(){

@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="row justify-content-center">
-      <div class="col-lg-4 col-md-6">
+      <div class="col-lg-4 col-md-6 mt-4">
         <div class="card">
           <div class="card-header bg-primary text-white">
             <div class="row">
@@ -28,7 +28,7 @@
           </a>
         </div>
       </div>
-      <div class="col-lg-4 col-md-6">
+      <div class="col-lg-4 col-md-6 mt-4">
         <div class="card">
           <div class="card-header bg-warning text-white">
             <div class="row">
@@ -50,7 +50,7 @@
           </a>
         </div>
       </div>
-      <div class="col-lg-4 col-md-6">
+      <div class="col-lg-4 col-md-6 mt-4">
         <div class="card">
           <div class="card-header bg-info text-white">
             <div class="row">
@@ -72,7 +72,7 @@
           </a>
         </div>
       </div>
-      <div class="col-lg-4 col-md-6">
+      <div class="col-lg-4 col-md-6 mt-4">
         <div class="card">
           <div class="card-header bg-dark text-white">
             <div class="row">
@@ -94,7 +94,7 @@
           </a>
         </div>
       </div>
-      <div class="col-lg-4 col-md-6">
+      <div class="col-lg-4 col-md-6 mt-4">
         <div class="card">
           <div class="card-header bg-light text-black">
             <div class="row">
@@ -116,7 +116,7 @@
           </a>
         </div>
       </div>
-      <div class="col-lg-4 col-md-6">
+      <div class="col-lg-4 col-md-6 mt-4">
         <div class="card">
           <div class="card-header bg-success text-white">
             <div class="row">

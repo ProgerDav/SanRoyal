@@ -26,7 +26,7 @@
 	</div>
 
 	<!-- Gallery -->
-	@if (!empty($post->additional_image))	
+	@if (!empty($post->additional_images))	
 		<div class="blog">
 			<div class="container">
 				<div class="row">

@@ -22,6 +22,8 @@ class ProductTableSeed extends Seeder
             $img = "new_".mt_rand(1, 10).".jpg";
             Product::create([
                 "name" => "Product ".$i,
+                "production" => "Китай",
+                "warranty" => "12 мес.",
                 "slug" => $word." ".$i.mt_rand(0, 10000),
                 "image" => $img,
                 "description" => $words,
@@ -39,6 +41,8 @@ class ProductTableSeed extends Seeder
             $img3 = "new_".mt_rand(1, 10).".jpg";
             Product::create([
                 "name" => "Product ".$i,
+                "production" => "Китай",
+                "warranty" => "12 мес.",
                 "slug" => $word." ".$i.mt_rand(0, 10000),
                 "image" => $img,
                 "additional_images" => $img2.'-'.$img3,

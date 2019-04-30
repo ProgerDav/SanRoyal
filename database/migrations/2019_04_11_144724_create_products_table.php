@@ -25,6 +25,10 @@ class CreateProductsTable extends Migration
             $table->string("image");
             $table->string("additional_images")->nullable()->default(null);
 
+            $table->string('warranty');
+            $table->string('production');
+            $table->string('json_properties')->nullable()->default(null);
+
             $table->bigInteger("scid")->unsigned()->nullable()->default(null);
             $table->foreign("scid")->references("id")->on("sub_categories");
 
