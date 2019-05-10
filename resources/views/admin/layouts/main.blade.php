@@ -24,6 +24,7 @@
               <ul class="sidebar-menu">
                 <li class="{{request()->is('admin-panel') ? 'active' : ''}}"><a href="{{route('admin.index')}}"><i class="fa fa-tachometer"></i> Dashboard</a></li>
                 <li class="header">Каталог</li>
+                <li class="{{request()->is('admin-panel/catalogs') ? 'active' : ''}}"><a href="{{route('admin.catalogs.index')}}"><i class="fa fa-download"></i>Каталог</a></li>
                 <li class="{{request()->is('admin-panel/categories') ? 'active' : ''}}"><a href="{{route('admin.categories.index')}}"><i class="fa fa-server"></i>Категории</a></li>
                 <li class="{{request()->is('admin-panel/subcategories') ? 'active' : ''}}"><a href="{{route('admin.subcategories.index')}}"><i class="fa fa-folder"></i>Подкатегории</a></li>
                 <li class="{{request()->is('admin-panel/products') ? 'active' : ''}}"><a href="{{route('admin.products.index')}}"><i class="fa fa-product-hunt"></i>Продукты</a></li>
@@ -31,10 +32,10 @@
                 <li class="{{request()->is('admin-panel/certificates') ? 'active' : ''}}"><a href="{{route('admin.certificates.index')}}"><i class="fa fa-certificate"></i>Сертифткаты</a></li>
                 <li class="header">О нас</li>
                 <li class="{{request()->is('admin-panel/posts') ? 'active' : ''}}"><a href="{{route('admin.posts.index')}}"><i class="fa fa-file"></i>Новости</a></li>
-                <li><a href="#"><i class="fa fa-user"></i>Вакансии</a></li>
+                <li class="{{request()->is('admin-panel/vacancies') ? 'active' : ''}}"><a href="{{route('admin.vacancies.index')}}"><i class="fa fa-user"></i>Вакансии</a></li>
                 <li class="header">Запросы / Сообщения</li>
-                <li><a href="#"><i class="fa fa-calculator"></i>Прайс-лист</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i>Обратная Связь</a></li>
+                <li class="{{request()->is('admin-panel/requests') ? 'active' : ''}}"><a href="{{route('admin.requests.index')}}"><i class="fa fa-calculator"></i>Прайс-лист</a></li>
+                <li class="{{request()->is('admin-panel/messages') ? 'active' : ''}}"><a href="{{route('admin.messages.index')}}"><i class="fa fa-envelope"></i>Обратная Связь</a></li>
                 <li class="header"></li>
                 <li><a href="{{route('logout')}}"><i class="fa fa-sign-out"></i>Выход</a></li>
               </ul>

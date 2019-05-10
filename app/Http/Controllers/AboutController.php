@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Post;
+use App\Vacancy;
 
 class AboutController extends Controller
 {
@@ -22,6 +23,11 @@ class AboutController extends Controller
     {
         $posts = Post::all();
         return view('about.blog')->with('posts', $posts);
+    }
+
+    public function vacancies(){
+        $vacancies = Vacancy::all();
+        return view('about.vacancies')->with('vacancies', $vacancies);
     }
 
     /**

@@ -1,5 +1,9 @@
 @extends('layouts.main')
-	<!-- Shop -->
+
+@section('title')
+    Сертификаты |
+@endsection
+
 @section('content')
 
   @include('layouts.banner', ["text" => "Сертификаты"])

@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    {{"О нас"}}
+    О нас |
 @endsection
 
 @section('content')

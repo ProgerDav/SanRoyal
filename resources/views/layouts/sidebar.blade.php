@@ -2,6 +2,24 @@
 						<div class="sidebar_section">
 							<div class="sidebar_title">Каталог</div>
 							<ul class="sidebar_categories">
+								@if ($catalogs->count() > 0)
+									<li>
+										<a href="{{route('catalog.download.index')}}">
+											<img class="sidebar_image" src="{{asset("images/download.png")}}" />
+											Скачать каталоги
+										</a>
+										<button class="sidebar_toggle"><i class="fa fa-chevron-down"></i></button>
+										<ul class="sidebar_subs">
+											@forelse ($catalogs as $catalog)
+												<li>
+													<a href="{{asset("documents/catalogs/$catalog->file")}}"><img class="sidebar_image" src="{{asset("images/$catalog->image")}}" />{{$catalog->title}}</a>
+												</li>
+											@empty
+													
+											@endforelse	
+										</ul>
+									</li>
+								@endif
 								@forelse ($categories as $category)
 									<li>
 										<a href="{{route('catalog.category', ['category_slug' => Str::slug($category->id.' '.$category->slug)])}}">

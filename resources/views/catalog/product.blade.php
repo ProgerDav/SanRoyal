@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    {{$product->name}}
+    {{$product->name}} |
 @endsection
 
 @section('content')
@@ -11,7 +11,9 @@
   <div class="single_product">
   <div class="container">
     <div class="row">
-      {{-- {{var_dump($arr)}} --}}
+      @php
+         App\Http\Controllers\CookieController::setCookie($product->id) 
+      @endphp
       <!-- Images -->
       <div class="col-lg-2 order-lg-1 order-2">
         <ul class="image_list">
@@ -35,7 +37,7 @@
       <div class="col-lg-5 order-3">
         <div class="product_description">
           <div class="product_category">{{$subcategory->name}}</div>
-          <div class="product_name">{{$product->name}}</div>
+          <div class="product_name">{{$product->name . ' ' . $visited}}</div>
           {{-- <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div> --}}
           <div class="product_text">
             <div class="tabbed_container">

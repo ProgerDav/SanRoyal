@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    Каталог - {{$category->name ?? 'Не найдено'}}
+    {{$category->name ?? 'Не найдено'}} |
 @endsection
 
 @section('content')

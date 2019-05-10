@@ -1,5 +1,9 @@
 @extends('layouts.main')
-	<!-- Shop -->
+
+@section('title')
+		{{$subcategory->name}} | 
+@endsection
+
 @section('content')
 
   @include('layouts.banner', ["text" => $subcategory->name])

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Message;
 use App\Request as PriceListRequest;
 use App\Category;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminMailer;
 
 class FormsController extends Controller
 {
@@ -50,4 +52,31 @@ class FormsController extends Controller
         $categories = Category::all();
         return view('price_list')->with('categories', $categories);
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storePriceListRequest(Request $request){
+        $messages = [
+            'required' => 'Это поле обязательно',
+        ];
+        $request->validate([
+            'contact_name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'organization' => 'required'
+        ]);
+
+        $categories = implode('-', $request->categories);
+
+        $list_request = new PriceListRequest(array_merge($request->except('categories'), ['categories' => $categories]));
+        $list_request->save();
+
+        // Mail::to('davit.gyulnazaryan@tumo.org')->send(new AdminMailer($request->contact_name));
+
+        return back()->with('success', 'Зарос отправлен');
+    }    
 }

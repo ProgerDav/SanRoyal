@@ -51,8 +51,7 @@
                 При удалении этой категории все подкатегории и продукты будут удалены.
               </div>
               <div class="modal-footer">
-                    <form method="POST" id="forceDelete" action="{{route('admin.categories.destroy', ["category" => $category->id + 1])}}">     
-                    <form method="POST" id="forceDelete" action="{{route('admin.categories.destroy', ["category" => $category->id + 1])}}">                         
+                <form method="POST" id="forceDelete" action="{{route('admin.categories.destroy', ["category" => $category->id + 1])}}">     
                   @csrf
                   @method('DELETE')
                   <input type="hidden" name="id" />

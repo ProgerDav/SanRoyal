@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    {{"Новости"}}
+    Новости | 
 @endsection
 
 @section('content')

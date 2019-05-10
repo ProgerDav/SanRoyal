@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+    Бренды | 
+@endsection
+
 @section('content')
     
   @include('layouts.banner', ['text' => 'Бренды'])

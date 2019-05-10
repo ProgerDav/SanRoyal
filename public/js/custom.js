@@ -132,14 +132,14 @@ $(document).ready(function () {
 					var item = $(this);
 					if (item.hasClass("has-children")) {
 						item.on('click', function (evt) {
-							evt.preventDefault();
-							evt.stopPropagation();
 							var subItem = item.find('> ul');
 							if (subItem.hasClass('active')) {
 								subItem.toggleClass('active');
 								TweenMax.to(subItem, 0.3, { height: 0 });
 							}
 							else {
+								evt.preventDefault();
+								evt.stopPropagation();
 								subItem.toggleClass('active');
 								TweenMax.set(subItem, { height: "auto" });
 								TweenMax.from(subItem, 0.3, { height: 0 });
@@ -693,10 +693,11 @@ $(document).ready(function () {
 					items: 3,
 					loop: true,
 					margin: 30,
-					autoplay: false,
+					autoplay: true,
+					autoplayTimeout: 3000,
 					nav: false,
-					dots: true,
-					dotsContainer: '.reviews_dots',
+					dots: false,
+					// dotsContainer: '.reviews_dots',
 					responsive:
 					{
 						0: { items: 1 },
@@ -860,4 +861,10 @@ $(document).ready(function () {
 			});
 		}
 	}
+});
+
+$(".sidebar_categories .sidebar_toggle").click(function () {
+	const bool = $(this).parent().hasClass("open");
+	$(".sidebar_categories > li").removeClass("open");
+	if (!bool) $(this).parent().addClass("open");
 });

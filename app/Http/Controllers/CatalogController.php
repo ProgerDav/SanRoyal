@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Cookie;
 use App\Category;
+use App\CatalogFile;
 use App\SubCategory;
 use App\Product;
 
@@ -21,6 +23,17 @@ class CatalogController extends Controller
         $categories = Category::all();
 
         return view("catalog.index")->with("categories", $categories);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function downloadIndex()
+    {
+        $catalogs = CatalogFile::all();
+        return view("catalog.download")->with("catalogs", $catalogs);
     }
 
     /**
@@ -121,7 +134,7 @@ class CatalogController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function show_product($category_slug, $subcategory_slug, $product_slug)
+    public function show_product(Request $request, $category_slug, $subcategory_slug, $product_slug)
     {
         $parts = explode('-', $product_slug);
         $id = array_shift($parts);
@@ -131,8 +144,18 @@ class CatalogController extends Controller
         $category = $subcategory->categories;
         $arr = [$product->slug, $product_slug];
 
+        // setcookie('visited', $id, 86400);
+
+        // if(isset($_COOKIE['visited'])){
+        //     $visited = $_COOKIE['visited'];
+        // }else{
+        //     $visited = "";
+        // }
+
         if(Str::slug($category->slug) !== $category_slug OR Str::slug($subcategory->slug) !== $subcategory_slug OR Str::slug($product->slug) !== $product_slug) return redirect()->route('catalog.product', ['category_slug' => Str::slug($category->slug), 'subcategory_slug' => Str::slug($subcategory->slug), 'product_slug' => Str::slug($id.'-'.$product->slug)]);
 
-        return view('catalog.product')->with(["subcategory" => $subcategory, "category" => $category, "product" => $product, 'arr' => $arr]);
+        $id2 = $request->cookie('visited');
+
+        return view('catalog.product')->with(["subcategory" => $subcategory, "category" => $category, "product" => $product, 'visited' => $id2])->withCookie(cookie()->forever('visited', $id));
     }
 }

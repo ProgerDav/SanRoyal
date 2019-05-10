@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    Прайс-лист
+    Прайс-лист |
 @endsection
 
 @section('content')
@@ -24,48 +24,54 @@
             <div class="product_grid">
               <div class="product_grid_border"></div>
                 <h2 class="text-center">Зарос Прайс-листа</h2>
-                <div class="col-lg-8 offset-lg-2 mt-4">
-                  <form action="{{route('price-list')}}" method="POST" >
+                @if (session()->get('success'))
+                  <div class="alert alert-success">
+                    {{session()->get('success')}}
+                  </div>
+                @endif
+                <div class="col-lg-8 offset-lg-1 mt-4">
+                  <form action="{{route('price-list-store')}}" method="POST" >
+                    @csrf
                     <div class="form-group">
                       <label>Контактное лицо*</label>
-                      <input type="text" required class="form-control" />
+                      <input type="text" name="contact_name" value="{{old('contact_name' ?? '')}}" required class="form-control" />
                     </div>
                     <div class="form-group">
                       <label>E-mail*</label>
-                      <input type="email" required class="form-control" />
+                      <input type="email" name="email" value="{{old('email') ?? ''}}" required class="form-control" />
                     </div>
                     <div class="form-group">
                       <label>Контактный телефон*</label>
-                      <input type="telephone" required class="form-control" />
+                      <input type="telephone" name="phone" value="{{old('phone' ?? '')}}" required class="form-control" />
                     </div>
                     <div class="form-group">
                       <label>Название организации*</label>
-                      <input type="text" required class="form-control" />
+                      <input type="text" name="organization" value="{{old('organization') ?? ''}}" required class="form-control" />
                     </div>
                     <div class="form-group">
                       <label>Сфера деятельности</label>
-                      <input type="text" class="form-control" />
+                      <input type="text" name="speciality" class="form-control" />
                     </div>
                     <div class="form-group">
                       <label>Город</label>
-                      <input type="text" class="form-control" />
+                      <input type="text" name="city" class="form-control" />
                     </div>
                     <div class="form-group">
                       <label>Откуда вы о нас узнали</label>
-                      <input type="text" class="form-control" />
+                      <input type="text" name="source" class="form-control" />
                     </div>
                     <div class="form-group">
                       <label>Ваш сайт</label>
-                      <input type="url" required class="form-control" />
+                      <input type="url" name="site" class="form-control" />
                     </div>
                     <div class="form-group">
-                      <label>Выберите интересующий раздел(ы)</label>
+                      <label>Выберите интересующий раздел(ы)*</label>
                       <div class="form-group row">
                         @forelse ($categories as $cat)
-                          <div class="row align-items-center col-lg-4">
-                              <input type="checkbox" value="{{$cat->name}}" name='category[]' />
-                              <label>{{$cat->name}}</label>
-                          </div>
+                            <div class="custom-control custom-checkbox mb-3 col-lg-4">
+                              <input type="checkbox" class="custom-control-input" id="{{$cat->name}}" value="{{$cat->name}}"  name="categories[]" />
+                            <label class="custom-control-label" for="{{$cat->name}}">{{$cat->name}}</label>
+                            </div>
                         @empty
                           Данные отсутствуют  
                         @endforelse
@@ -79,5 +85,4 @@
       </div>
     </div>
   </div>
-
 @endsection

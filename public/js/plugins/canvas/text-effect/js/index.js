@@ -8,7 +8,7 @@ for (var i = 0, max = query.length; i < max; i++) {
   GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
 }
 
-console.log(GET);
+// console.log(GET);
 
 var body = document.body;
 var html = document.documentElement;

@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 
 @section('title')
-    Редактируемая Продукт - {{$product->name}}
+    Редактируемый Продукт - {{$product->name}}
 @endsection
 
 @section('content')

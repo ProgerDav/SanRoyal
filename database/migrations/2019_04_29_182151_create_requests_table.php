@@ -19,11 +19,11 @@ class CreateRequestsTable extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('organization');
-            $table->string('speciality');
-            $table->string('city');
-            $table->string('source');
-            $table->string('site');
-            $table->shortText('categories');
+            $table->string('speciality')->nullable()->default(NULL);
+            $table->string('city')->nullable()->default(NULL);
+            $table->string('source')->nullable()->default(NULL);
+            $table->string('site')->nullable()->default(NULL);
+            $table->text('categories');
             $table->timestamps();
         });
     }

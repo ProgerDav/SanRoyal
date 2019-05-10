@@ -12,7 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('js/plugins/slick-1.8.0/slick.css')}}">
 	@stack('styles')
 	<link rel="stylesheet" href="{{asset('css/app.css')}}">
-  <title>SanRoyal - @yield('title')</title>
+  <title> @yield('title') SanRoyal</title>
 </head>
 <body>
   
@@ -26,34 +26,32 @@
 				<div class="container">
 					<div class="row">
 						<div class="col d-flex flex-row">
-							<!-- <div class="top_bar_contact_item"> 
-								 <div class="top_bar_icon"><img src="images/phone.png" alt=""></div>+38 068 005 3570 
-							 </div> -->
-							<div class="top_bar_contact_item">
+							<div class="top_bar_contact_item col-sm-4">
 								<div class="top_bar_icon"><img src="{{asset('images/mail.png')}}" alt=""></div><a
-									href="mailto:fastsales@gmail.com">sanroyal@gmail.com</a>
+									href="mailto:info@san-royal.ru">info@san-royal.ru</a>
 							</div>
-							<div class="top_bar_content ml-auto">
+							<div class="top_bar_content cols-sm-4 ml-auto">
 								<div class="top_bar_menu">
 									<ul class="standard_dropdown top_bar_dropdown">
-										<!-- <li>
-											<a href="#">English<i class="fas fa-chevron-down"></i></a>
-											<ul>
-												<li><a href="#">Italian</a></li>
-												<li><a href="#">Spanish</a></li>
-												<li><a href="#">Japanese</a></li>
-											</ul>
-										</li> -->
-										<li>
-											<a href="#">
-												<div class="top_bar_icon"><img src="{{asset('images/phone.png')}}" alt=""></div>
+										<li class="hassubs">
+											<a target="_blank" href="https://www.facebook.com/%D0%A1%D0%B0%D0%BD%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B0-%D0%A1%D0%B0%D0%BD%D0%A0%D0%BE%D1%8F%D0%BB%D1%8C-2332031817036383/"class="social-icon"><i class="fab fa-facebook-square"></i></a>
+										</li>
+										<li class="hassubs">
+											<a target="_blank" href="#"class="social-icon"> 
+												<i class="fab fa-viber"></i>
+											</a>
+										</li>
+										<li class="hassubs">
+											<a target="_blank" href="#"class="social-icon"> 
+												<i class="fab fa-whatsapp"></i>
+											</a>
+										</li>
+										<li class="hassubs">
+											<a href="tel:+7 916-124-19-57" class="d-flex align-items-center social-icon">
+												{{-- <div class="top_bar_icon"><img src="{{asset('images/phone.png')}}" alt=""></div> --}}
+												{{-- <i class="fa fa-phone-square"></i> --}}
 												+7 916-124-19-57
 											</a>
-											<ul>
-												<li><a href="#">+7 919-104-45-94 - Viber</a></li>
-												<li><a href="#">+38 068 005 3570 - Whats Up</a></li>
-												<li><a href="#">+38 068 005 3570 - Messenger</a></li>
-											</ul>
 										</li>
 									</ul>
 								</div>
@@ -72,7 +70,7 @@
 						<!-- Logo -->
 						<div class="col-lg-3 col-md-4 col-sm-3 col-3 order-1">
 							<div class="logo_container">
-								<div class="logo"><a href="{{route('index')}}"><img src="{{asset('images/logo.png')}}" alt="SanRoyal"></a></div>
+								<div class="logo"><a href="{{route('index')}}"><img src="{{asset('images/logo.jpg')}}" alt="SanRoyal"></a></div>
 							</div>
 						</div>
 
@@ -92,7 +90,6 @@
 							</div>
 						</div>
 
-						<!-- Wishlist -->
 						<div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
 						</div>
 					</div>
@@ -110,17 +107,38 @@
 
 								<!-- Categories Menu -->
 
-								<div class="cat_menu_container">
+								<div class="cat_menu_container col-md-4 col-lg-3 col-sm-6 col-xs-7">
 									<div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
 										<div class="cat_burger"><span></span><span></span><span></span></div>
 										<div class="cat_menu_text">Каталог товаров</div>
 									</div>
 
 									<ul class="cat_menu">
+										@if ($catalogs->count() > 0)
+											<li>
+												<a href="{{route('catalog.download.index')}}">
+														<img class="cat_menu_image" src="{{ asset("images/download.png") }}" alt="Скачать каталоги">
+														Скачать каталоги
+													</a>
+												<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
+												<ul>
+														@foreach ($catalogs as $catalog)
+															<li>
+																{{-- <a href="{{route('catalog.download.file', ['catalog_slug' => Str::slug($catalog->id.' '.$catalog->title)])}}"> --}}
+																<a href="{{asset("/documents/catalogs/$catalog->file")}}">
+																	<img class="cat_menu_image" src="{{ asset("images/".$catalog->image) }}" alt="{{$catalog->title}}">
+																	{{$catalog->title}}
+																</a>
+															</li>												
+														@endforeach	
+												</ul>
+											</li>
+										@endif	
+
 										@foreach ($categories as $cat)
 												<li>
 													<a href="{{route('catalog.category', ['category_slug' => Str::slug($cat->id.' '.$cat->slug)])}}">
-														<img class="cat_menu_image" src="{{ asset("images/".$cat->image) }}" alt={{$cat->name}}>
+														<img class="cat_menu_image" src="{{ asset("images/$cat->image") }}" alt="{{$cat->name}}">
 														{{$cat->name}}
 													</a>
 													<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
@@ -144,7 +162,7 @@
 								<div class="main_nav_menu ml-auto">
 									<ul class="standard_dropdown main_nav_dropdown">
 										<li><a href="{{route('catalog.index')}}">Каталог<i class="fas fa-chevron-down"></i></a></li>
-										<li><a href="#">Прайс-лист</a></li>
+										<li><a href="{{route('price-list')}}">Прайс-лист</a></li>
 										<li><a href="{{route("brands.index")}}">Бренды</a></li>
 										<li>
 											<a href="{{route("certificates.index")}}">Сертификаты</a>
@@ -153,7 +171,7 @@
 											<a href="{{route('about.index')}}">О компании<i class="fas fa-chevron-down"></i></a>
 											<ul>
 												<li><a href="{{route('about.blog')}}">Новости</a></li>
-												<li><a href="#">Вакансии</a></li>
+												<li><a href="{{route('about.vacancies')}}">Вакансии</a></li>
 											</ul>
 										</li>
 										<li><a href="{{route('contact')}}">Контакты</a></li>
@@ -187,8 +205,8 @@
 							<div class="page_menu_content">
 
 								<div class="page_menu_search">
-									<form action="#">
-										<input type="search" required="required" class="page_menu_search_input"
+									<form action="{{route('catalog.search')}}">
+										<input type="search" name="q" required value="{{request()->q ?? '' }}" class="page_menu_search_input"
 											placeholder="Поиск продуктов...">
 									</form>
 								</div>
@@ -197,30 +215,30 @@
 										<a href="{{route("catalog.index")}}">Каталог</a>
 									</li>
 									<li class="page_menu_item has-children">
-										<a href="#">Прайс-лист</a>
+										<a href="{{route('price-list')}}">Прайс-лист</a>
 									</li>
 									<li class="page_menu_item has-children">
 										<a href="{{route('brands.index')}}">Бренды</a>
-										<!-- <ul class="page_menu_selection">
-									<li><a href="#">Бренды<i class="fa fa-angle-down"></i></a></li>
-									<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-									<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-									<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-								</ul> -->
 									</li>
 									<li class="page_menu_item"><a href="{{route('certificates.index')}}">Сертификаты</a></li>
-									<li class="page_menu_item"><a href="about.php">О компании</a></li>
+									<li class="page_menu_item has-children">
+										<a href="{{route('about.index')}}">О компании</a>
+										<ul class="page_menu_selection">
+											<li><a href="{{route('about.blog')}}">Новости</a></li>
+											<li><a href="{{route('about.vacancies')}}">Вакансии</a></li>
+										</ul> 
+									</li>
 
 									<li class="page_menu_item"><a href="{{route('contact')}}">Контакты</a></li>
 								</ul>
 
 								<div class="menu_contact">
 									<div class="menu_contact_item">
-										<div class="menu_contact_icon"><img src="{{asset('images/phone_white.png')}}" alt=""></div>+38 068 005 3570
+										<div class="menu_contact_icon"><img src="{{asset('images/phone_white.png')}}" alt=""></div><a href="tel:+7 916-124-19-57">+7 916-124-19-57</a> 
 									</div>
 									<div class="menu_contact_item">
 										<div class="menu_contact_icon"><img src="{{asset('images/mail_white.png')}}" alt=""></div><a
-											href="mailto:fastsales@gmail.com">sanroyal@gmail.com</a>
+											href="mailto:info@san-royal.ru">info@san-royal.ru</a>
 									</div>
 								</div>
 							</div>
@@ -321,7 +339,7 @@
 								class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
 								<div class="newsletter_title_container">
 									<div class="newsletter_icon"><img src="{{asset('images/send.png')}}" alt=""></div>
-									<div class="newsletter_title">Лента новостей</div>
+									<div class="newsletter_title">Lorem Ipsum</div>
 									<div class="newsletter_text">
 										<p>...lorem ispum dolor sit amet.</p>
 									</div>
@@ -329,9 +347,9 @@
 								<div class="newsletter_content clearfix">
 									<form action="#" class="newsletter_form">
 										<input type="email" class="newsletter_input" required="required" placeholder="Email...">
-										<button class="newsletter_button">Подписаться</button>
+										<button class="newsletter_button">Отправить</button>
 									</form>
-									<div class="newsletter_unsubscribe_link"><a href="#">Отписаться</a></div>
+									{{-- <div class="newsletter_unsubscribe_link"><a href="#">Отписаться</a></div> --}}
 								</div>
 							</div>
 						</div>
@@ -348,23 +366,15 @@
 						<div class="col-lg-3 footer_col">
 							<div class="footer_column footer_contact">
 								<div class="logo_container">
-									<div class="logo"><a href="#">SanRoyal</a></div>
+									<div class="logo"><a href="{{route('index')}}">SanRoyal</a></div>
 								</div>
-								<div class="footer_title"> Звоните нам 24/7</div>
+								<div class="footer_title">Звоните нам 24/7</div>
+								<div class="footer_phone"><a href="mailto:info@san-royal.ru">info@san-royal.ru</a></div>
 								<div class="footer_phone">+7 919-104-45-94</div>
 								<div class="footer_phone">+7 916-124-19-57</div>
 								<div class="footer_contact_text">
 									<p>Адрессная линия 1</p>
 									<p>Адрессная линия 2</p>
-								</div>
-								<div class="footer_social">
-									<ul>
-										<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-										<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-										<li><a href="#"><i class="fab fa-youtube"></i></a></li>
-										<li><a href="#"><i class="fab fa-google"></i></a></li>
-										<li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
-									</ul>
 								</div>
 							</div>
 						</div>
@@ -373,43 +383,36 @@
 							<div class="footer_column">
 								<div class="footer_title">Быстрый Поиск</div>
 								<ul class="footer_list">
-									<li><a href="#">Computers & Laptops</a></li>
-									<li><a href="#">Cameras & Photos</a></li>
-									<li><a href="#">Hardware</a></li>
-									<li><a href="#">Smartphones & Tablets</a></li>
-									<li><a href="#">TV & Audio</a></li>
-								</ul>
-								<div class="footer_subtitle">Gadgets</div>
-								<ul class="footer_list">
-									<li><a href="#">Car Electronics</a></li>
+									@forelse ($categories as $cat)
+										<li><a href="{{route('catalog.category', ['category_slug' => Str::slug($cat->id.' '.$cat->slug)])}}">{{$cat->name}}</a></li>											
+									@empty
+											
+									@endforelse
 								</ul>
 							</div>
 						</div>
 
 						<div class="col-lg-2">
 							<div class="footer_column">
-								<ul class="footer_list footer_list_2">
-									<li><a href="#">Video Games & Consoles</a></li>
-									<li><a href="#">Accessories</a></li>
-									<li><a href="#">Cameras & Photos</a></li>
-									<li><a href="#">Hardware</a></li>
-									<li><a href="#">Computers & Laptops</a></li>
+								<div class="footer_title">О компании</div>
+								<ul class="footer_list">
+									<li><a href="{{route('about.index')}}">О нас</a></li>
+									<li><a href="{{route('about.blog')}}">Новости</a></li>
+									<li><a href="{{route('about.vacancies')}}">Вакансии</a></li>
 								</ul>
 							</div>
 						</div>
 
 						<div class="col-lg-2">
 							<div class="footer_column">
-								<div class="footer_title">Customer Care</div>
-								<ul class="footer_list">
-									<li><a href="#">My Account</a></li>
-									<li><a href="#">Order Tracking</a></li>
-									<li><a href="#">Wish List</a></li>
-									<li><a href="#">Customer Services</a></li>
-									<li><a href="#">Returns / Exchange</a></li>
-									<li><a href="#">FAQs</a></li>
-									<li><a href="#">Product Support</a></li>
-								</ul>
+								<div class="footer_title">Оставайтесь на связи</div>
+								<div class="footer_social">
+									<ul>
+										<li><a target="_blank" href="https://www.facebook.com/%D0%A1%D0%B0%D0%BD%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B0-%D0%A1%D0%B0%D0%BD%D0%A0%D0%BE%D1%8F%D0%BB%D1%8C-2332031817036383/"><i class="fab fa-facebook-f fa-2x"></i></a></li>
+										<li><a target="_blank" href="#"><i class="fab fa-viber fa-2x"></i></a></li>
+										<li><a target="_blank" href="#"><i class="fab fa-whatsapp fa-2x"></i></a></li>
+									</ul>
+								</div>
 							</div>
 						</div>
 

@@ -16,8 +16,8 @@
 						<div class="char_item d-flex flex-row align-items-center justify-content-start">
 							<div class="char_icon"><img src="images/char_1.png" alt=""></div>
 							<div class="char_content">
-								<div class="char_title">Партнеры</div>
-								<div class="char_subtitle">50</div>
+								<div class="char_title">Категории</div>
+								<div class="char_subtitle">{{$categories->count()}}</div>
 							</div>
 						</div>
 					</div>
@@ -28,7 +28,7 @@
 							<div class="char_icon"><img src="images/char_2.png" alt=""></div>
 							<div class="char_content">
 								<div class="char_title">Бренды</div>
-								<div class="char_subtitle">50</div>
+								<div class="char_subtitle">{{$brands->count()}}</div>
 							</div>
 						</div>
 					</div>
@@ -38,8 +38,8 @@
 						<div class="char_item d-flex flex-row align-items-center justify-content-start">
 							<div class="char_icon"><img src="images/char_3.png" alt=""></div>
 							<div class="char_content">
-								<div class="char_title">Товары</div>
-								<div class="char_subtitle">50</div>
+								<div class="char_title">Продукты</div>
+								<div class="char_subtitle">{{$products->count()}}</div>
 							</div>
 						</div>
 					</div>
@@ -50,7 +50,7 @@
 							<div class="char_icon"><img src="images/char_4.png" alt=""></div>
 							<div class="char_content">
 								<div class="char_title">Новинки</div>
-								<div class="char_subtitle">50</div>
+								<div class="char_subtitle">12</div>
 							</div>
 						</div>
 					</div>
@@ -88,7 +88,7 @@
                           <div class="deals_timer d-flex flex-row align-items-center justify-content-start">
                             <div class="deals_timer_content">
                               <p>
-                                {{ $product->description }}
+                                {!! $product->description !!}
                               </p>
                             </div>
                           </div>
@@ -122,7 +122,7 @@
 								<!-- Product Panel -->
 								<div class="product_panel panel active">
 									<div class="featured_slider slider">
-                    @forelse ($products as $prod)
+                    @forelse ($sales as $prod)
                         <div class="featured_slider_item">
                           <div class="border_active"></div>
                           <div
@@ -132,7 +132,7 @@
 															<img src="{{asset("images/$prod->image")}}" alt="{{$prod->name}}" />
 														</a>
                             <div class="product_content">
-                              <div class="product_category">{{$prod->sub_categories->name}}</div>
+                              {{-- <div class="product_category">{{$prod->sub_categories->name}}</div> --}}
                               <div class="product_name">
                                 {{$prod->name}}
                               </div>
@@ -189,8 +189,8 @@
 						<a href="{{route('about.index')}}" class="button">Читать дальше</a>
 					</div>
         </div>
-        
-
+			</div>   
+    </div>
     <div class="new_arrivals">
 			<div class="container">
 				<div class="row">
@@ -220,7 +220,7 @@
 															<img src="{{asset("images/$product->image")}}" alt="{{$product->name}}">
 														</div>
                               <div class="product_content">
-                                <div class="product_category">{{$product->sub_categories->name}}</div>
+                                {{-- <div class="product_category">{{$product->sub_categories->name}}</div> --}}
                                 <div class="product_name">
                                   <div><a href="{{route('catalog.product', ['category_slug' => Str::slug($product->sub_categories->categories->slug), 'subcategory_slug' => Str::slug($product->sub_categories->slug), 'product_slug' => Str::slug($product->id.' '.$product->slug)])}}">{{$product->name}}</a></div>
                                 </div>
@@ -264,6 +264,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
     </div>
     
     <div class="best_sellers">
@@ -275,6 +276,7 @@
 								<div class="new_arrivals_title">Категории</div>
 								<ul class="clearfix">
 									<li class="active">Категории</li>
+									<li>Подкатегории</li>
 								</ul>
 								<div class="tabs_line"><span></span></div>
 							</div>
@@ -302,10 +304,76 @@
                   @endforelse
 								</div>
 							</div>
+							<div class="bestsellers_panel panel">
+
+								<!-- Best Sellers Slider -->
+
+								<div class="bestsellers_slider slider">
+                  @forelse ($subcategories as $subcategory)
+                    <div class="bestsellers_item">
+                      <div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
+                        <div class="bestsellers_image"><img src="{{asset("images/$subcategory->image")}}" alt="{{$subcategory->name}}"></div>
+                        <div class="bestsellers_content">
+                          {{-- <div class="bestsellers_category"><a href="#"></a></div> --}}
+                          <div class="bestsellers_name"><a href="{{route('catalog.category', ['category_slug' => Str::slug($subcategory->categories->slug), 'subcategory_slug' => Str::slug($subcategory->id.' '.$subcategory->slug)])}}">{{$subcategory->name}}</a></div>
+                          <div class="bestsellers_price"></div>
+                        </div>
+                      </div>
+                      <ul class="bestsellers_marks">
+                      </ul>
+                    </div>
+                  @empty
+                      <p>Ничего не найдено</p>
+                  @endforelse
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
+		<div class="reviews">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+
+							<div class="reviews_title_container">
+								<h3 class="reviews_title">Скачать каталог</h3>
+								{{-- <div class="reviews_all ml-auto"><a href="#">Заявка</a></div> --}}
+							</div>
+
+							<div class="reviews_slider_container">
+
+								<div class="owl-carousel owl-theme reviews_slider">
+									
+									@forelse ($catalogs as $catalog)
+											<div class="owl-item">
+												<a href="{{asset("/documents/catalogs/$catalog->file")}}" target="_blank" class="review d-flex flex-row align-items-start justify-content-start">
+													<div>
+														<div class="review_image"><img src="{{asset("images/$catalog->image")}}" alt="{{$catalog->title}}"></div>
+													</div>
+													<div class="review_content">
+														<div class="review_name">{{$catalog->title}}</div>
+														<div class="review_rating_container">
+														</div>
+														{{-- <div class="review_text">
+															<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</p>
+														</div> --}}
+													</div>
+												</a>
+											</div>
+									@empty
+											Данные отсутствуют
+									@endforelse
+
+								</div>
+								{{-- <div class="reviews_dots"></div> --}}
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-10 offset-lg-1 col-md-12 text-center mt-5 mb-4 jumbotron">
+						<a href="{{route('price-list')}}" class="btn btn-lg btn-primary text-white">Запрос прайс-листа</a>
+					</div>
+				</div>
 @endsection

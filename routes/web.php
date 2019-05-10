@@ -15,6 +15,8 @@ Route::get('/', "MainController@index")->name("index");
 
 Route::get('/catalog', "CatalogController@index")->name("catalog.index");
 
+Route::get('/catalog/download', "CatalogController@downloadIndex")->name("catalog.download.index");
+
 Route::get('/catalog/search/', "CatalogController@search")->name("catalog.search");
 
 Route::get('/catalog/{category_slug}', "CatalogController@show_category")->name("catalog.category");
@@ -26,6 +28,7 @@ Route::get('/catalog/{category_slug}/{subcategory_slug}/{product_slug}', "Catalo
 Route::resource('/certificates', 'CertificatesController', ["only" => ['index', 'show']])->name('certificates.index', 'certificates.show');
 
 Route::get('/about', "AboutController@index")->name('about.index');
+Route::get('/about/vacancies', "AboutController@vacancies")->name('about.vacancies');
 Route::get('/about/blog', "AboutController@blog")->name('about.blog');
 Route::get('/about/blog/{post_slug}', "AboutController@blog_show")->name('about.blog_single');
 
@@ -38,7 +41,7 @@ Route::get("/contact", "FormsController@showContactForm")->name('contact');
 Route::post("/contact", "FormsController@storeMessage");
 
 Route::get('/price-list', "FormsController@showPriceListForm")->name('price-list');
-Route::post('/price-list', "FormsController@storePriceListRequest");
+Route::post('/price-list-store', "FormsController@storePriceListRequest")->name('price-list-store');
 
 Route::get('/home', function(){ return redirect()->route('admin.index'); });
 
@@ -52,6 +55,13 @@ Route::middleware('auth')->namespace('Admin')->prefix('admin-panel')->name('admi
   Route::resource('/certificates', 'CertificatesController', ["only" => ['index', 'create', 'update', 'edit', 'store', 'destroy']]);
   Route::resource('/brands', 'BrandsController', ["only" => ['index', 'create', 'update', 'edit', 'store', 'destroy']]);
   Route::resource('/posts', 'PostsController', ["only" => ['index', 'create', 'update', 'edit', 'store', 'destroy']]);
+  Route::resource('/vacancies', 'VacanciesController', ["only" => ['index', 'create', 'update', 'edit', 'store', 'destroy']]);
+  Route::resource('/catalogs', 'CatalogsController', ["only" => ['index', 'create', 'update', 'edit', 'store', 'destroy']]);
+  Route::resource('/requests', 'RequestsController', ["only" => ['index', 'show', 'destroy']]);
+  Route::resource('/messages', 'MessagesController', ["only" => ['index', 'show', 'destroy']]);
 });
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+Route::get('/cookie/set/{id}','CookieController@setCookie');   
+Route::get('/cookie/get','CookieController@getCookie');

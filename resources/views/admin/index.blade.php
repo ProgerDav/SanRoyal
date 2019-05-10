@@ -63,7 +63,7 @@
               </div>
             </div>
           </div>
-          <a href="{{route('admin.categories.index')}}">
+          <a href="{{route('admin.products.index')}}">
             <div class="card-body">
               <span class="pull-left">Подробнее</span>
               <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

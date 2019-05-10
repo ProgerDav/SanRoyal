@@ -9,7 +9,7 @@ use App\Category;
 
 use App\Product;
 use App\Brand;
-
+use App\CatalogFile;
 
 class MainController extends Controller
 {
@@ -24,6 +24,7 @@ class MainController extends Controller
         $featured = Product::all()->take(4);
         $brands = Brand::all();
         $sales = Product::all()->take(9);
-        return view("index")->with(["products" => $products, "brands" => $brands, "featured" => $featured, "sales" => $sales]); 
+        $subcategories = SubCategory::all();
+        return view("index")->with(["products" => $products, "brands" => $brands, "featured" => $featured, "sales" => $sales, 'subcategories' => $subcategories]); 
     }
 }

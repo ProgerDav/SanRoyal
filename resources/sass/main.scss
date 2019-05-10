@@ -42,8 +42,54 @@
 2. Body and some general stuff
 *********************************/
 
-*
-{
+.collapse.in{
+	display: block !important;
+}
+
+.custom-control-label{
+	cursor: pointer;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: #007bff;
+    background-color: #007bff;
+}
+.custom-checkbox .custom-control-label::before {
+    border-radius: .25rem;
+}
+.custom-control-label::before{
+    transition: background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.custom-control-label::before {
+    position: absolute;
+    top: .25rem;
+    left: 0;
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    pointer-events: none;
+    content: "";
+    background-color: #fff;
+    border: #adb5bd solid 1px;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::after {
+		background-image: url("/sanRoyal/public/images/check.png");
+		display: block;
+}
+.custom-control-label::after {
+    position: absolute;
+    top: .25rem;
+    left: 0;
+    display: none;
+    width: 1rem;
+    height: 1rem;
+    content: "";
+		background: no-repeat 50%/50% 50%;
+	}
+
+*{
 	margin: 0;
 	padding: 0;
 	-webkit-font-smoothing: antialiased;
@@ -77,7 +123,7 @@ body
 	}
 
 	&:hover::before{
-		left: 100%;
+		left: 120%;
 		transition: .4s ease;
 	}
 }
@@ -173,10 +219,10 @@ h6::selection
 {
 	display: none;	
 }
-.form-control
-{
-	color: #db5246;
-}
+// .form-control
+// {
+// 	color: #db5246;
+// }
 section
 {
 	display: block;
@@ -398,7 +444,22 @@ section
 {
 	display: inline-block;
 	margin-left: 5px;
+	color: #333436;
+	margin-right: 5px;
 }
+.social-icon i{
+	font-size: 21px !important;
+}
+i[class*=facebook]{
+	color: #4267b2 !important;
+}
+i[class*=viber]{
+	color: #2d275b !important;
+}
+i[class*=whatsapp]{
+	color: #00e676 !important
+}
+
 .standard_dropdown li a
 {
 	display: block;
@@ -525,7 +586,8 @@ section
 .header_main
 {
 	z-index: 10;
-	background: #2e3a43;
+	// background: #2e3a43;
+	background: #304548;
 }
 .header.scrolled .header_main
 {
@@ -1237,7 +1299,7 @@ select option
 }
 .menu_contact_item a:hover
 {
-	color: #8a8a8a;
+	// color: #8a8a8a;
 }
 .menu_contact_item:last-child
 {
@@ -1369,9 +1431,9 @@ select option
 }
 .char_subtitle
 {
-	font-size: 12px;
+	font-size: 16px;
 	font-weight: 400;
-	color: rgba(0,0,0,0.5);
+	color: rgba(0,0,0,0.7);
 	margin-top: 3px;
 }
 

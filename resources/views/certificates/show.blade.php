@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    {{$certificate->title}}
+    {{$certificate->title}} |
 @endsection
 
 @section('content')

@@ -1,4 +1,8 @@
 @extends('layouts.main')
+
+@section('title')
+		Поиск |
+@endsection
 	<!-- Shop -->
 @section('content')
 

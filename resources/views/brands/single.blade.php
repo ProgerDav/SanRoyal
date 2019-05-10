@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    {{$brand->name ?? "Не Найдено"}}
+    {{$brand->name ?? "Не Найдено"}} | 
 @endsection
 
 @section('content')
