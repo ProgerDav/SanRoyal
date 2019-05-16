@@ -21,10 +21,16 @@ class MainController extends Controller
     public function index()
     {
         $products = Product::all();
-        $featured = Product::all()->take(4);
+        $featured = Product::where('new', true)->take(4)->get();
+        $new_products = Product::where('new', true)->get();
         $brands = Brand::all();
-        $sales = Product::all()->take(9);
+        $first_sale = Product::where('sale', true)->first();
+        if($first_sale){
+            $sales = Product::whereNew(1)->where('id', '!=', $first_sale->id)->get();
+        }else{
+            $sales = [];
+        }
         $subcategories = SubCategory::all();
-        return view("index")->with(["products" => $products, "brands" => $brands, "featured" => $featured, "sales" => $sales, 'subcategories' => $subcategories]); 
+        return view("index")->with(["products" => $products, 'new_products' => $new_products, "brands" => $brands, "featured" => $featured, "sales" => $sales, "first_sale" => $first_sale, 'subcategories' => $subcategories]); 
     }
 }

@@ -34,11 +34,11 @@
       </div>
 
       <!-- Description -->
+      {{-- {{var_dump($properties)}} --}}
       <div class="col-lg-5 order-3">
         <div class="product_description">
           <div class="product_category">{{$subcategory->name}}</div>
-          <div class="product_name">{{$product->name . ' ' . $visited}}</div>
-          {{-- <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div> --}}
+          <div class="product_name">{{$product->name}}</div>
           <div class="product_text">
             <div class="tabbed_container">
 							<div class="tabs">
@@ -65,6 +65,16 @@
                     <span>Бренд</span>
                     <span>{{$product->brands->name}}</span>
                   </li>
+                  @if (!empty($properties))
+                    @forelse ($properties as $property => $value)
+                      <li>
+                        <span>{{$property}}</span>
+                        <span>{{$value}}</span>
+                      </li> 
+                    @empty
+                        
+                    @endforelse
+                  @endif
                 </ul>
               </div>
             </div>  

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Message;
 use App\Request as PriceListRequest;
 use App\Category;
+use App\Rezume;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminMailer;
 
@@ -78,5 +79,46 @@ class FormsController extends Controller
         // Mail::to('davit.gyulnazaryan@tumo.org')->send(new AdminMailer($request->contact_name));
 
         return back()->with('success', 'Зарос отправлен');
+    }    
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeVacancy(Request $request){
+        $messages = [
+            'required' => 'Это поле обязательно-:attribute',
+        ];
+
+       $validator = \Validator::make($request->all(), [
+            'name' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'profession' => 'required',
+            'file' => 'required',
+            'text' => 'required',
+       ], $messages);
+        
+        if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->errors()->all()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $filename = "rezume_".time().'.'.$request->file('file')->getClientOriginalExtension();
+        $request->file('file')->move(public_path("/documents/rezumes/"), $filename);
+
+        $new_rezume = new Rezume([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'profession' => $request->profession,
+            'text' => $request->text,
+            'file' => $filename
+        ]);
+        $new_rezume->save();
+
+        return response()->json(['success'=>'Ваш зарос отправлен'], 200, [], JSON_UNESCAPED_UNICODE);
     }    
 }

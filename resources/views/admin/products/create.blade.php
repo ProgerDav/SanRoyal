@@ -64,6 +64,12 @@
           <label>Описание</label>
           <textarea name="description" id="product-description" >{{old('description') ?? ''}}</textarea>
         </div>
+        <h4>Доп. характеристики</h4>
+        <div class="chars">
+          
+        </div>
+        <button type="button" class="add-inp btn btn-md btn-primary"><i class="fa fa-plus"></i></button>
+        <hr>
         <button type="submit" class="btn btn-primary">Создать</button>
       </form>
     </div>
@@ -71,6 +77,16 @@
         <script src="{{asset("/vendor/unisharp/laravel-ckeditor/ckeditor.js")}}"></script>
         <script>
             CKEDITOR.replace( 'product-description' );
+
+            $('.add-inp').click(function(){
+              let num = $('.char').length ? $('.char').length : 0;
+              $('.chars').append('<div class="char row" id='+ ++num +'><div class="form-group col-lg-5"><label>Название характеристики</label><input type="text" name="properties[]" class="form-control" /></div><div class="form-group col-lg-5"><label>Зачение характеристики</label><input type="text" name="values[]" class="form-control" /></div><div class="form-group text-center col-lg-2"><label class="col-lg-12">Удалить</label><button type="button" data-id='+ num +' class="btn btn-md btn-danger del-char"><i class="fa fa-trash"></i></button></div></div>');
+            });
+
+            $(document).on('click', '.del-char', function(){
+              const id = $(this).data('id');
+              $(`#${id}`).remove();
+            });
         </script>
     @endpush
 @endsection

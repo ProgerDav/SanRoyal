@@ -69,6 +69,40 @@
           <label>Описание</label>
           <textarea name="description" id="product-description" >{{$product->description}}</textarea>
         </div>
+        <h4>Группа</h4>
+        <div class="form-control d-flex align-items-center">
+          <input type="checkbox" value="1" name="new" {{old('new') == true ? "checked" : ($product->new ? "checked" : '')}} class="mr-2">
+          <label class="custom-control-label mt-1">Новинка</label>
+        </div>
+        <div class="form-control mt-4 d-flex align-items-center">
+          <input type="checkbox" value="1" name="sale" {{old('sale') == true ? "checked" : ($product->sale ? "checked" : '')}} class="mr-2">
+          <label class="custom-control-label mt-1">Акция</label>
+        </div>
+        <h4>Доп. характеристики</h4>
+        <div class="chars">
+          @if (!empty($product->json_properties))
+            @forelse (json_decode($product->json_properties) as $property => $value)
+              <div class="char row" id="{{$loop->index}}">
+                <div class="form-group col-lg-5">
+                  <label>Название характеристики</label>
+                  <input type="text" class="form-control" name="properties[]" value="{{$property}}" />
+                </div>
+                <div class="form-group col-lg-5">
+                  <label>Значение характеристики</label>
+                  <input type="text" class="form-control" name="values[]" value="{{$value}}" />
+                </div>
+                <div class="form-group col-lg-2">
+                  <label>Удалить</label>
+                  <button type="button" data-id="{{$loop->index}}" class="del-char btn btn-md btn-danger"><i class="fa fa-trash"></i></button>
+                </div>
+              </div>
+            @empty 
+
+            @endforelse    
+          @endif
+        </div>
+        <button type="button" class="add-inp btn btn-md btn-primary"><i class="fa fa-plus"></i></button>
+        <hr>
         <button type="submit" class="btn btn-primary">Сохранить</button>
       </form>
     </div>
@@ -76,6 +110,16 @@
         <script src="{{asset("/vendor/unisharp/laravel-ckeditor/ckeditor.js")}}"></script>
         <script>
             CKEDITOR.replace( 'product-description' );
+
+            $('.add-inp').click(function(){
+              let num = $('.char').length ? $('.char').length : 0;
+              $('.chars').append('<div class="char row" id='+ ++num +'><div class="form-group col-lg-5"><label>Название характеристики</label><input type="text" name="properties[]" class="form-control" /></div><div class="form-group col-lg-5"><label>Зачение характеристики</label><input type="text" name="values[]" class="form-control" /></div><div class="form-group text-center col-lg-2"><label class="col-lg-12">Удалить</label><button type="button" data-id='+ num +' class="btn btn-md btn-danger del-char"><i class="fa fa-trash"></i></button></div></div>');
+            });
+
+            $(document).on('click', '.del-char', function(){
+              const id = $(this).data('id');
+              $(`#${id}`).remove();
+            });
         </script>
     @endpush
 @endsection

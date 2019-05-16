@@ -15,7 +15,6 @@
   <title> @yield('title') SanRoyal</title>
 </head>
 <body>
-  
   <!-- Header -->
 
 		<header class="header">
@@ -26,35 +25,45 @@
 				<div class="container">
 					<div class="row">
 						<div class="col d-flex flex-row">
-							<div class="top_bar_contact_item col-sm-4">
+							<div class="top_bar_contact_item">
 								<div class="top_bar_icon"><img src="{{asset('images/mail.png')}}" alt=""></div><a
 									href="mailto:info@san-royal.ru">info@san-royal.ru</a>
 							</div>
-							<div class="top_bar_content cols-sm-4 ml-auto">
+							<div class="top_bar_contact_item d-none d-lg-block d-md-block ml-4">
+								<ul>
+									<li class="hassubs">
+											<div class="top_bar_icon"><img src="{{asset('images/phone.png')}}" alt=""></div>
+											<a href="tel:+79161241957">+7 916-124-19-57</a> |
+											<a href="tel:+79191044594">+7 919-104-45-94</a>	
+									</li>
+								</ul>
+							</div>
+							<div class="top_bar_contact_item ml-auto">
 								<div class="top_bar_menu">
 									<ul class="standard_dropdown top_bar_dropdown">
 										<li class="hassubs">
-											<a target="_blank" href="https://www.facebook.com/%D0%A1%D0%B0%D0%BD%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B0-%D0%A1%D0%B0%D0%BD%D0%A0%D0%BE%D1%8F%D0%BB%D1%8C-2332031817036383/"class="social-icon"><i class="fab fa-facebook-square"></i></a>
+											<a target="_blank" href="https://www.facebook.com/%D0%A1%D0%B0%D0%BD%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B0-%D0%A1%D0%B0%D0%BD%D0%A0%D0%BE%D1%8F%D0%BB%D1%8C-2332031817036383/"class="social-icon"><i class="fab fa-3x fa-facebook-square"></i></a>
 										</li>
 										<li class="hassubs">
-											<a target="_blank" href="#"class="social-icon"> 
-												<i class="fab fa-viber"></i>
+											<a target="_blank" href="https://viber.com/chat?number=79268058766"class="social-icon"> 
+												<i class="fab fa-2x fa-viber"></i>
 											</a>
 										</li>
 										<li class="hassubs">
-											<a target="_blank" href="#"class="social-icon"> 
-												<i class="fab fa-whatsapp"></i>
-											</a>
-										</li>
-										<li class="hassubs">
-											<a href="tel:+7 916-124-19-57" class="d-flex align-items-center social-icon">
-												{{-- <div class="top_bar_icon"><img src="{{asset('images/phone.png')}}" alt=""></div> --}}
-												{{-- <i class="fa fa-phone-square"></i> --}}
-												+7 916-124-19-57
+											{{-- <a target="_blank" href="https://api.whatsapp.com/send?phone=7926805-87-66" class="social-icon">  --}}
+											<a target="_blank" href="https://wa.me/79268058766" class="social-icon"> 
+												<i class="fab fa-2x fa-whatsapp"></i>
 											</a>
 										</li>
 									</ul>
 								</div>
+							</div>
+							<div class="top_bar_contact_item ml_auto">
+								<ul>
+									<li>
+										<a href="#" id="searchbar_toggle" class="top_bar_icon bg-primary pl-2 pr-2 ml-4 text-white"><img src="{{asset('/images/search.png')}}" class="mr-1" alt="">Поиск</a>
+									</li>
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -64,111 +73,90 @@
 			<!-- Header Main -->
 
 			<div class="header_main">
+				<div id="searchbar">
+					<div class="header_search container">
+						<div class="header_search">
+							<div class="header_search_content">
+								<div class="header_search_form_container">
+									<form action="{{route('catalog.search')}}" class="header_search_form clearfix">
+										<input type="search" required="required" name='q' value='{{request()->q ?? ''}}' class="header_search_input" placeholder="Поиск продуктов..." />
+										<button type="submit" class="header_search_button trans_300" value="Submit"><img src="{{asset('images/search.png')}}" alt=""></button>
+										<button type="button" class="header_search_button searchbar_close btn-default trans_300" value="Submit"><i class="fa fa-times fa-2x"></i></button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>	
+				</div>
+				<div class="searchbar_overlay"></div>
 				<div class="container">
 					<div class="row">
 
 						<!-- Logo -->
-						<div class="col-lg-3 col-md-4 col-sm-3 col-3 order-1">
+						<div class="col-lg-3 col-md-4 col-sm-3 col-3">
 							<div class="logo_container">
 								<div class="logo"><a href="{{route('index')}}"><img src="{{asset('images/logo.jpg')}}" alt="SanRoyal"></a></div>
 							</div>
 						</div>
 
-						<!-- Search -->
-						<div class="offset-lg-3 offset-md-2 col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
-							<div class="header_search">
-								<div class="header_search_content">
-									<div class="header_search_form_container">
-										<form action="{{route('catalog.search')}}" class="header_search_form clearfix">
-											<input type="search" required="required" name='q' value='{{request()->q ?? ''}}' class="header_search_input"
-												placeholder="Поиск продуктов..." />
-											<button type="submit" class="header_search_button trans_300" value="Submit"><img
-												src="{{asset('images/search.png')}}" alt=""></button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Main Navigation -->
-
-			<nav class="main_nav">
-				<div class="container">
-					<div class="row">
-						<div class="col">
-
-							<div class="main_nav_content d-flex flex-row">
-
-								<!-- Categories Menu -->
-
-								<div class="cat_menu_container col-md-4 col-lg-3 col-sm-6 col-xs-7">
-									<div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
-										<div class="cat_burger"><span></span><span></span><span></span></div>
-										<div class="cat_menu_text">Каталог товаров</div>
-									</div>
-
-									<ul class="cat_menu">
-										@if ($catalogs->count() > 0)
-											<li>
-												<a href="{{route('catalog.download.index')}}">
-														<img class="cat_menu_image" src="{{ asset("images/download.png") }}" alt="Скачать каталоги">
-														Скачать каталоги
-													</a>
-												<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-												<ul>
-														@foreach ($catalogs as $catalog)
-															<li>
-																{{-- <a href="{{route('catalog.download.file', ['catalog_slug' => Str::slug($catalog->id.' '.$catalog->title)])}}"> --}}
-																<a href="{{asset("/documents/catalogs/$catalog->file")}}">
-																	<img class="cat_menu_image" src="{{ asset("images/".$catalog->image) }}" alt="{{$catalog->title}}">
-																	{{$catalog->title}}
-																</a>
-															</li>												
-														@endforeach	
-												</ul>
-											</li>
-										@endif	
-
-										@foreach ($categories as $cat)
-												<li>
-													<a href="{{route('catalog.category', ['category_slug' => Str::slug($cat->id.' '.$cat->slug)])}}">
-														<img class="cat_menu_image" src="{{ asset("images/$cat->image") }}" alt="{{$cat->name}}">
-														{{$cat->name}}
-													</a>
-													<span class="cat_menu_toggle"><i class="fa fa-chevron-right"></i></span>
-													<ul>
-														@foreach ($cat->subcategories as $sub_cat)
-															<li>
-																<a href="{{route('catalog.subcategory', ['category' => Str::slug($cat->slug), 'subcategory' => Str::slug($sub_cat->id.' '.$sub_cat->slug)])}}">
-																	<img class="cat_menu_image" src="{{ asset("images/".$sub_cat->image) }}" alt="{{$sub_cat->name}}">
-																	{{$sub_cat->name}}
-																</a>
-															</li>
-														@endforeach
-													</ul>
-												</li>
-										@endforeach
-									</ul>
-								</div>
-
-								<!-- Main Nav Menu -->
-
-								<div class="main_nav_menu ml-auto">
-									<ul class="standard_dropdown main_nav_dropdown">
-										<li><a href="{{route('catalog.index')}}">Каталог<i class="fas fa-chevron-down"></i></a></li>
+						<nav class="main_nav col-lg-9 col-md-8 col-sm-9 row align-items-center justify-content-center">
+							<div class="col">
+								<div class="main_nav_content d-flex flex-row">
+									<ul class="d-flex  standart_dropdown main_nav_dropdown">
+										<li>
+											<a href="{{route('catalog.index')}}">Каталог</a>
+											<ul class="dropdown_big d-flex flex-wrap">
+												@if ($catalogs->count() > 0)
+													<li class="col-lg-4 d-flex">
+														<div class="col-lg-3">
+															<img class="cat_menu_image" src="{{asset("images/download.png")}}" alt="Скачать каталоги">
+														</div>
+														<div class="col-lg-9">
+															<a href="{{route('catalog.download.index')}}">
+																Скачать каталоги
+															</a>
+															<ul>
+																@foreach($catalogs as $catalog)
+																	<li>
+																		<a href="{{asset("/documents/catalogs/$catalog->file")}}" title="{{$catalog->name}}">{{$catalog->name}}</a>
+																	</li>																			
+																@endforeach
+															</ul>
+														</div>
+													</li>	
+												@endif
+												@forelse ($categories as $cat)
+													<li class="col-lg-4 d-flex">
+														<div class="col-lg-3">
+															<img class="cat_menu_image" src="{{asset("images/$cat->image")}}" alt="{{$cat->name}}">
+														</div>
+														<div class="col-lg-9">
+															<a href="{{route('catalog.category', ['category_slug' => Str::slug($cat->id.' '.$cat->slug)])}}" title="{{$cat->name}}">
+																{{$cat->name}}
+															</a>
+															<ul>
+																@forelse ($cat->subcategories as $subcat)
+																	<li>
+																		<a href="{{route('catalog.subcategory', ['category_slug' => Str::slug($cat->slug), 'subcategory_slug' => Str::slug($subcat->id.' '.$subcat->slug)])}}">{{$subcat->name}}</a>
+																	</li>	
+																@empty
+																		
+																@endforelse
+															</ul>
+														</div>
+													</li>
+												@empty
+														
+												@endforelse
+											</ul>
+										</li>
 										<li><a href="{{route('price-list')}}">Прайс-лист</a></li>
 										<li><a href="{{route("brands.index")}}">Бренды</a></li>
 										<li>
-											<a href="{{route("certificates.index")}}">Сертификаты</a>
+											<a href="{{route("certificates.index")}}">Сертификаты</a>											
 										</li>
 										<li class="hassubs">
-											<a href="{{route('about.index')}}">О компании<i class="fas fa-chevron-down"></i></a>
+											<a href="{{route('about.index')}}">О компании</a>
 											<ul>
 												<li><a href="{{route('about.blog')}}">Новости</a></li>
 												<li><a href="{{route('about.vacancies')}}">Вакансии</a></li>
@@ -176,7 +164,32 @@
 										</li>
 										<li><a href="{{route('contact')}}">Контакты</a></li>
 									</ul>
+									<div class="menu_trigger_container ml-auto">											
+										<div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
+											<div class="menu_burger">
+												<div class="menu_trigger_text">menu</div>
+												<div class="cat_burger menu_burger_inner"><span></span><span></span><span></span></div>
+											</div>
+										</div>
+									</div>
 								</div>
+							</div>
+						</nav>
+						
+					</div>
+				</div>
+			</div>
+
+			<!-- Main Navigation -->
+
+			{{-- <nav class="main_nav">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col">
+
+							<div class="main_nav_content d-flex flex-row">
+
+								
 
 								<!-- Menu Trigger -->
 
@@ -193,7 +206,7 @@
 						</div>
 					</div>
 				</div>
-			</nav>
+			</nav> --}}
 
 			<!-- Menu -->
 
@@ -214,10 +227,10 @@
 									<li class="page_menu_item">
 										<a href="{{route("catalog.index")}}">Каталог</a>
 									</li>
-									<li class="page_menu_item has-children">
+									<li class="page_menu_item">
 										<a href="{{route('price-list')}}">Прайс-лист</a>
 									</li>
-									<li class="page_menu_item has-children">
+									<li class="page_menu_item">
 										<a href="{{route('brands.index')}}">Бренды</a>
 									</li>
 									<li class="page_menu_item"><a href="{{route('certificates.index')}}">Сертификаты</a></li>
@@ -269,27 +282,27 @@
 							</div>
 
 							<div class="viewed_slider_container">
-
-								<!-- Recently Viewed Slider -->
-
 								<div class="owl-carousel owl-theme viewed_slider">
-
-									@if (isset($_COOKIE['viewed_products']) AND !empty($_COOKIE['viewed_products']))
-											@foreach (json_decode($_COOKIE['viewed_products']) as $viewed_product)
+									@if (!empty($viewed))
+											@foreach ($viewed as $viewed_product)
 													<div class="owl-item">
 														<div
 															class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-															<div class="viewed_image"><img src="{{asset("images/$viewed_product->image")}}" alt="{{$viewed_product->name}}"></div>
+															<div class="viewed_image"><img src="{{asset("images/$viewed_product->image")}}" alt="{{$viewed_product->name}}" /></div>
 															<div class="viewed_content text-center">
-																{{-- <div class="viewed_price">Lorem</div>  --}}
-																<div class="viewed_name"><a href="">{{$viewed_product->name}}</a></div>
+																<div class="viewed_name"><a href="{{route('catalog.product', ['category_slug' => Str::slug($viewed_product->sub_categories->categories->slug), 'subcategory_slug' => Str::slug($viewed_product->sub_categories->slug), 'product_slug' => Str::slug($viewed_product->id.' '.$viewed_product->slug)])}}">{{$viewed_product->name}}</a></div>
 															</div>
-															<ul class="item_marks">
-																<li class="item_mark item_new">new</li>
-															</ul>
 														</div>
-													</div>													
+													</div>
+													@php
+															$i = $loop->index;
+													@endphp													
 											@endforeach
+											@for ($j = 0; $j < 8 - $i; $i++)
+													<div class="owl-item jumbotron"></div>			
+											@endfor
+									@else
+										<div class="owl-item jumbotron"></div>		
 									@endif
 								</div>
 							</div>
@@ -297,8 +310,6 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- Brands -->
 
 			<div class="brands">
 				<div class="container">
@@ -329,8 +340,7 @@
 				</div>
 			</div>
 
-			<!-- Newsletter -->
-
+{{-- 
 			<div class="newsletter">
 				<div class="container">
 					<div class="row">
@@ -349,13 +359,12 @@
 										<input type="email" class="newsletter_input" required="required" placeholder="Email...">
 										<button class="newsletter_button">Отправить</button>
 									</form>
-									{{-- <div class="newsletter_unsubscribe_link"><a href="#">Отписаться</a></div> --}}
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> --}}
 
 			<!-- Footer -->
 

@@ -35,6 +35,9 @@ class CreateProductsTable extends Migration
             $table->integer("bid")->unsigned()->nullable()->default(null);
             $table->foreign("bid")->references("id")->on("brands");
 
+            $table->boolean("new")->default(false);
+            $table->boolean("sale")->default(false);
+
             $table->timestamps();
         });
     }

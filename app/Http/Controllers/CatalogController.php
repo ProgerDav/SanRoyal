@@ -142,20 +142,15 @@ class CatalogController extends Controller
         $product = Product::findOrFail($id);
         $subcategory = $product->sub_categories;
         $category = $subcategory->categories;
-        $arr = [$product->slug, $product_slug];
 
-        // setcookie('visited', $id, 86400);
+        if(empty($request->session()->get('viewed'))) $request->session()->put('viewed', [$id]);
+        else if(!in_array($id, $request->session()->get('viewed'))) $request->session()->push('viewed', $id);
 
-        // if(isset($_COOKIE['visited'])){
-        //     $visited = $_COOKIE['visited'];
-        // }else{
-        //     $visited = "";
-        // }
+        $properties = json_decode($product->json_properties);
 
         if(Str::slug($category->slug) !== $category_slug OR Str::slug($subcategory->slug) !== $subcategory_slug OR Str::slug($product->slug) !== $product_slug) return redirect()->route('catalog.product', ['category_slug' => Str::slug($category->slug), 'subcategory_slug' => Str::slug($subcategory->slug), 'product_slug' => Str::slug($id.'-'.$product->slug)]);
 
-        $id2 = $request->cookie('visited');
 
-        return view('catalog.product')->with(["subcategory" => $subcategory, "category" => $category, "product" => $product, 'visited' => $id2])->withCookie(cookie()->forever('visited', $id));
+        return view('catalog.product')->with(["subcategory" => $subcategory, "category" => $category, "product" => $product, 'properties' => $properties]);
     }
 }

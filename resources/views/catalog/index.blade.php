@@ -27,10 +27,10 @@
                           <div class="product_item category-item">
                             <div class="product_border"></div>
                             <div class="row">
-                              <a href="{{route("catalog.category", ['category_slug' => Str::slug($category->slug)])}}" class="col-lg-4 product_image">
+                              <a href="{{route("catalog.category", ['category_slug' => Str::slug($category->slug)])}}" style="height: auto" class="col-lg-5 product_image">
                                 <img src="{{asset("images/$category->image")}}" alt="{{$category->name}}">
                               </a>
-                              <div class="product_content col-lg-7 offset-lg-1">
+                              <div class="product_content col-lg-6">
                                 <div class="product_name">
                                   <a href="{{route("catalog.category", ['category_slug' => Str::slug($category->id.' '.$category->slug)])}}" tabindex="0">{{$category->name}}</a>
                                 </div>

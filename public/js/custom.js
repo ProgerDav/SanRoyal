@@ -58,7 +58,7 @@ $(document).ready(function () {
 	initReviewsSlider();
 	initViewedSlider();
 	initBrandsSlider();
-	initTimer();
+	initBannerSlider();
 
 	$(window).on('resize', function () {
 		setHeader();
@@ -74,10 +74,53 @@ $(document).ready(function () {
 		if (!bool) elem.addClass("open");
 	});
 
+	$("#searchbar_toggle").click(function (e) {
+		e.preventDefault();
+		$("#searchbar").toggleClass('open');
+	});
+
+	$(".searchbar_overlay, .searchbar_close").click(function () {
+		$("#searchbar").removeClass('open');
+	});
+
+
+	function initBannerSlider() {
+		if ($('.banner-slider').length) {
+			var bslider = $('.banner-slider');
+			bslider.owlCarousel({
+				items: 1,
+				animateIn: 'fadeIn',
+				animateOut: 'fadeOut',
+				loop: false,
+				navClass: ['banner_slider_prev', 'banner_slider_next'],
+				nav: false,
+				dots: false,
+				smartSpeed: 1200,
+				autoplay: false,
+				autoplayTimeout: 5000
+			});
+
+			if ($('.banner_slider_prev').length) {
+				var prev = $('.banner_slider_prev');
+				prev.on('click', function () {
+					bslider.trigger('prev.owl.carousel');
+				});
+			}
+
+			if ($('.banner_slider_next').length) {
+				var next = $('.banner_slider_next');
+				next.on('click', function () {
+					bslider.trigger('next.owl.carousel');
+				});
+			}
+		}
+	}
+
+
 	/* 
-
+	
 	2. Set Header
-
+	
 	*/
 
 	function setHeader() {
@@ -104,9 +147,9 @@ $(document).ready(function () {
 	}
 
 	/* 
-
+	
 	4. Init Page Menu
-
+	
 	*/
 
 	function initPageMenu() {
@@ -167,9 +210,9 @@ $(document).ready(function () {
 	}
 
 	/* 
-
+	
 	5. Init Deals Slider
-
+	
 	*/
 
 	function initDealsSlider() {
@@ -205,9 +248,9 @@ $(document).ready(function () {
 	}
 
 	/* 
-
+	
 	6. Init Tab Lines
-
+	
 	*/
 
 	function initTabLines() {
@@ -238,9 +281,9 @@ $(document).ready(function () {
 	}
 
 	/* 
-
+	
 	7. Init Tabs
-
+	
 	*/
 
 	function initTabs() {
@@ -281,9 +324,9 @@ $(document).ready(function () {
 	}
 
 	/* 
-
+	
 	8. Init Featured Slider
-
+	
 	*/
 
 	function initFeaturedSlider() {
@@ -364,9 +407,9 @@ $(document).ready(function () {
 	}
 
 	/* 
-
+	
 	9. Init Favorites
-
+	
 	*/
 
 	function initFavs() {
@@ -381,9 +424,9 @@ $(document).ready(function () {
 	}
 
 	/* 
-
+	
 	10. Init ZIndex
-
+	
 	*/
 
 	function featuredSliderZIndex() {
@@ -403,9 +446,9 @@ $(document).ready(function () {
 	}
 
 	/* 
-
+	
 	11. Init Popular Categories Slider
-
+	
 	*/
 
 	function initPopularSlider() {
@@ -445,9 +488,9 @@ $(document).ready(function () {
 	}
 
 	/* 
-
+	
 	12. Init Banner 2 Slider
-
+	
 	*/
 
 	function initBanner2Slider() {
@@ -466,9 +509,9 @@ $(document).ready(function () {
 	}
 
 	/* 
-
+	
 	13. Init Arrivals Slider
-
+	
 	*/
 
 	function initArrivalsSlider() {
@@ -549,9 +592,9 @@ $(document).ready(function () {
 	}
 
 	/* 
-
+	
 	14. Init Arrivals Slider ZIndex
-
+	
 	*/
 
 	function arrivalsSliderZIndex() {
@@ -571,9 +614,9 @@ $(document).ready(function () {
 	}
 
 	/* 
-
+	
 	15. Init Best Sellers Slider
-
+	
 	*/
 
 	function bestsellersSlider() {
@@ -634,9 +677,9 @@ $(document).ready(function () {
 	}
 
 	/* 
-
+	
 	16. Init Trends Slider
-
+	
 	*/
 
 	function initTrendsSlider() {
@@ -679,9 +722,9 @@ $(document).ready(function () {
 	}
 
 	/* 
-
+	
 	17. Init Reviews Slider
-
+	
 	*/
 
 	function initReviewsSlider() {
@@ -709,9 +752,9 @@ $(document).ready(function () {
 	}
 
 	/* 
-
+	
 	18. Init Recently Viewed Slider
-
+	
 	*/
 
 	function initViewedSlider() {
@@ -722,8 +765,6 @@ $(document).ready(function () {
 				{
 					loop: true,
 					margin: 30,
-					autoplay: true,
-					autoplayTimeout: 6000,
 					nav: false,
 					dots: false,
 					responsive:
@@ -753,9 +794,9 @@ $(document).ready(function () {
 	}
 
 	/* 
-
+	
 	19. Init Brands Slider
-
+	
 	*/
 
 	function initBrandsSlider() {
@@ -764,9 +805,10 @@ $(document).ready(function () {
 
 			brandsSlider.owlCarousel(
 				{
-					loop: true,
-					autoplay: true,
-					autoplayTimeout: 5000,
+					loop: false,
+					// rewind: true,
+					// autoplay: true,
+					// autoplayTimeout: 5000,
 					nav: false,
 					dots: false,
 					autoWidth: true,
@@ -789,78 +831,6 @@ $(document).ready(function () {
 			}
 		}
 	}
-
-	/* 
-
-	20. Init Timer
-
-	*/
-
-	function initTimer() {
-		if ($('.deals_timer_box').length) {
-			var timers = $('.deals_timer_box');
-			timers.each(function () {
-				var timer = $(this);
-
-				var targetTime;
-				var target_date;
-
-				// Add a date to data-target-time of the .deals_timer_box
-				// Format: "Feb 17, 2018"
-				if (timer.data('target-time') !== "") {
-					targetTime = timer.data('target-time');
-					target_date = new Date(targetTime).getTime();
-				}
-				else {
-					var date = new Date();
-					date.setDate(date.getDate() + 2);
-					target_date = date.getTime();
-				}
-
-				// variables for time units
-				var days, hours, minutes, seconds;
-
-				var h = timer.find('.deals_timer_hr');
-				var m = timer.find('.deals_timer_min');
-				var s = timer.find('.deals_timer_sec');
-
-				setInterval(function () {
-					// find the amount of "seconds" between now and target
-					var current_date = new Date().getTime();
-					var seconds_left = (target_date - current_date) / 1000;
-					console.log(seconds_left);
-
-					// do some time calculations
-					days = parseInt(seconds_left / 86400);
-					seconds_left = seconds_left % 86400;
-
-					hours = parseInt(seconds_left / 3600);
-					hours = hours + days * 24;
-					seconds_left = seconds_left % 3600;
-
-
-					minutes = parseInt(seconds_left / 60);
-					seconds = parseInt(seconds_left % 60);
-
-					if (hours.toString().length < 2) {
-						hours = "0" + hours;
-					}
-					if (minutes.toString().length < 2) {
-						minutes = "0" + minutes;
-					}
-					if (seconds.toString().length < 2) {
-						seconds = "0" + seconds;
-					}
-
-					// display results
-					h.text(hours);
-					m.text(minutes);
-					s.text(seconds);
-
-				}, 1000);
-			});
-		}
-	}
 });
 
 $(".sidebar_categories .sidebar_toggle").click(function () {
@@ -868,3 +838,37 @@ $(".sidebar_categories .sidebar_toggle").click(function () {
 	$(".sidebar_categories > li").removeClass("open");
 	if (!bool) $(this).parent().addClass("open");
 });
+
+$(".shop_sidebar_toggle").click(function () {
+	$(this).toggleClass("close-icon");
+	$(".shop_sidebar_overlay").toggle();
+	$(".shop_sidebar").toggleClass('open');
+});
+
+if ($(this).innerWidth() <= 991 && $(this).scrollTop() >= 450) {
+	$(".shop_sidebar_toggle").fadeIn(400);
+} else {
+	$(".shop_sidebar_toggle").fadeOut(400);
+}
+
+$(".shop_sidebar_overlay").click(function () {
+	$(this).toggle();
+	$(".shop_sidebar_toggle").removeClass('close-icon');
+	$(".shop_sidebar").removeClass('open');
+});
+
+$(window).scroll(function () {
+	if ($(this).innerWidth() <= 991 && $(this).scrollTop() >= 450) {
+		$(".shop_sidebar_toggle").fadeIn(400);
+	} else {
+		$(".shop_sidebar_toggle").fadeOut(400);
+	}
+});
+
+window.onkeydown = function (e) {
+	if (e.keyCode === 27 && $(window).innerWidth() <= 991 && $(".shop_sidebar").hasClass("open")) {
+		$(".shop_sidebar_toggle").removeClass('close-icon');
+		$(".shop_sidebar_overlay").toggle();
+		$(".shop_sidebar").removeClass("open");
+	}
+};

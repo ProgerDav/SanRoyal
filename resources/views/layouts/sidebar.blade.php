@@ -1,4 +1,7 @@
-          <div class="shop_sidebar">
+					<div class="shop_sidebar_toggle bg-primary text-white"><i class="fa fa-bars"></i><i class="fa fa-times"></i></div>					
+					<div class="shop_sidebar_overlay"></div>
+					<span id="indicator"></span>
+					<div class="shop_sidebar">
 						<div class="sidebar_section">
 							<div class="sidebar_title">Каталог</div>
 							<ul class="sidebar_categories">

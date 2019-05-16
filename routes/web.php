@@ -29,6 +29,7 @@ Route::resource('/certificates', 'CertificatesController', ["only" => ['index', 
 
 Route::get('/about', "AboutController@index")->name('about.index');
 Route::get('/about/vacancies', "AboutController@vacancies")->name('about.vacancies');
+Route::post('/about/vacancies/request', "FormsController@storeVacancy")->name('about.vacancies.request');
 Route::get('/about/blog', "AboutController@blog")->name('about.blog');
 Route::get('/about/blog/{post_slug}', "AboutController@blog_show")->name('about.blog_single');
 
@@ -58,6 +59,7 @@ Route::middleware('auth')->namespace('Admin')->prefix('admin-panel')->name('admi
   Route::resource('/vacancies', 'VacanciesController', ["only" => ['index', 'create', 'update', 'edit', 'store', 'destroy']]);
   Route::resource('/catalogs', 'CatalogsController', ["only" => ['index', 'create', 'update', 'edit', 'store', 'destroy']]);
   Route::resource('/requests', 'RequestsController', ["only" => ['index', 'show', 'destroy']]);
+  Route::resource('/rezumes', 'RezumesController', ["only" => ['index', 'show', 'destroy']]);
   Route::resource('/messages', 'MessagesController', ["only" => ['index', 'show', 'destroy']]);
 });
 

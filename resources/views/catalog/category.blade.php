@@ -26,11 +26,11 @@
                   @forelse ($subcategories as $subcategory)
                           <div class="product_item category-item">
                             <div class="product_border"></div>
-                            <div class="row">
-                              <a href="{{route("catalog.subcategory", ['category_slug' => Str::slug($category->slug), 'subcategory_slug' => Str::slug($subcategory->id.' '.$subcategory->slug)])}}" class="col-lg-4 product_image">
+                            <div class="row align-items-center justify-content-center">
+                              <a style="height: auto" href="{{route("catalog.subcategory", ['category_slug' => Str::slug($category->slug), 'subcategory_slug' => Str::slug($subcategory->id.' '.$subcategory->slug)])}}" class="col-lg-5 text-center  product_image">
                                 <img src="{{asset("images/$subcategory->image")}}" alt="{{$category->name}}">
                               </a>
-                              <div class="product_content col-lg-7 offset-lg-1">
+                              <div class="product_content col-lg-6">
                                 <div class="product_name">
                                   <a href="{{route("catalog.subcategory", ['category_slug' => Str::slug($category->slug), 'subcategory_slug' => Str::slug($subcategory->id.' '.$subcategory->slug)])}}" tabindex="0">{{$subcategory->name}}</a>
                                 </div>

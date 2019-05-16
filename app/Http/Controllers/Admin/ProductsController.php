@@ -56,7 +56,9 @@ class ProductsController extends Controller
             'additional_images' => 'array',
             'additional_images.*' => 'image|mimes:jpeg,png,jpg,|max:4096',
             'subcategory' => 'required',
-            'brand' => 'required'
+            'brand' => 'required',
+            'properties' => 'array',
+            'values' => 'array'
         ], $messages);
 
         $image = $request->file('image');
@@ -72,6 +74,14 @@ class ProductsController extends Controller
             }
         }
 
+        $props_arr = [];
+
+        if(!empty($request->properties) && count($request->properties) === count($request->values)){
+            for($i = 0; $i < count($request->properties); $i++){
+                $props_arr[$request->properties[$i]] = $request->values[$i];
+            }
+        }
+
         $new_product = new Product([
             'name' => $request->name,
             'production' => $request->production,
@@ -81,7 +91,8 @@ class ProductsController extends Controller
             'image' => $image_name,
             'additional_images' => implode('-', $add_images),
             "scid" => $request->subcategory,
-            "bid" => $request->brand 
+            "bid" => $request->brand ,
+            "json_properties" => empty($props_arr) ? "" : json_encode($props_arr, JSON_UNESCAPED_UNICODE)
         ]);
 
         $new_product->save();
@@ -125,7 +136,9 @@ class ProductsController extends Controller
             'additional_images' => 'array',
             'additional_images.*' => 'image|mimes:jpeg,png,jpg,|max:4096',
             'subcategory' => 'required',
-            'brand' => 'required'
+            'brand' => 'required',
+            'properties' => 'array',
+            'values' => 'array',
         ], $messages);
 
         $product = Product::findOrFail($id);
@@ -147,6 +160,14 @@ class ProductsController extends Controller
             $product->additional_images = implode("-", $add_images);
         }
 
+        $props_arr = [];
+
+        if(!empty($request->properties) && count($request->properties) === count($request->values)){
+            for($i = 0; $i < count($request->properties); $i++){
+                $props_arr[$request->properties[$i]] = $request->values[$i];
+            }
+        }
+
         $product->name = $request->name;
         $product->production = $request->production;
         $product->warranty = $request->warranty;
@@ -154,6 +175,9 @@ class ProductsController extends Controller
         $product->description = $request->description;
         $product->scid = $request->subcategory;
         $product->bid = $request->brand;
+        $product->json_properties = empty($props_arr) ? "" : json_encode($props_arr, JSON_UNESCAPED_UNICODE);
+        $product->new = $request->new ?? 0;
+        $product->sale = $request->sale ?? 0;
         $product->save();
         return redirect(route('admin.products.edit', ['product' => $id]))->with('success', 'Изменения сохранены');
     }

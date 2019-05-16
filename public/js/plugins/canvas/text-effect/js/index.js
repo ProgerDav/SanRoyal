@@ -147,7 +147,7 @@ function init() {
   do {
     wordWidth = 0;
     fontSize -= 4;
-    wordCtx.font = fontSize + "px 'PT Serif', sans-serif";
+    wordCtx.font = fontSize + "px 'FontAwesome', sans-serif";
     for (var i = 0; i < txt.length; i++) {
       var w = wordCtx.measureText(txt[i])
         .width;

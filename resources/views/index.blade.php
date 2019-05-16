@@ -4,7 +4,75 @@
 
 {{-- Banner --}}
     
-    @include('layouts.banner', ["text" => ""])
+		{{-- @include('layouts.banner', ["text" => "", 'image' => true]) --}}
+		
+		<div class="banner-container container">
+			<div class="row">
+				<div class="col-lg-3 col-sm-6 order-lg-1 order-sm-2">
+					<a href="#" class="banner catalog-banner">
+						<div class="banner-bg">
+							<img src="{{asset('/images/banner1.jpg')}}" alt="Banner1">
+						</div>
+						<div class="banner-text">
+							<span class="banner-brand">Millenium</span>
+							<span class="banner-title">Дренажные насосы</span>
+						</div>
+					</a>
+					<a href="#" class="banner catalog-banner">
+						<div class="banner-bg">
+							<img src="{{asset('/images/banner2.jpg')}}" alt="Banner2">
+						</div>
+						<div class="banner-text">
+							<span class="banner-brand">Buggati</span>
+							<span class="banner-title">Краны для воды</span>
+						</div>
+					</a>	
+				</div>
+				<div class="col-lg-6 col-sm-12 order-lg-2 order-sm-1">
+					<div class="banner-slider owl-carousel owl-theme">
+						<a href="#" class="banner catalog-banner banner-main">
+							<div class="banner-bg">
+								<img src="{{asset('/images/banner_main.jpg')}}" alt="Banner1">
+							</div>
+						</a>
+						<a href="#" class="banner catalog-banner banner-main">
+							<div class="banner-bg">
+								<img src="{{asset('/images/banner2.jpg')}}" alt="Banner1">
+							</div>
+						</a>
+						<a href="#" class="banner catalog-banner banner-main">
+							<div class="banner-bg">
+								<img src="{{asset('/images/banner1.jpg')}}" alt="Banner1">
+							</div>
+						</a>
+					</div>
+					{{-- <div class="banner_slider_controls"> --}}
+						<div class="banner_slider_prev banner_slider_controls"><i class="fa fa-chevron-left"></i></div>
+						<div class="banner_slider_next banner_slider_controls"><i class="fa fa-chevron-right"></i></div>
+					{{-- </div>	 --}}
+				</div>
+				<div class="col-lg-3 col-sm-12 order-lg-3 order-sm-3">
+					<a href="#" class="banner catalog-banner">
+						<div class="banner-bg">
+							<img src="{{asset('/images/banner3.jpg')}}" alt="Banner1">
+						</div>
+						<div class="banner-text">
+							<span class="banner-brand">Viega</span>
+							<span class="banner-title">Бронзовые фитинги</span>
+						</div>
+					</a>
+					<a href="#" class="banner catalog-banner">
+						<div class="banner-bg">
+							<img src="{{asset('/images/banner4.jpg')}}" alt="Banner2">
+						</div>
+						<div class="banner-text">
+							<span class="banner-brand">Alcaplast</span>
+							<span class="banner-title">Сантехника для ванной комнаты</span>
+						</div>
+					</a>	
+				</div>
+			</div>
+		</div>
     
 {{-- Characteristics --}}
     <div class="characteristics">
@@ -122,7 +190,7 @@
 								<!-- Product Panel -->
 								<div class="product_panel panel active">
 									<div class="featured_slider slider">
-                    @forelse ($sales as $prod)
+                    @forelse ($new_products as $prod)
                         <div class="featured_slider_item">
                           <div class="border_active"></div>
                           <div
@@ -137,7 +205,7 @@
                                 {{$prod->name}}
                               </div>
                               <div class="product_extras">
-                                <button class="product_cart_button"><a class="text-white" href="{{route('catalog.product', ['category_slug' => Str::slug($prod->sub_categories->categories->slug), 'subcategory_slug' => Str::slug($prod->sub_categories->slug), 'product_slug' => Str::slug($prod->slug)])}}" >Просмотр</a></button>
+                                <button class="product_cart_button"><a class="text-white" href="{{route('catalog.product', ['category_slug' => Str::slug($prod->sub_categories->categories->slug), 'subcategory_slug' => Str::slug($prod->sub_categories->slug), 'product_slug' => Str::slug($prod->id.' '.$prod->slug)])}}" >Просмотр</a></button>
                               </div>
                             </div>
                             <ul class="product_marks">
@@ -169,22 +237,12 @@
 					<div class="offset-lg-1 offset-md-1 offset-sm-1 offset-xs-1 col-lg-6 col-md-6 col-sm-10 col-xs-10">
 						<article class="about_banner_text">
 							<h2 class="about_banner_title">О Нас</h2>
-							Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo asperiores rem id rerum obcaecati veritatis
-							inventore placeat suscipit saepe, ipsam nisi quos qui possimus vero exercitationem fugit? Quasi,
-							repellendus
-							omnis?
-							Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo asperiores rem id rerum obcaecati veritatis
-							inventore placeat suscipit saepe, ipsam nisi quos qui possimus vero exercitationem fugit? Quasi,
-							repellendus
-							omnis?
-							Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo asperiores rem id rerum obcaecati veritatis
-							inventore placeat suscipit saepe, ipsam nisi quos qui possimus vero exercitationem fugit? Quasi,
-							repellendus
-							omnis?
-							Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo asperiores rem id rerum obcaecati veritatis
-							inventore placeat suscipit saepe, ipsam nisi quos qui possimus vero exercitationem fugit? Quasi,
-							repellendus
-							omnis?
+							Компания ООО «Санрояль» более XX лет работает на российском рынке инженерной
+							сантехники. На протяжении всего этого времени мы стремимся выстраивать
+							долгосрочные взаимовыгодные отношения с клиентами и партнерами. Для достижения
+							этой цели наша команда проводит клиентоориентированную политику, которая
+							позволяет нам постоянно быть в курсе потребительского спроса и своевременно отвечать
+							на вызовы рынка.
 						</article>
 						<a href="{{route('about.index')}}" class="button">Читать дальше</a>
 					</div>
@@ -240,25 +298,26 @@
                 </div>
               </div>
               <div class="col-lg-3">
+								@if($first_sale)
 									<div class="arrivals_single clearfix">
 										<div class="d-flex flex-column align-items-center justify-content-center">
-											<div class="arrivals_single_image"><img src="images/new_single.png" alt=""></div>
+											<div class="arrivals_single_image text-center"><img src="{{asset("images/$first_sale->image")}}" alt="{{$first_sale->name}}"></div>
 											<div class="arrivals_single_content">
-												<div class="arrivals_single_category"><a href="#">Категория</a></div>
+												<div class="arrivals_single_category">{{$first_sale->sub_categories->name}}</div>
 												<div class="arrivals_single_name_container clearfix">
-													<div class="arrivals_single_name"><a href="#">LUNA Smartphone</a></div>
-													<div class="arrivals_single_price text-right"></div>
+													<div class="arrivals_single_name text-center"><a href="{{route('catalog.product', ['category_slug' => Str::slug($first_sale->sub_categories->categories->slug), 'subcategory_slug' => Str::slug($first_sale->sub_categories->slug), 'product_slug' => Str::slug($first_sale->id.' '.$first_sale->slug)])}}">{{$first_sale->name}}</a></div>
 												</div>
 												<div>
-													Lorem ipsum dolor sit amet.
+													
 												</div>
-												<button class="arrivals_single_button">Просмотр</button>
+												<button class="arrivals_single_button"><a class="text-white" href="{{route('catalog.product', ['category_slug' => Str::slug($first_sale->sub_categories->categories->slug), 'subcategory_slug' => Str::slug($first_sale->sub_categories->slug), 'product_slug' => Str::slug($first_sale->id.' '.$first_sale->slug)])}}">Просмотр</a></button>
 											</div>
-											<ul class="arrivals_single_marks product_marks">
+											{{-- <ul class="arrivals_single_marks product_marks">
 												<li class="arrivals_single_mark product_mark product_new">new</li>
-											</ul>
+											</ul> --}}
 										</div>
 									</div>
+								@endif
 								</div>
 						</div>
 					</div>
@@ -349,14 +408,12 @@
 									
 									@forelse ($catalogs as $catalog)
 											<div class="owl-item">
-												<a href="{{asset("/documents/catalogs/$catalog->file")}}" target="_blank" class="review d-flex flex-row align-items-start justify-content-start">
+												<a href="{{asset("/documents/catalogs/$catalog->file")}}" target="_blank" class="review d-flex flex-row align-items-center justify-content-start">
 													<div>
 														<div class="review_image"><img src="{{asset("images/$catalog->image")}}" alt="{{$catalog->title}}"></div>
 													</div>
 													<div class="review_content">
 														<div class="review_name">{{$catalog->title}}</div>
-														<div class="review_rating_container">
-														</div>
 														{{-- <div class="review_text">
 															<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</p>
 														</div> --}}
@@ -372,8 +429,11 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-10 offset-lg-1 col-md-12 text-center mt-5 mb-4 jumbotron">
+					<div class="text-center mt-5 mb-4 jumbotron">
 						<a href="{{route('price-list')}}" class="btn btn-lg btn-primary text-white">Запрос прайс-листа</a>
 					</div>
 				</div>
+		@push('scripts')
+				
+		@endpush		
 @endsection
