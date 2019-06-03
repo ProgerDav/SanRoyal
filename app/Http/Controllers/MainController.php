@@ -10,6 +10,7 @@ use App\Category;
 use App\Product;
 use App\Brand;
 use App\CatalogFile;
+use App\Banner;
 
 class MainController extends Controller
 {
@@ -20,6 +21,17 @@ class MainController extends Controller
      */
     public function index()
     {
+        $main_banners = Banner::whereMain(true)->get();
+        $banners = Banner::whereMain('!=', true)->get();
+        if($banners->count() > 1){
+            $banners_chunk = $banners->chunk(ceil($banners->count() / 2));
+            $banners_left = $banners_chunk[0];
+            $banners_right = $banners_chunk[1];
+        }else{
+            $banners_chunk = [];
+            $banners_left = [];
+            $banners_right = [];
+        }
         $products = Product::all();
         $featured = Product::where('new', true)->take(4)->get();
         $new_products = Product::where('new', true)->get();
@@ -31,6 +43,6 @@ class MainController extends Controller
             $sales = [];
         }
         $subcategories = SubCategory::all();
-        return view("index")->with(["products" => $products, 'new_products' => $new_products, "brands" => $brands, "featured" => $featured, "sales" => $sales, "first_sale" => $first_sale, 'subcategories' => $subcategories]); 
+        return view("index")->with(["main_banners" => $main_banners, "banners_left" => $banners_left, "banners_right" => $banners_right, "products" => $products, 'new_products' => $new_products, "brands" => $brands, "featured" => $featured, "sales" => $sales, "first_sale" => $first_sale, 'subcategories' => $subcategories]); 
     }
 }

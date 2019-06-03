@@ -33,8 +33,8 @@
 								<ul>
 									<li class="hassubs">
 											<div class="top_bar_icon"><img src="{{asset('images/phone.png')}}" alt=""></div>
-											<a href="tel:+79161241957">+7 916-124-19-57</a> |
-											<a href="tel:+79191044594">+7 919-104-45-94</a>	
+											<a href="tel:+79161241957">+7 (499) 499 60 90</a> |
+											<a href="tel:+79191044594">+7 (919) 104 45 94</a>	
 									</li>
 								</ul>
 							</div>
@@ -61,7 +61,8 @@
 							<div class="top_bar_contact_item ml_auto">
 								<ul>
 									<li>
-										<a href="#" id="searchbar_toggle" class="top_bar_icon bg-primary pl-2 pr-2 ml-4 text-white"><img src="{{asset('/images/search.png')}}" class="mr-1" alt="">Поиск</a>
+										{{-- <a href="#" id="searchbar_toggle" class="top_bar_icon  pl-2 pr-2 ml-4"><img src="{{asset('/images/search.png')}}" class="mr-1" alt="" />Поиск</a> --}}
+										<a href="#" id="searchbar_toggle" class="top_bar_icon  pl-2 pr-2 ml-4"><i class="fa fa-search"></i> Поиск</a>
 									</li>
 								</ul>
 							</div>
@@ -105,7 +106,7 @@
 									<ul class="d-flex  standart_dropdown main_nav_dropdown">
 										<li>
 											<a href="{{route('catalog.index')}}">Каталог</a>
-											<ul class="dropdown_big d-flex flex-wrap">
+											<ul class="dropdown_big container d-flex flex-wrap">
 												@if ($catalogs->count() > 0)
 													<li class="col-lg-4 d-flex">
 														<div class="col-lg-3">
@@ -152,9 +153,6 @@
 										</li>
 										<li><a href="{{route('price-list')}}">Прайс-лист</a></li>
 										<li><a href="{{route("brands.index")}}">Бренды</a></li>
-										<li>
-											<a href="{{route("certificates.index")}}">Сертификаты</a>											
-										</li>
 										<li class="hassubs">
 											<a href="{{route('about.index')}}">О компании</a>
 											<ul>
@@ -162,7 +160,17 @@
 												<li><a href="{{route('about.vacancies')}}">Вакансии</a></li>
 											</ul>
 										</li>
+										<li>
+											<a href="{{route("certificates.index")}}">Сертификаты</a>											
+										</li>
 										<li><a href="{{route('contact')}}">Контакты</a></li>
+										<li class="more" style="display: none">
+											<a href="{{route('contact')}}">...</a>
+											<ul>
+												{{-- <li><a href="{{route('about.blog')}}">Новости</a></li> --}}
+												{{-- <li><a href="{{route('about.vacancies')}}">Вакансии</a></li> --}}
+											</ul>
+										</li>
 									</ul>
 									<div class="menu_trigger_container ml-auto">											
 										<div class="menu_trigger d-flex flex-row align-items-center justify-content-end">

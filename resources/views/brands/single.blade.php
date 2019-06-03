@@ -23,11 +23,11 @@
             <div class="product_grid_border"></div> 
               <div class="row single_item">
                 <article class="col-lg-9 single_item_text">
-                  <h2 class="single_item_title">{{$brand->name}}</h2>
+                  <h3 class="single_item_title">{{$brand->name}}</h3>
                   <p>
                     {!! $brand->description !!}
                   </p>
-                    <ul class="col-lg-6 col-xs-12 col-sm-12">
+                    {{-- <ul class="col-lg-6 col-xs-12 col-sm-12">
                       @forelse ($available_categories as $category) 
                         <li>
                           <a href="{{route("catalog.category", ['category_slug' => Str::slug($category->id.' '.$category->slug)])}}">{{$category->name}}</a>
@@ -40,8 +40,32 @@
                         </li>  
                         @empty
                       @endforelse
-                    </ul>
+                    </ul> --}}
+                    <ul class="d-flex flex-wrap mt-4">
+                      @forelse ($categories as $cat)
+                          <li class="col-lg-6 d-flex">
+														<div class="col-lg-3">
+															<img class="cat_menu_image" src="{{asset("images/$cat->image")}}" alt="{{$cat->name}}">
+														</div>
+														<div class="col-lg-9">
+															<a class="product_name" href="{{route('catalog.category', ['category_slug' => Str::slug($cat->id.' '.$cat->slug)])}}" title="{{$cat->name}}">
+																{{$cat->name}}
+															</a>
+															<ul>
+																@forelse ($cat->subcategories as $subcat)
+																	<li>
+																		<a href="{{route('catalog.subcategory', ['category_slug' => Str::slug($cat->slug), 'subcategory_slug' => Str::slug($subcat->id.' '.$subcat->slug)])}}" title="{{$subcat->name}}">{{$subcat->name}}</a>
+																	</li>	
+																@empty
+																		
+																@endforelse
+															</ul>
+														</div>
+													</li>
+                      @empty
 
+                      @endforelse
+                    </ul>
                 </article>  
                 <div class="col-lg-3">
                   <img src="{{asset("images/".$brand->image)}}" alt="{{$brand->name}}" class="single_item_img_responsive" />

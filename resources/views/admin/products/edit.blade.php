@@ -109,7 +109,7 @@
     @push('scripts')
         <script src="{{asset("/vendor/unisharp/laravel-ckeditor/ckeditor.js")}}"></script>
         <script>
-            CKEDITOR.replace( 'product-description' );
+            CKEDITOR.replace( 'product-description', {customConfig: ''} );
 
             $('.add-inp').click(function(){
               let num = $('.char').length ? $('.char').length : 0;

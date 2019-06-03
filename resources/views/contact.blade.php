@@ -52,20 +52,20 @@
 				<div class="col-lg-10 offset-lg-1">
 					<div class="contact_form_container">
 						<div class="contact_form_title">Оставьте сообщение</div>
-
+						<div class="alert alert-success" style="display: none"></div>
             <form method="post" action="{{route('contact')}}" id="contact_form">
-              @method('POST')
+              {{-- @method('POST') --}}
               @csrf
 							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
-								<input type="text" name="name" class="contact_form_name input_field" placeholder="Имя" required="required">
-								<input type="text" name="email" class="contact_form_email input_field" placeholder="Email адресс" required="required">
-								<input type="text" name="phone" class="contact_form_phone input_field" placeholder="Номер телефона">
+								<input type="text" name="name" class="contact_form_name input_field" placeholder="Имя" required="required" data-toggle="tooltip" data-placement="top" title="Hooray!" />
+								<input type="email" name="email" class="contact_form_email input_field" placeholder="Email адресс"  />
+								<input type="telephone" name="phone" class="contact_form_phone input_field" placeholder="Номер телефона" />
 							</div>
 							<div class="contact_form_text">
 								<textarea name="message" class="text_field contact_form_message" name="message" rows="4" placeholder="Сообщение" required="required"></textarea>
 							</div>
 							<div class="contact_form_button">
-								<button type="submit" class="button contact_submit_button">Отправить</button>
+								<button type="submit" class="button contact_submit_button"><i class="fa fa-spinner ajax-spin" style="display: none"></i>Отправить</button>
 							</div>
 						</form>
 
@@ -84,4 +84,51 @@
 			</div>
 		</div>
 	</div>
+	@push('scripts')
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+			<script>
+				// $('[data-toggle="tooltip"]').tooltip();
+
+        $("#contact_form").submit(function(e){
+					$('.contact_submit_button i').show();
+          $('.contact_submit_button').attr('disabled', 'disabled');
+					$('.alert-success').hide().text('');
+					$('.border-danger').removeClass('border-danger')
+					e.preventDefault();
+          const 
+            url = $(this).attr('action'),
+            data = new FormData(e.target);
+
+          $.ajaxSetup({
+            headers: {
+              'X-CSRF-TOKEN': $("[name=_token]").val()
+            }
+          });
+          $.ajax({
+            url: url,
+            method: 'post',
+            type: "POST",
+            data: data,
+            contentType: false, 
+            processData: false,
+            success: data => {
+							$('.contact_submit_button i').hide();
+          		$('.contact_submit_button').removeAttr('disabled');
+              if(data.errors){
+                data.errors.map(function(e){
+                  const parts = e.split('-');
+									// $(`[name=${parts[1]}] + .text-danger`).text(parts[0]);
+									$(`[name=${parts[1]}]`).addClass('border-danger')
+                });
+                return false;
+							}
+							$(".alert-success").show().text(data.success);
+							$("#contact_form input, textarea").val('')
+            },
+            error: error => console.log(error)
+          });
+        });
+      </script> 
+	@endpush
 @endsection

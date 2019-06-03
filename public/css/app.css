@@ -147,7 +147,7 @@
 }
 
 .single_item_img_responsive {
-  width: 100%;
+  max-width: 100%;
   height: auto;
 }
 
@@ -401,6 +401,7 @@
 
 .sidebar_toggle {
   position: absolute;
+  z-index: 1;
   right: 2px;
   background: transparent;
   color: #0d82d3;
@@ -1204,6 +1205,10 @@
   margin-bottom: 30px;
 }
 
+.contact_form_label {
+  width: calc((100% - 60px) / 3);
+}
+
 .input_field {
   width: calc((100% - 60px) / 3);
   height: 50px;
@@ -1350,6 +1355,45 @@
 /*********************************
 2. Body and some general stuff
 *********************************/
+
+.ajax-spin {
+  -webkit-animation: ajax-spin 1.5s infinite linear;
+          animation: ajax-spin 1.5s infinite linear;
+}
+
+@-webkit-keyframes ajax-spin {
+  0% {
+    -webkit-transform: scale(1) rotate(0deg);
+            transform: scale(1) rotate(0deg);
+  }
+
+  50% {
+    -webkit-transform: scale(1.2) rotate(180deg);
+            transform: scale(1.2) rotate(180deg);
+  }
+
+  100% {
+    -webkit-transform: scale(1) rotate(360deg);
+            transform: scale(1) rotate(360deg);
+  }
+}
+
+@keyframes ajax-spin {
+  0% {
+    -webkit-transform: scale(1) rotate(0deg);
+            transform: scale(1) rotate(0deg);
+  }
+
+  50% {
+    -webkit-transform: scale(1.2) rotate(180deg);
+            transform: scale(1.2) rotate(180deg);
+  }
+
+  100% {
+    -webkit-transform: scale(1) rotate(360deg);
+            transform: scale(1) rotate(360deg);
+  }
+}
 
 .bg-crown {
   background-size: contain;
@@ -2291,18 +2335,59 @@ i[class*=whatsapp] {
   margin-right: 10px;
   border: 2px solid transparent;
   box-sizing: border-box;
+  transition: 0.3s ease;
 }
 
 .main_nav_dropdown > li:hover {
+  box-shadow: 2px 2px 7px #000000;
   border: 2px solid red;
+  -webkit-transform: scale(1.02);
+          transform: scale(1.02);
+}
+
+.main_nav_dropdown > li::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  -webkit-transform: skew(-15deg);
+          transform: skew(-15deg);
 }
 
 .main_nav_dropdown > li:nth-child(1) {
+  overflow: hidden;
+  position: initial;
+}
+
+.main_nav_dropdown > li:nth-child(1)::before {
+  background: #cf161b;
+}
+
+.main_nav_dropdown > li:nth-child(2)::before {
   background: #246494;
 }
 
-.main_nav_dropdown > li:nth-child(2) {
+.main_nav_dropdown > li:nth-child(3)::before {
+  background: #d14c0b;
+}
+
+.main_nav_dropdown > li:nth-child(4)::before {
   background: #009666;
+}
+
+.main_nav_dropdown > li:nth-child(5)::before {
+  background: #800925;
+}
+
+.main_nav_dropdown > li:nth-child(6)::before {
+  background: #28b5e2;
+}
+
+.main_nav_dropdown > li:nth-child(1) {
+  background: #cf161b;
+}
+
+.main_nav_dropdown > li:nth-child(2) {
+  background: #246494;
 }
 
 .main_nav_dropdown > li:nth-child(3) {
@@ -2310,7 +2395,7 @@ i[class*=whatsapp] {
 }
 
 .main_nav_dropdown > li:nth-child(4) {
-  background: #cf161b;
+  background: #009666;
 }
 
 .main_nav_dropdown > li:nth-child(5) {
@@ -2355,13 +2440,17 @@ i[class*=whatsapp] {
   opacity: 0;
   visibility: hidden;
   transition: 0.15s ease-out;
+  transition-delay: 0.15s;
 }
 
 .main_nav_dropdown > li > ul.dropdown_big {
-  top: 125px;
-  left: -22%;
-  width: 140%;
-  max-height: 400px;
+  top: 166px;
+  left: 35%;
+  -webkit-transform: translateX(-50%) translateY(20px);
+          transform: translateX(-50%) translateY(20px);
+  width: 170%;
+  margin: auto;
+  max-height: 530px;
   overflow: auto;
 }
 
@@ -2378,10 +2467,16 @@ i[class*=whatsapp] {
 }
 
 .main_nav_dropdown > li:hover > ul {
-  -webkit-transform: translateX(0);
-          transform: translateX(0);
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
   opacity: 1;
   visibility: visible;
+  transition-delay: 0;
+}
+
+.main_nav_dropdown > li:hover > ul.dropdown_big {
+  -webkit-transform: translateX(-50%) translateY(0);
+          transform: translateX(-50%) translateY(0);
 }
 
 .main_nav_dropdown li li {
@@ -2561,8 +2656,7 @@ i[class*=whatsapp] {
 .banner {
   display: block;
   width: 100%;
-  padding-top: 68px;
-  padding-bottom: 83px;
+  height: calc(50% - 5px);
   overflow: hidden;
   position: relative;
   z-index: 1;
@@ -2577,7 +2671,14 @@ i[class*=whatsapp] {
   margin-bottom: 10px;
 }
 
-.banner.catalog-banner:hover .banner-bg {
+.banner.catalog-banner .banner-bg img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.banner.catalog-banner:not(.banner-main):hover .banner-bg {
   -webkit-transform: scale(1.25);
           transform: scale(1.25);
 }
@@ -2595,13 +2696,6 @@ i[class*=whatsapp] {
 .banner.banner-main {
   margin: 0;
   height: 100%;
-}
-
-.banner.banner-main .banner-bg img {
-  height: 100%;
-  width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
 }
 
 .banner_background {
@@ -2635,18 +2729,29 @@ i[class*=whatsapp] {
   background: #007bff;
   padding: 10px;
   color: #fff;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s ease;
 }
 
 .banner_slider_prev {
-  left: -10px;
+  left: 15.5px;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.banner_slider_next {
+  right: 15.5px;
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
 }
 
-.banner_slider_next {
-  right: -12px;
-  border-top-right-radius: 50%;
-  border-bottom-right-radius: 50%;
+.banner-slider:hover ~ .banner_slider_controls,
+.banner_slider_controls:hover {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 
 .banner-text {
@@ -3450,6 +3555,8 @@ i[class*=whatsapp] {
 
 .banner_2 {
   width: 100%;
+  -webkit-clip-path: polygon(0 17%, 100% 0, 100% 83%, 0 100%);
+  clip-path: polygon(0 17%, 100% 0, 100% 83%, 0 100%);
 }
 
 .banner_2_background {
@@ -5048,8 +5155,22 @@ i[class*=whatsapp] {
     margin-right: 30px;
   }
 
-  .main_nav_dropdown li a {
-    font-size: 16px;
+  .main_nav_dropdown > li > a {
+    font-size: 15px;
+    width: 105px;
+    height: 105px;
+    padding: 5px;
+    margin: 0 2px;
+  }
+
+  .main_nav_dropdown > li > ul {
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px);
+  }
+
+  .main_nav_dropdown > li > ul.dropdown_big {
+    -webkit-transform: translateY(-5px) translateX(-50%);
+            transform: translateY(-5px) translateX(-50%);
   }
 
   .char_item {
@@ -5137,7 +5258,7 @@ i[class*=whatsapp] {
     text-align: left;
   }
 
-  .main_nav_menu {
+  .main_nav_content {
     display: none;
   }
 
@@ -5383,6 +5504,10 @@ i[class*=whatsapp] {
 
   .char_item {
     padding-left: 36px;
+  }
+
+  .contact_form_label {
+    width: 100%;
   }
 
   .input_field {

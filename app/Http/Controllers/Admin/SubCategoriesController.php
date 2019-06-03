@@ -129,6 +129,6 @@ class SubCategoriesController extends Controller
         $image = public_path("images/$subcategory->image");
         File::delete($image);
 
-        return redirect(route('admin.categories.index'))->with('success', 'Подкатегория успешно удалена');
+        return redirect(route('admin.subcategories.index'))->with('success', 'Подкатегория успешно удалена');
     }
 }

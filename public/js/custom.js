@@ -59,12 +59,44 @@ $(document).ready(function () {
 	initViewedSlider();
 	initBrandsSlider();
 	initBannerSlider();
+	// calcWidth();
 
 	$(window).on('resize', function () {
 		setHeader();
 		featuredSliderZIndex();
 		initTabLines();
+		calcWidth();
 	});
+
+
+
+	function calcWidth() {
+		var navwidth = 0;
+		var morewidth = $('.main_nav_content  .more').outerWidth(true);
+		$('.main_nav_content  > ul > li:not(.more)').each(function () {
+			navwidth += $(this).outerWidth(true);
+		});
+		var availablespace = $('.main_nav_content ').outerWidth(true)// - morewidth;
+
+		if (navwidth > availablespace) {
+			var lastItem = $('.main_nav_content  > ul > li:not(.more)').last();
+			lastItem.attr('data-width', lastItem.outerWidth(true));
+			lastItem.prependTo($('.main_nav_dropdown .more ul'));
+			calcWidth();
+		} else {
+			var firstMoreElement = $('.main_nav_content  li.more li').first();
+			if (navwidth + firstMoreElement.data('width') < availablespace) {
+				firstMoreElement.insertBefore($('.main_nav_content .more'));
+			}
+		}
+
+		if ($('.more li').length > 0) {
+			$('.more').css('display', 'inline-block');
+		} else {
+			$('.more').css('display', 'none');
+		}
+	}
+
 
 	$(".cat_menu_toggle").click(function () {
 		var

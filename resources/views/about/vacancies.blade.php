@@ -99,6 +99,8 @@
       <script>
         $("#vacancyForm").submit(function(e){
           $(".text-danger").text('');
+          $('.fa-paper-plane').toggleClass('fa-paper-plane ajax-spin fa-spinner');
+          $('.btn-info').attr('disabled', 'disabled');
           e.preventDefault();
           const 
             url = $(this).attr('action'),
@@ -117,6 +119,8 @@
             contentType: false, 
             processData: false,
             success: data => {
+              $('.fa-spinner').toggleClass('ajax-spin fa-spinner fa-paper-plane ');
+              $('.btn-info').removeAttr('disabled');
               if(data.errors){
                 console.log(data.errors);
                 data.errors.map(function(e){

@@ -8,14 +8,14 @@
 								@if ($catalogs->count() > 0)
 									<li>
 										<a href="{{route('catalog.download.index')}}">
-											<img class="sidebar_image" src="{{asset("images/download.png")}}" />
+											{{-- <img class="sidebar_image" src="{{asset("images/download.png")}}" /> --}}
 											Скачать каталоги
 										</a>
 										<button class="sidebar_toggle"><i class="fa fa-chevron-down"></i></button>
 										<ul class="sidebar_subs">
 											@forelse ($catalogs as $catalog)
 												<li>
-													<a href="{{asset("documents/catalogs/$catalog->file")}}"><img class="sidebar_image" src="{{asset("images/$catalog->image")}}" />{{$catalog->title}}</a>
+													<a href="{{asset("documents/catalogs/$catalog->file")}}">{{--<img class="sidebar_image" src="{{asset("images/$catalog->image")}}" />--}}{{$catalog->title}}</a>
 												</li>
 											@empty
 													
@@ -26,14 +26,14 @@
 								@forelse ($categories as $category)
 									<li>
 										<a href="{{route('catalog.category', ['category_slug' => Str::slug($category->id.' '.$category->slug)])}}">
-											<img class="sidebar_image" src="{{asset("images/$category->image")}}" />
+											{{-- <img class="sidebar_image" src="{{asset("images/$category->image")}}" /> --}}
 											{{$category->name}}
 										</a>
 										<button class="sidebar_toggle"><i class="fa fa-chevron-down"></i></button>
 										<ul class="sidebar_subs">
 											@forelse ($category->subcategories as $subcategory)
 												<li>
-													<a href="{{route('catalog.subcategory', ['category_slug' => Str::slug($category->slug), 'subcategory_slug' => Str::slug($subcategory->id.' '.$subcategory->slug)])}}"><img class="sidebar_image" src="{{asset("images/$subcategory->image")}}" />{{$subcategory->name}}</a>
+													<a href="{{route('catalog.subcategory', ['category_slug' => Str::slug($category->slug), 'subcategory_slug' => Str::slug($subcategory->id.' '.$subcategory->slug)])}}">{{--<img class="sidebar_image" src="{{asset("images/$subcategory->image")}}" />--}}{{$subcategory->name}}</a>
 												</li>
 											@empty
 													

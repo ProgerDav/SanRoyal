@@ -29,19 +29,26 @@ class FormsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function storeMessage(Request $request){
-        $messages = [
-            'required' => '',
+        
+         $messages = [
+            'required' => 'Это поле обязательно-:attribute',
         ];
-        $request->validate([
+
+       $validator = \Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required',
-            'message' => 'required'
-        ]);
+            'message' => 'required',
+       ], $messages);
+        
+        if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->errors()->all()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
 
         $message = new Message($request->all());
         $message->save();
 
-        return redirect(route('contact'))->with('success', 'Сообщение отправлено');
+        return response()->json(['success'=>'Сообщение отправлено'], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -61,24 +68,31 @@ class FormsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function storePriceListRequest(Request $request){
+        // Mail::to('davit.gyulnazaryan@tumo.org')->send(new AdminMailer($request->contact_name));
+
         $messages = [
-            'required' => 'Это поле обязательно',
+            'required' => 'Это поле обязательно-:attribute',
         ];
-        $request->validate([
-            'contact_name' => 'required',
+
+       $validator = \Validator::make($request->all(), [
+            'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'organization' => 'required'
-        ]);
+            'organization' => 'required',
+            'categories' => 'required|array'
+       ], $messages);
+        
+        if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->errors()->all()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
 
         $categories = implode('-', $request->categories);
 
         $list_request = new PriceListRequest(array_merge($request->except('categories'), ['categories' => $categories]));
         $list_request->save();
 
-        // Mail::to('davit.gyulnazaryan@tumo.org')->send(new AdminMailer($request->contact_name));
-
-        return back()->with('success', 'Зарос отправлен');
+        return response()->json(['success'=>'Ваш зарос отправлен'], 200, [], JSON_UNESCAPED_UNICODE);
     }    
 
     /**

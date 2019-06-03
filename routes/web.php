@@ -50,6 +50,7 @@ Auth::routes(['register' => false, 'reset' => false]);
 
 Route::middleware('auth')->namespace('Admin')->prefix('admin-panel')->name('admin.')->group(function(){
   Route::get('/', 'AdminController@index')->name('index');
+  Route::resource('/banners', 'BannersController', ["only" => ['index', 'create', 'update', 'edit', 'store', 'destroy']]);
   Route::resource('/categories', 'CategoriesController', ["only" => ['index', 'create', 'update', 'edit', 'store', 'destroy']]);
   Route::resource('/subcategories', 'SubCategoriesController', ["only" => ['index', 'create', 'update', 'edit', 'store', 'destroy']]);
   Route::resource('/products', 'ProductsController', ["only" => ['index', 'create', 'update', 'edit', 'store', 'destroy']]);

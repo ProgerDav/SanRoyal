@@ -163,7 +163,7 @@
 }
 
 .single_item_img_responsive{
-	width: 100%;
+	max-width: 100%;
 	height: auto;
 }
 
@@ -454,6 +454,7 @@
 }
 .sidebar_toggle{
 	position: absolute;
+	z-index: 1;
 	right: 2px;
 	background: transparent;
 	color: #0d82d3;
